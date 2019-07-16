@@ -7,12 +7,13 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Fab from '@material-ui/core/Fab';
 
 import Logo from '../logo/logo.jsx';
+import AppTable from '../app-table/app-table.jsx';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: {
     paddingLeft: 0,
+    maxHeight: 50
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -28,18 +30,24 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
+    fontSize: `20px`
   },
-  navbar: {
+  subTitle: {
+    flexGrow: 1,
+    fontSize: `25px`,
+    marginLeft: `30%`
+  },
+  navBar: {
     position: `fixed`,
     height: 50,
     width: `100%`,
     backgroundColor: `#192F57`
   },
-  appbar: {
+  appBar: {
     height: 100,
     width: `100%`,
     backgroundColor: `#223C6E`,
-    top: `50px`,
+    top: 50,
     boxShadow: `0px 4px 4px rgba(0, 0, 0, 0.32)`
   },
   search: {
@@ -69,24 +77,28 @@ const useStyles = makeStyles(theme => ({
   inputRoot: {
     color: 'inherit',
   },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      // '&:focus': {
-      //   width: 200,
-      // },
-    },
-  },
+  // inputInput: {
+  //   padding: theme.spacing(1, 1, 1, 7),
+  //   transition: theme.transitions.create('width'),
+  //   width: '100%',
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: 120,
+  //     // '&:focus': {
+  //     //   width: 200,
+  //     // },
+  //   },
+  // },
   fabButton: {
-    position: 'absolute',
+    position: 'fixed',
     zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: '0 auto',
+    top: 120,
+    left: `25%`,
+    right: 0
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
   },
 }));
 
@@ -97,7 +109,7 @@ const Header = () => {
   const classes = useStyles();
 
   return <div className={classes.root}>
-    <AppBar className={classes.navbar}>
+    <AppBar className={classes.navBar}>
       <Toolbar className={classes.toolbar}>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
           <Logo />
@@ -107,35 +119,35 @@ const Header = () => {
         </Typography>
         <Button color="inherit">Login</Button>
         <IconButton edge="end" color="inherit">
-            <MoreIcon />
-          </IconButton>
+          <MoreIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
-    <AppBar className={classes.appbar}>
+    <AppBar className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
         </IconButton>
         <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-            <AddIcon />
-          </Fab>
-        <Typography variant="h6" className={classes.title}>
-        {subTitle}
+          <AddIcon />
+        </Fab>
+        <Typography variant="h6" className={classes.subTitle}>
+          {subTitle}
         </Typography>
         <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'Search' }}
-            />
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
+          <TextField
+            id="standard-search"
+            label="Search field"
+            type="search"
+            className={classes.textField}
+            margin="normal"
+          />
+        </div>
       </Toolbar>
     </AppBar>
+    <AppTable />
   </div>
 };
 
