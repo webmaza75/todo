@@ -9,13 +9,14 @@ import Paper from '@material-ui/core/Paper';
 
 import TaskAvatar from '../task-avatar/task-avatar.jsx';
 import taskList from '../../mocks/taskList.js';
+import {getRepeatDays, getReportTime} from '../../utils.js';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
     fontSize: 16,
     '&:first-child': {
       borderBottom: 0
-    },
+    }
   },
   body: {
     fontSize: 16,
@@ -46,13 +47,13 @@ const AppTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {taskList.map(({id, type, title, timezone, time, repeat}) => {
+        {taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
           return <StyledTableRow key={id}>
             <StyledTableCell><TaskAvatar type={type} /></StyledTableCell>
             <StyledTableCell sortDirection="asc">{title}</StyledTableCell>
-            <StyledTableCell>{timezone}</StyledTableCell>
-            <StyledTableCell align="right">{time}</StyledTableCell>
-            <StyledTableCell>{repeat}</StyledTableCell>
+            <StyledTableCell>{timeZone}</StyledTableCell>
+            <StyledTableCell align="right">{getReportTime(reportTime)}</StyledTableCell>
+            <StyledTableCell>{getRepeatDays(repeat)}</StyledTableCell>
           </StyledTableRow>;
         })}
       </TableBody>

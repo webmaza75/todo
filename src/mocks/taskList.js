@@ -1,35 +1,43 @@
 const taskList = [
   {
     id: 1,
-    type: `PLM`,
+    type: `Payload Monitoring Report`,
     title: `Auto Orica USA report setting`,
-    timezone: `Asia/Aqtu UTC+5:00`,
-    time: `9:00 AM`,
-    repeat: `Fri`
+    timeZone: `Asia/Aqtu UTC+5:00`,
+    reportTime: `Wed Jul 17 2019 10:00:13 GMT+0300`,
+    repeat: [6, 0]
   },
   {
     id: 2,
-    type: `PLM`,
+    type: `Payload Monitoring Report`,
     title: `Motion Metrics International`,
-    timezone: `Asia/Aqtu UTC+5:00`,
-    time: `10:00 AM`,
-    repeat: `Fri`
+    timeZone: `Asia/Aqtu UTC+5:00`,
+    reportTime: `Wed Jul 17 2019 09:00:13 GMT+0300`,
+    repeat: [0, 6]
   },
   {
     id: 3,
-    type: `FM`,
+    type: `Fragmentation Report`,
     title: `MPM auto weekly report task`,
-    timezone: `America/Los_Angeles UTC+8:00`,
-    time: `12:00 AM`,
-    repeat: `Mon, Tue, Wed, Thur`
+    timeZone: `America/Los_Angeles UTC+8:00`,
+    reportTime: `Wed Jul 17 2019 15:00:13 GMT+0300`,
+    repeat: [1, 2, 3, 4]
   },
   {
     id: 4,
-    type: `TD`,
+    type: `Tooth Detection Report`,
     title: `Orica USA auto report`,
-    timezone: `Africa/Johannesburg UTC+2:00`,
-    time: `9:30 AM`,
-    repeat: `Thur`
+    timeZone: `Africa/Johannesburg UTC+2:00`,
+    reportTime: `Wed Jul 17 2019 09:30:13 GMT+0300`,
+    repeat: [4]
+  },
+  {
+    id: 5,
+    type: `Tooth Detection Report`,
+    title: `Orica USA auto report`,
+    timeZone: `Africa/Johannesburg UTC+2:00`,
+    reportTime: `Wed Jul 17 2019 09:30:13 GMT+0300`,
+    repeat: [1, 2, 4, 5, 3]
   },
 ];
 

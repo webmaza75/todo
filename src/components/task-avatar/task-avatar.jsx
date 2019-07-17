@@ -5,37 +5,50 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles(
   createStyles({
     avatarPLM: {
-      margin: 10,
+      margin: 12,
       color: `#B3B3B3`,
       backgroundColor: `#C5CEFF`,
       height: 42,
       width: 42,
-      fontSize: 20
+      fontSize: 20,
+      lineHeight: 42
     },
     avatarTD: {
-      margin: 10,
+      margin: 12,
       color: `#FFE8D9`,
       backgroundColor: `#FFB482`,
       height: 42,
       width: 42,
-      fontSize: 20
+      fontSize: 20,
+      lineHeight: 42
     },
     avatarFM: {
-      margin: 10,
+      margin: 12,
       color: `#E3F3E4`,
       backgroundColor: `#A0D6A5`,
       height: 42,
       width: 42,
-      fontSize: 20
+      fontSize: 20,
+      lineHeight: 42
     },
   }),
 );
 
+export const getShortAvatarType = (type) => {
+  const avatarType = {
+    [`Payload Monitoring Report`]: `PLM`,
+    [`Fragmentation Report`]: `FM`,
+    [`Tooth Detection Report`]: `TD`
+  };
+  return avatarType[type];
+};
+
 const TaskAvatar = (props) => {
   const {type} = props;
   const classes = useStyles();
-
-  return <Avatar className={classes[`avatar${type}`]}>{type}</Avatar>;
+  const shortType = getShortAvatarType(type)
+  
+  return <Avatar className={classes[`avatar${shortType}`]}>{shortType}</Avatar>;
 };
 
 export default TaskAvatar;
