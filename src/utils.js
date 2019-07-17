@@ -3,7 +3,6 @@ export const getRepeatDays = (arr) => {
   const sortedArr = arr.sort();
   
   if (sortedArr.length === 2 && sortedArr.toString() === [0, 6].toString()) {
-    console.log(`sortedArr`, sortedArr);
     return `Weekend`;
   }
   if (sortedArr.length === 5 && sortedArr.toString() === [1, 2, 3, 4, 5].toString()) {
