@@ -3,10 +3,10 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   logo: {
-    height: `50px`,
-    width: `50px`,
+    height: 50,
+    width: 50,
     backgroundColor: `#000000`,
-    fontSize: `12px`,
+    fontSize: 12,
     padding: 0
   }
 }));

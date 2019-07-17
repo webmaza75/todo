@@ -1,0 +1,58 @@
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
+
+import Logo from '../logo/logo.jsx';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  toolbar: {
+    paddingLeft: 0,
+    maxHeight: 50
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    paddingTop: 0,
+    paddingBottom: 0
+  },
+  title: {
+    flexGrow: 1,
+    fontSize: 20
+  },
+  navBar: {
+    position: `fixed`,
+    height: 50,
+    width: `100%`,
+    backgroundColor: `#192F57`
+  }
+}));
+
+const title = `Payload Monitoring`.toUpperCase();
+
+const Navbar = () => {
+  const classes = useStyles();
+
+  return <AppBar className={classes.navBar}>
+    <Toolbar className={classes.toolbar}>
+      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
+        <Logo />
+      </IconButton>
+      <Typography variant="h6" className={classes.title}>
+        {title}
+      </Typography>
+      <Button color="inherit">Login</Button>
+      <IconButton edge="end" color="inherit">
+        <MoreIcon />
+      </IconButton>
+    </Toolbar>
+  </AppBar>
+};
+
+export default Navbar;
