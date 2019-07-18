@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar Navbar renders correctly 1`] = `
+<ForwardRef(WithStyles)
+  className="makeStyles-navBar-5"
+>
+  <ForwardRef(WithStyles)
+    className="makeStyles-toolbar-2"
+  >
+    <ForwardRef(WithStyles)
+      aria-label="Menu"
+      className="makeStyles-menuButton-3"
+      color="inherit"
+      edge="start"
+    >
+      <Logo />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="makeStyles-title-4"
+      variant="h6"
+    >
+      PAYLOAD MONITORING
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      color="inherit"
+    >
+      Login
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      color="inherit"
+      edge="end"
+    >
+      <Memo />
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(
   createStyles({
@@ -49,6 +50,10 @@ const TaskAvatar = (props) => {
   const shortType = getShortAvatarType(type)
   
   return <Avatar className={classes[`avatar${shortType}`]}>{shortType}</Avatar>;
+};
+
+TaskAvatar.propTypes = {
+  type: PropTypes.string
 };
 
 export default TaskAvatar;

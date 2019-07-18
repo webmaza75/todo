@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppTable AppTable renders correctly 1`] = `
+<ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles) />
+      <ForwardRef(WithStyles)>
+        Task Title
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Time Zone
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        Report Time
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Repeat
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        <TaskAvatar
+          type="Payload Monitoring Report"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        sortDirection="asc"
+      >
+        Auto Orica USA report setting
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Asia/Aqtu UTC+5:00
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        10:00 AM
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Weekend
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        <TaskAvatar
+          type="Payload Monitoring Report"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        sortDirection="asc"
+      >
+        Motion Metrics International
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Asia/Aqtu UTC+5:00
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        9:00 AM
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Weekend
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        <TaskAvatar
+          type="Fragmentation Report"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        sortDirection="asc"
+      >
+        MPM auto weekly report task
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        America/Los_Angeles UTC+8:00
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        3:00 PM
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Mon, Tue, Wed, Thur
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        <TaskAvatar
+          type="Tooth Detection Report"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        sortDirection="asc"
+      >
+        Orica USA auto report
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Africa/Johannesburg UTC+2:00
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        9:30 AM
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Thur
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        <TaskAvatar
+          type="Tooth Detection Report"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        sortDirection="asc"
+      >
+        Orica USA auto report
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Africa/Johannesburg UTC+2:00
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        align="right"
+      >
+        9:30 AM
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)>
+        Weekdays
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;

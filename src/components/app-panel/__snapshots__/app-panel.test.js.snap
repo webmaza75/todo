@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppPanel AppPanel renders correctly 1`] = `
+<ForwardRef(WithStyles)
+  className="makeStyles-appBar-4"
+>
+  <ForwardRef(WithStyles)
+    className="makeStyles-toolbar-2"
+  >
+    <ForwardRef(WithStyles)
+      aria-label="Menu"
+      color="inherit"
+      edge="start"
+    />
+    <ForwardRef(WithStyles)
+      aria-label="Add"
+      className="makeStyles-fabButton-7"
+      color="secondary"
+    >
+      <Memo />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="makeStyles-subTitle-3"
+      variant="h6"
+    >
+      AUTOMATED TASKS
+    </ForwardRef(WithStyles)>
+    <div
+      className="makeStyles-search-5"
+    >
+      <ForwardRef(WithStyles)
+        alignItems="flex-end"
+        container={true}
+        spacing={1}
+      >
+        <ForwardRef(WithStyles)
+          item={true}
+        >
+          <Memo
+            className="makeStyles-searchIcon-6"
+          />
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          item={true}
+        >
+          <ForwardRef(WithStyles)
+            InputProps={
+              Object {
+                "classes": Object {
+                  "input": "makeStyles-inputField-9",
+                  "underline": "makeStyles-underline-10",
+                },
+              }
+            }
+            className="makeStyles-textField-8"
+            id="standard-search"
+            margin="normal"
+            type="search"
+          />
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+    </div>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;
