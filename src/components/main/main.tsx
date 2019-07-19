@@ -1,11 +1,14 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import {
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 
-import Navbar from '../navbar/navbar.jsx';
-import AppPanel from '../app-panel/app-panel.jsx';
-import AppTable from '../app-table/app-table.jsx';
+import Navbar from '../navbar/navbar';
+import AppPanel from '../app-panel/app-panel';
+import AppTable from '../app-table/app-table';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
   },

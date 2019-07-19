@@ -1,7 +1,9 @@
-import React from 'react';
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import {
+  makeStyles,
+  createStyles
+} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(
   createStyles({
@@ -35,7 +37,11 @@ const useStyles = makeStyles(
   }),
 );
 
-export const getShortAvatarType = (type) => {
+interface Props {
+  type: string
+};
+
+export const getShortAvatarType = (type: string) => {
   const avatarType = {
     [`Payload Monitoring Report`]: `PLM`,
     [`Fragmentation Report`]: `FM`,
@@ -47,13 +53,9 @@ export const getShortAvatarType = (type) => {
 const TaskAvatar = (props) => {
   const {type} = props;
   const classes = useStyles();
-  const shortType = getShortAvatarType(type)
-  
-  return <Avatar className={classes[`avatar${shortType}`]}>{shortType}</Avatar>;
-};
+  const shortType = getShortAvatarType(type);
 
-TaskAvatar.propTypes = {
-  type: PropTypes.string
+  return <Avatar className={classes[`avatar${shortType}`]}>{shortType}</Avatar>;
 };
 
 export default TaskAvatar;

@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Main from '../main/main.jsx';
+import Main from '../main/main';
 
 const App = () => {
   return <CssBaseline>

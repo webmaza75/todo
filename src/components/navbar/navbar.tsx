@@ -1,5 +1,8 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import {
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +10,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
-import Logo from '../logo/logo.jsx';
+import Logo from '../logo/logo';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
   },

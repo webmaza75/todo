@@ -1,7 +1,10 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import {
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   logo: {
     height: 50,
     width: 50,

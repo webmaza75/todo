@@ -1,5 +1,9 @@
-import React from 'react';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import {
+  withStyles,
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,11 +11,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import TaskAvatar from '../task-avatar/task-avatar.jsx';
-import taskList from '../../mocks/taskList.js';
-import {getRepeatDays, getReportTime} from '../../utils.js';
+import TaskAvatar from '../task-avatar/task-avatar';
+import taskList from '../../mocks/taskList';
+import {getRepeatDays, getReportTime} from '../../utils';
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme: Theme) => ({
   head: {
     fontSize: 16,
     '&:first-child': {
