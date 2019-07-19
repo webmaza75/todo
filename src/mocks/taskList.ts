@@ -1,4 +1,6 @@
-const taskList = [
+import {TaskList} from '../types';
+
+const taskList: TaskList[] = [
   {
     id: 1,
     type: `Payload Monitoring Report`,

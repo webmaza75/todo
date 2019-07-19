@@ -19,9 +19,9 @@ describe(`utils work correctly`, () => {
     [[1, 3, 4], `Mon, Wed, Thur`],
     [[0, 1, 2, 3, 4, 5, 6], `Everyday`]
   ];
-  // test.each(repeatDays)(`getRepeatDays returns correctly repeat days\` values`, (dayList, repeatNames) => {
-  //   expect(getRepeatDays(dayList)).toEqual(repeatNames);
-  // });
+  test.each(repeatDays)(`getRepeatDays returns correctly repeat days\` values`, (dayList: number[], repeatNames: string) => {
+    expect(getRepeatDays(dayList)).toEqual(repeatNames);
+  });
 
   const reportTimeList = [
     [`Wed Jul 17 2019 00:00:00 GMT+0300`, `0:00 AM`],
