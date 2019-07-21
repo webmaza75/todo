@@ -4,7 +4,7 @@ import {
 } from './utils';
 
 describe(`utils work correctly`, () => {
-  const repeatDays = [
+  const repeatDays: [number[], string][] = [
     [[0], `Sun`],
     [[1], `Mon`],
     [[2], `Tue`],
@@ -23,7 +23,7 @@ describe(`utils work correctly`, () => {
     expect(getRepeatDays(dayList)).toEqual(repeatNames);
   });
 
-  const reportTimeList = [
+  const reportTimeList: [string, string][] = [
     [`Wed Jul 17 2019 00:00:00 GMT+0300`, `0:00 AM`],
     [`Wed Jul 17 2019 00:00:59 GMT+0300`, `0:00 AM`],
     [`Wed Jul 17 2019 00:01:00 GMT+0300`, `0:01 AM`],
