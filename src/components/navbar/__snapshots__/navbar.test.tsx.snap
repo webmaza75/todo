@@ -19,7 +19,7 @@ exports[`Navbar Navbar renders correctly 1`] = `
       className="makeStyles-title-4"
       variant="h6"
     >
-      PAYLOAD MONITORING
+      Payload Monitoring
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       color="inherit"

@@ -5,35 +5,33 @@ import {
 } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
+import {AvatarType} from '../../types';
+
 const useStyles = makeStyles(
   createStyles({
-    avatarPLM: {
+    avatar: {
       margin: 12,
-      color: `#B3B3B3`,
-      backgroundColor: `#C5CEFF`,
       height: 42,
       width: 42,
       fontSize: 20,
       lineHeight: 42
+    },
+    avatarPLM: {
+      color: `#B3B3B3`,
+      backgroundColor: `#C5CEFF`
     },
     avatarTD: {
-      margin: 12,
       color: `#FFE8D9`,
-      backgroundColor: `#FFB482`,
-      height: 42,
-      width: 42,
-      fontSize: 20,
-      lineHeight: 42
+      backgroundColor: `#FFB482`
     },
     avatarFM: {
-      margin: 12,
       color: `#E3F3E4`,
-      backgroundColor: `#A0D6A5`,
-      height: 42,
-      width: 42,
-      fontSize: 20,
-      lineHeight: 42
+      backgroundColor: `#A0D6A5`
     },
+    avatarNA: {
+      color: `#FFFFFF`,
+      backgroundColor: `#000000`
+    }
   }),
 );
 
@@ -41,13 +39,17 @@ interface Props {
   type: string
 };
 
-export const getShortAvatarType = (type: string) => {
+export const getShortAvatarType = (type: string): AvatarType => {
   const avatarType = {
-    [`Payload Monitoring Report`]: `PLM`,
-    [`Fragmentation Report`]: `FM`,
-    [`Tooth Detection Report`]: `TD`
+    [AvatarType.PAYLOAD_MONITORING_REPORT]: `PLM`,
+    [AvatarType.FRAGMENTATION_REPORT]: `FM`,
+    [AvatarType.TOOTH_DETECTION_REPORT]: `TD`
   };
-  return avatarType[type];
+  const result = avatarType[type];
+  if (!result) {
+    return AvatarType.NOT_APPLICABLE
+  }
+  return result;
 };
 
 const TaskAvatar = (props) => {
@@ -55,7 +57,7 @@ const TaskAvatar = (props) => {
   const classes = useStyles();
   const shortType = getShortAvatarType(type);
 
-  return <Avatar className={classes[`avatar${shortType}`]}>{shortType}</Avatar>;
+  return <Avatar className={`${classes.avatar} ${classes[`avatar${shortType}`]}`}>{shortType}</Avatar>;
 };
 
 export default TaskAvatar;

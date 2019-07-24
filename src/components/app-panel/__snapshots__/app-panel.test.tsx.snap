@@ -23,7 +23,7 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
       className="makeStyles-subTitle-3"
       variant="h6"
     >
-      AUTOMATED TASKS
+      Automated Tasks
     </ForwardRef(WithStyles)>
     <div
       className="makeStyles-search-5"

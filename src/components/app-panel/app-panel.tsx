@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     subTitle: {
       flexGrow: 1,
       fontSize: 25,
-      marginLeft: `30%`
+      marginLeft: `30%`,
+      textTransform: 'uppercase'
     },
     appBar: {
       height: 100,
@@ -97,7 +98,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const subTitle: string = `Automated Tasks`.toUpperCase();
+const subTitle: string = `Automated Tasks`;
 
 const AppPanel = () => {
   const classes = useStyles();

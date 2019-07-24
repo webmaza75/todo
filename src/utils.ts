@@ -1,6 +1,6 @@
 export const getRepeatDays = (arr: number[]): string => {
   const dayNameList = [`Sun`, `Mon`, `Tue`, `Wed`, `Thur`, `Fri`, `Sat`];
-  const sortedArr: number[] = arr.sort();
+  const sortedArr: number[] = [...arr].sort();
   
   if (sortedArr.length === 2 && sortedArr.toString() === [0, 6].toString()) {
     return `Weekend`;

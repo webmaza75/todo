@@ -21,9 +21,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const title = `Payload Monitoring`.toUpperCase();
-const subTitle = `Automated Tasks`.toUpperCase();
-
 const Main = () => {
   const classes = useStyles();
 

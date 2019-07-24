@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   title: {
     flexGrow: 1,
-    fontSize: 20
+    fontSize: 20,
+    textTransform: 'uppercase'
   },
   navBar: {
     position: `fixed`,
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const title = `Payload Monitoring`.toUpperCase();
+const title = `Payload Monitoring`;
 
 const Navbar = () => {
   const classes = useStyles();
