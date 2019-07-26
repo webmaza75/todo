@@ -1,68 +1,97 @@
 import * as React from 'react';
-import {
-  withStyles,
-  makeStyles,
-  Theme
-} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import MaterialTable from 'material-table';
 
 import TaskAvatar from '../task-avatar/task-avatar';
 import taskList from '../../mocks/taskList';
 import {getRepeatDays, getReportTime} from '../../utils';
 
-const StyledTableCell = withStyles((theme: Theme) => ({
-  head: {
-    fontSize: 16,
-    '&:first-child': {
-      borderBottom: 0
+const AppTable = () => {
+  const formattedTaskList = taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
+    return {
+      type: <TaskAvatar type={type} />, 
+      title,
+      timeZone,
+      reportTime: getReportTime(reportTime),
+      repeat: getRepeatDays(repeat)
     }
-  },
-  body: {
+  });
+  const cellStyle = {
     fontSize: 16,
     borderBottom: 0,
     paddingTop: 2,
     paddingBottom: 2
-  },
-}))(TableCell);
+  };
 
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    }
-  },
-}))(TableRow);
-
-const AppTable = () => {
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <StyledTableCell></StyledTableCell>
-          <StyledTableCell>Task Title</StyledTableCell>
-          <StyledTableCell>Time Zone</StyledTableCell>
-          <StyledTableCell align="right">Report Time</StyledTableCell>
-          <StyledTableCell>Repeat</StyledTableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
-          return <StyledTableRow key={id}>
-            <StyledTableCell><TaskAvatar type={type} /></StyledTableCell>
-            <StyledTableCell sortDirection="asc">{title}</StyledTableCell>
-            <StyledTableCell>{timeZone}</StyledTableCell>
-            <StyledTableCell align="right">{getReportTime(reportTime)}</StyledTableCell>
-            <StyledTableCell>{getRepeatDays(repeat)}</StyledTableCell>
-          </StyledTableRow>;
-        })}
-      </TableBody>
-    </Table>
-  );
+  <div style={{ maxWidth: "100%"}}>
+    <MaterialTable
+      style={{
+        border: 0,
+        boxShadow: 'none'
+      }}
+      options={{
+        search: false,
+        sorting: true,
+        paging: false,
+        maxBodyHeight: 400,
+        headerStyle: {
+          fontSize: 16
+        },
+        toolbar: false
+      }}
+      columns={[
+        {
+          title: "",
+          field: "type",
+          sorting: false,
+          headerStyle: {
+            fontSize: 16,
+            borderBottom: 0,
+          },
+          cellStyle
+        },
+        {
+          title: "Task Title",
+          field: "title",
+          cellStyle
+        },
+        {
+          title: "Time Zone",
+          field: "timeZone",
+          sorting: false,
+          cellStyle
+        },
+        {
+          title: "Report Time",
+          field: "reportTime",
+          sorting: false,
+          cellStyle
+        },
+        {
+          title: "Repeat",
+          field: "repeat",
+          sorting: false,
+          cellStyle
+        },
+      ]}
+      // actions={[
+      //   {
+      //     //icon: 'save',
+      //     //tooltip: 'Save User',
+      //     tooltip: 'Remove All Selected Users',
+      //     icon: 'select',
+      //     onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+      //   },
+      //   // rowData => ({
+      //   //   // icon: 'delete',
+      //   //   // tooltip: 'Delete User',
+      //   //   // onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
+      //   //   disabled: rowData.disabled === false
+      //   // })
+      // ]}
+      data={formattedTaskList}
+    />
+  </div>);
 }
 
 export default AppTable;

@@ -1,142 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AppTable AppTable renders correctly 1`] = `
-<ForwardRef(WithStyles)>
-  <ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles) />
-      <ForwardRef(WithStyles)>
-        Task Title
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Time Zone
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        Report Time
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Repeat
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
-  <ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        <TaskAvatar
-          type="Payload Monitoring Report"
-        />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        sortDirection="asc"
-      >
-        Auto Orica USA report setting
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Asia/Aqtu UTC+5:00
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        10:00 AM
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Weekend
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        <TaskAvatar
-          type="Payload Monitoring Report"
-        />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        sortDirection="asc"
-      >
-        Motion Metrics International
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Asia/Aqtu UTC+5:00
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        9:00 AM
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Weekend
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        <TaskAvatar
-          type="Fragmentation Report"
-        />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        sortDirection="asc"
-      >
-        MPM auto weekly report task
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        America/Los_Angeles UTC+8:00
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        3:00 PM
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Mon, Tue, Wed, Thur
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        <TaskAvatar
-          type="Tooth Detection Report"
-        />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        sortDirection="asc"
-      >
-        Orica USA auto report
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Africa/Johannesburg UTC+2:00
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        9:30 AM
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Thur
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        <TaskAvatar
-          type="Tooth Detection Report"
-        />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        sortDirection="asc"
-      >
-        Orica USA auto report
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Africa/Johannesburg UTC+2:00
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
-        align="right"
-      >
-        9:30 AM
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)>
-        Weekdays
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
-</ForwardRef(WithStyles)>
+<div
+  style={
+    Object {
+      "maxWidth": "100%",
+    }
+  }
+>
+  <ForwardRef(WithStyles)
+    columns={
+      Array [
+        Object {
+          "cellStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          },
+          "field": "type",
+          "headerStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+          },
+          "sorting": false,
+          "title": "",
+        },
+        Object {
+          "cellStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          },
+          "field": "title",
+          "title": "Task Title",
+        },
+        Object {
+          "cellStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          },
+          "field": "timeZone",
+          "sorting": false,
+          "title": "Time Zone",
+        },
+        Object {
+          "cellStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          },
+          "field": "reportTime",
+          "sorting": false,
+          "title": "Report Time",
+        },
+        Object {
+          "cellStyle": Object {
+            "borderBottom": 0,
+            "fontSize": 16,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          },
+          "field": "repeat",
+          "sorting": false,
+          "title": "Repeat",
+        },
+      ]
+    }
+    data={
+      Array [
+        Object {
+          "repeat": "Everyday",
+          "reportTime": "10:00 AM",
+          "timeZone": "Asia/Aqtu UTC+5:00",
+          "title": "Auto Orica USA report setting",
+          "type": <TaskAvatar
+            type="Payload Monitoring Report"
+          />,
+        },
+        Object {
+          "repeat": "Weekend",
+          "reportTime": "9:00 AM",
+          "timeZone": "Asia/Aqtu UTC+5:00",
+          "title": "Motion Metrics International",
+          "type": <TaskAvatar
+            type="Payload Monitoring Report"
+          />,
+        },
+        Object {
+          "repeat": "Mon, Tue, Wed, Thur",
+          "reportTime": "3:00 PM",
+          "timeZone": "America/Los_Angeles UTC+8:00",
+          "title": "MPM auto weekly report task",
+          "type": <TaskAvatar
+            type="Fragmentation Report"
+          />,
+        },
+        Object {
+          "repeat": "Thur",
+          "reportTime": "9:30 AM",
+          "timeZone": "Africa/Johannesburg UTC+2:00",
+          "title": "Orica USA auto report",
+          "type": <TaskAvatar
+            type="Tooth Detection Report"
+          />,
+        },
+        Object {
+          "repeat": "Weekdays",
+          "reportTime": "9:30 AM",
+          "timeZone": "Africa/Johannesburg UTC+2:00",
+          "title": "Orica USA auto report",
+          "type": <TaskAvatar
+            type="Tooth Detection Report"
+          />,
+        },
+      ]
+    }
+    options={
+      Object {
+        "headerStyle": Object {
+          "fontSize": 16,
+        },
+        "maxBodyHeight": 400,
+        "paging": false,
+        "search": false,
+        "sorting": true,
+        "toolbar": false,
+      }
+    }
+    style={
+      Object {
+        "border": 0,
+        "boxShadow": "none",
+      }
+    }
+  />
+</div>
 `;
