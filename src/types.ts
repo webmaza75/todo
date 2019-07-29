@@ -1,10 +1,10 @@
-export interface TaskList {
+export interface TaskItem {
   id: number,
   type: string,
   title: string,
   timeZone: string,
   reportTime: string,
-  repeat: number[]
+  repeat: number[],
 };
 
 export enum AvatarType {

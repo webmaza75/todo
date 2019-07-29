@@ -7,7 +7,7 @@ describe(`AppTable`, () => {
   it(`AppTable renders correctly`, () => {
     const renderer = ShallowRenderer.createRenderer();
     const result = renderer
-      .render(<AppTable />);
+      .render(<AppTable onItemSelect={jest.fn()} selected={[]} />);
 
     expect(result).toMatchSnapshot();
   });

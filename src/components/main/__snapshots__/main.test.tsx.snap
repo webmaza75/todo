@@ -2,14 +2,29 @@
 
 exports[`Main Main renders correctly 1`] = `
 <div
-  className="makeStyles-root-1"
+  style={
+    Object {
+      "flexGrow": 1,
+    }
+  }
 >
   <Navbar />
   <AppPanel />
   <div
-    className="makeStyles-tableWrapper-2"
+    style={
+      Object {
+        "marginBottom": 20,
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "marginTop": 150,
+        "width": "80%",
+      }
+    }
   >
-    <AppTable />
+    <AppTable
+      onItemSelect={[Function]}
+      selected={Array []}
+    />
   </div>
 </div>
 `;

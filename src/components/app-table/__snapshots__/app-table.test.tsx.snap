@@ -71,55 +71,71 @@ exports[`AppTable AppTable renders correctly 1`] = `
         },
       ]
     }
+    components={
+      Object {
+        "Action": [Function],
+      }
+    }
     data={
       Array [
         Object {
+          "checked": false,
+          "id": 1,
           "repeat": "Everyday",
           "reportTime": "10:00 AM",
           "timeZone": "Asia/Aqtu UTC+5:00",
           "title": "Auto Orica USA report setting",
-          "type": <TaskAvatar
-            type="Payload Monitoring Report"
-          />,
+          "type": <ForwardRef(WithStyles)>
+            123
+          </ForwardRef(WithStyles)>,
         },
         Object {
+          "checked": false,
+          "id": 2,
           "repeat": "Weekend",
           "reportTime": "9:00 AM",
           "timeZone": "Asia/Aqtu UTC+5:00",
           "title": "Motion Metrics International",
-          "type": <TaskAvatar
-            type="Payload Monitoring Report"
-          />,
+          "type": <ForwardRef(WithStyles)>
+            123
+          </ForwardRef(WithStyles)>,
         },
         Object {
+          "checked": false,
+          "id": 3,
           "repeat": "Mon, Tue, Wed, Thur",
           "reportTime": "3:00 PM",
           "timeZone": "America/Los_Angeles UTC+8:00",
           "title": "MPM auto weekly report task",
-          "type": <TaskAvatar
-            type="Fragmentation Report"
-          />,
+          "type": <ForwardRef(WithStyles)>
+            123
+          </ForwardRef(WithStyles)>,
         },
         Object {
+          "checked": false,
+          "id": 4,
           "repeat": "Thur",
           "reportTime": "9:30 AM",
           "timeZone": "Africa/Johannesburg UTC+2:00",
           "title": "Orica USA auto report",
-          "type": <TaskAvatar
-            type="Tooth Detection Report"
-          />,
+          "type": <ForwardRef(WithStyles)>
+            123
+          </ForwardRef(WithStyles)>,
         },
         Object {
+          "checked": false,
+          "id": 5,
           "repeat": "Weekdays",
           "reportTime": "9:30 AM",
           "timeZone": "Africa/Johannesburg UTC+2:00",
           "title": "Orica USA auto report",
-          "type": <TaskAvatar
-            type="Tooth Detection Report"
-          />,
+          "type": <ForwardRef(WithStyles)>
+            123
+          </ForwardRef(WithStyles)>,
         },
       ]
     }
+    onSelectionChange={[Function]}
     options={
       Object {
         "headerStyle": Object {
@@ -128,6 +144,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
         "maxBodyHeight": 400,
         "paging": false,
         "search": false,
+        "selection": true,
         "sorting": true,
         "toolbar": false,
       }
@@ -136,6 +153,11 @@ exports[`AppTable AppTable renders correctly 1`] = `
       Object {
         "border": 0,
         "boxShadow": "none",
+      }
+    }
+    tableRef={
+      Object {
+        "current": null,
       }
     }
   />

@@ -17,6 +17,7 @@
     "@babel/preset-react": "7.0.0",
     "@types/jest": "24.0.15",
     "@types/react": "16.8.23",
+    "@types/react-dom": "16.8.5",
     "axios-mock-adapter": "1.16.0",
     "babel-jest": "24.7.1",
     "babel-loader": "8.0.5",
@@ -31,12 +32,12 @@
     "redux-mock-store": "1.5.3",
     "ts-jest": "24.0.2",
     "ts-loader": "6.0.4",
+    "tslint": "^5.18.0",
     "typescript": "3.5.3",
     "utility-types": "3.7.0",
     "webpack": "4.30.0",
     "webpack-cli": "3.3.1",
-    "webpack-dev-server": "3.3.1",
-    "tslint": "^5.18.0"
+    "webpack-dev-server": "3.3.1"
   },
   "engines": {
     "node": "10"
