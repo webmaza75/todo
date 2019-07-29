@@ -1,39 +1,37 @@
 import * as React from 'react';
 import MaterialTable from 'material-table';
-import Avatar from '@material-ui/core/Avatar';
+import {cyan} from '@material-ui/core/colors';
 
 import TaskAvatar from '../task-avatar/task-avatar';
+import SelectTaskAvatar from '../select-task-avatar/select-task-avatar';
 import taskList from '../../mocks/taskList';
 import {getRepeatDays, getReportTime} from '../../utils';
-import DoneIcon from '@material-ui/icons/Done';
 import {TaskItem} from '../../types';
 
 /**
  * @prop {Function} onItemSelect callback на выбор задачи из списка.
- * @prop {number[]} selected Выбранный элемент.
+ * @prop {number[]} selected Массив выбранных строк.
  */
 interface IProps {
   onItemSelect: (item: TaskItem) => void;
   selected: number[];
 };
-//#B2EBF2
+
 const AppTable = (props: IProps) => {
   const {onItemSelect, selected} = props;
   const formattedTaskList = taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
-    const selectedItem = selected.includes(id);
-    const avatarType = !selected.length && <TaskAvatar type={type} />;
+    const isSelectedItem = selected.includes(id);
 
     return {
       id,
       type: !selected.length ?
         <TaskAvatar type={type} /> :
-        selectedItem ?
-        <Avatar ><DoneIcon /></Avatar> :
-        <Avatar ></Avatar>, 
+        <SelectTaskAvatar isSelectedItem={isSelectedItem} />,
       title,
       timeZone,
       reportTime: getReportTime(reportTime),
       repeat: getRepeatDays(repeat),
+      selected: isSelectedItem
     }
   });
   const cellStyle = {
@@ -63,7 +61,9 @@ const AppTable = (props: IProps) => {
           fontSize: 16
         },
         toolbar: false,
-        // selection: true
+        rowStyle: (rowData) => ({
+          backgroundColor: selected.includes(rowData.id) ? cyan[100]: 'transparent'
+        })
       }}
       columns={[
         {
@@ -100,36 +100,7 @@ const AppTable = (props: IProps) => {
           cellStyle
         },
       ]}
-      // onSelectionChange = {
-      //   rowData => ({
-      //       icon: 'select',
-      //       onClick: (evt, rowData) => {
-      //         onItemSelect(rowData);
-      //         alert('You want to delete ' + rowData.length + evt.target.value +' rows');
-      //       }
-      //   })
-      // }
-      // onSelectionChange={(rows) => {/*console.log(`click`, rows); */onItemSelect(rows)}}
-      // actions={[
-        
-      //   // rowData => ({
-      //   //   // icon: 'delete',
-      //   //   // tooltip: 'Delete User',
-      //   //   // onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
-      //   //   disabled: rowData.disabled === false
-      //   // })
-      // ]}
       data={formattedTaskList}
-      // components={{
-      //   Action: props => (
-      //     // <Button onClick={() => props.action.onSelectionChange(props.data)}>
-      //     <TaskAvatar
-      //       // type={type}
-      //       // variant="contained"
-      //     />
-      //     // </Button>
-      //   ),
-      // }}
     />
   </div>);
 }

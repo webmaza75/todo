@@ -3,7 +3,6 @@ import * as React from 'react';
 import Navbar from '../navbar/navbar';
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
-// import taskList from '../../mocks/taskList';
 import {TaskItem} from '../../types';
 
 const classes = {
@@ -31,7 +30,7 @@ interface IState {
 };
 
 class Main extends React.Component<IProps, IState> {
-  state = {
+  state: IState = {
     selected: []
   };
 
@@ -58,18 +57,16 @@ class Main extends React.Component<IProps, IState> {
     const {id} = item;
     const res = selected.includes(id);
 
-    console.log(`res`, res);
-
     if (res === false) {
       this.setState({
         selected: [
           ...selected,
-          item.id
+          id
         ]
       });
     } else {
       this.setState({
-        selected: selected.filter(({id}) => id !== item.id)
+        selected: selected.filter((idx) => idx !== item.id)
       });
     }    
   }

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectTaskAvatar TaskAvatar renders correctly with non-selected item 1`] = `
+<ForwardRef(WithStyles)
+  style={
+    Object {
+      "backgroundColor": "white",
+      "border": "1px solid #b2ebf2",
+      "color": "#80deea",
+      "fontSize": 20,
+      "height": 42,
+      "lineHeight": 42,
+      "margin": 12,
+      "width": 42,
+    }
+  }
+/>
+`;
+
+exports[`SelectTaskAvatar TaskAvatar renders correctly with selected item 1`] = `
+<ForwardRef(WithStyles)
+  style={
+    Object {
+      "backgroundColor": "white",
+      "border": "1px solid #b2ebf2",
+      "color": "#80deea",
+      "fontSize": 20,
+      "height": 42,
+      "lineHeight": 42,
+      "margin": 12,
+      "width": 42,
+    }
+  }
+>
+  <Memo />
+</ForwardRef(WithStyles)>
+`;
