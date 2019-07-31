@@ -14,51 +14,58 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
     />
     <ForwardRef(WithStyles)
       aria-label="Add"
-      className="makeStyles-fabButton-7"
+      className="makeStyles-fabButton-8"
       color="secondary"
     >
       <Memo />
     </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
-      className="makeStyles-subTitle-3"
-      variant="h6"
-    >
-      Automated Tasks
-    </ForwardRef(WithStyles)>
     <div
-      className="makeStyles-search-5"
+      className="makeStyles-wrapper-12"
     >
       <ForwardRef(WithStyles)
-        alignItems="flex-end"
-        container={true}
-        spacing={1}
+        className="makeStyles-subTitle-3"
+        variant="h6"
+      >
+        Automated Tasks
+      </ForwardRef(WithStyles)>
+      <div
+        className="makeStyles-search-6"
       >
         <ForwardRef(WithStyles)
-          item={true}
-        >
-          <Memo
-            className="makeStyles-searchIcon-6"
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
+          alignItems="flex-end"
+          container={true}
+          spacing={1}
         >
           <ForwardRef(WithStyles)
-            InputProps={
-              Object {
-                "classes": Object {
-                  "input": "makeStyles-inputField-9",
-                  "underline": "makeStyles-underline-10",
-                },
+            item={true}
+          >
+            <Memo
+              className="makeStyles-searchIcon-7"
+              onClick={[MockFunction]}
+            />
+          </ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            item={true}
+          >
+            <ForwardRef(WithStyles)
+              InputProps={
+                Object {
+                  "classes": Object {
+                    "input": "makeStyles-inputField-10",
+                    "underline": "makeStyles-underline-11",
+                  },
+                }
               }
-            }
-            className="makeStyles-textField-8"
-            id="standard-search"
-            margin="normal"
-            type="search"
-          />
+              className="makeStyles-textField-9"
+              id="standard-search"
+              margin="normal"
+              onChange={[MockFunction]}
+              type="search"
+              value=""
+            />
+          </ForwardRef(WithStyles)>
         </ForwardRef(WithStyles)>
-      </ForwardRef(WithStyles)>
+      </div>
     </div>
   </ForwardRef(WithStyles)>
 </ForwardRef(WithStyles)>

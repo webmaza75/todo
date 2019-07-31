@@ -4,6 +4,7 @@ import Navbar from '../navbar/navbar';
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
 import {TaskItem} from '../../types';
+import taskList from '../../mocks/taskList';
 
 const classes = {
   root: {
@@ -23,24 +24,46 @@ interface IProps {
 };
 
 /**
- * @prop {number[]} selected Выбранная задача в списке.
+ * @prop {number[]} selected Выбранные задачи в списке.
+ * @prop {string} searchTitle Название задачи для поиска.
+ * @prop {TaskItem[]} taskList Все имеющиеся задачи.
+ * @prop {TaskItem[]} leftTaskList Оставшиеся после удаления задачи.
  */
 interface IState {
   selected: number[];
+  searchTitle: string;
+  taskList: TaskItem[];
+  leftTaskList: TaskItem[];
 };
 
 class Main extends React.Component<IProps, IState> {
   state: IState = {
-    selected: []
+    selected: [],
+    taskList,
+    leftTaskList: taskList,
+    searchTitle: ''
   };
 
   render() {
-    const {selected} = this.state;
+    const {
+      selected,
+      leftTaskList,
+      searchTitle
+    } = this.state;
     return <div style={classes.root}>
       <Navbar />
-      <AppPanel />
+      <AppPanel
+        selected={selected}
+        onSelectionReset={this.handleSelectionReset}
+        onItemsDelete={this.handleItemsDelete}
+        onItemsUndoDelete={this.handleItemsUndoDelete}
+        onInputChange={this.handleInputChange}
+        searchTitle={searchTitle}
+        onTitleSearch={this.handleTitleSearch}
+      />
       <div style={classes.tableWrapper}>
         <AppTable
+          taskList={leftTaskList}
           onItemSelect={this.handleItemSelect}
           selected={selected}
         />
@@ -48,10 +71,19 @@ class Main extends React.Component<IProps, IState> {
     </div>;
   }
 
+  // /**
+  //  * Нахождение задачи по id из массива всех имеющихся.
+  //  * @param {number} itemId 
+  //  * @param {TaskItem[]} taskList Массив имеющихся задач.
+  //  */
   // private findItemById(itemId: number, taskList: TaskItem[]) {
   //   return taskList.find(({id}) => id === itemId);
   // }
 
+  /**
+   * Обработчик выделения строки.
+   * @param {TaskItem} item Выделенная строка.
+   */
   handleItemSelect = (item: TaskItem): void => {
     const {selected} = this.state;
     const {id} = item;
@@ -69,6 +101,67 @@ class Main extends React.Component<IProps, IState> {
         selected: selected.filter((idx) => idx !== item.id)
       });
     }    
+  }
+
+  handleSelectionReset = (): void => {
+    this.setState({
+      selected: []
+    });
+  }
+
+  handleItemsDelete = (): void => {
+    const {
+      selected,
+      taskList
+    } = this.state;
+    this.setState({
+      selected: [],
+      leftTaskList: taskList.filter(item => !selected.includes(item.id))
+    });
+  }
+
+  handleItemsUndoDelete = (): void => {
+    const {leftTaskList} = this.state;
+    this.setState({
+      selected: [],
+      leftTaskList: taskList
+    });
+  }
+
+  handleItemsExactlyDelete = (): void => {
+    const {leftTaskList} = this.state;
+    this.setState({
+      selected: [],
+      taskList: leftTaskList
+    });
+  }
+
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    event.preventDefault();
+
+    if (event && event.target) {
+      this.setState({
+        searchTitle: event.target.value
+      });
+    }
+  }
+
+  handleTitleSearch = (event: React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
+    event.preventDefault();
+
+    const {taskList, searchTitle} = this.state;
+
+    if (searchTitle.trim() !== '') {
+      const res = taskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
+
+      this.setState({
+        leftTaskList: res
+      });
+    } else {
+      this.setState({
+        leftTaskList: taskList
+      });
+    }
   }
 }
 

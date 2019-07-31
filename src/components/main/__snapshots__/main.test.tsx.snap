@@ -9,7 +9,15 @@ exports[`Main Main renders correctly 1`] = `
   }
 >
   <Navbar />
-  <AppPanel />
+  <AppPanel
+    onInputChange={[Function]}
+    onItemsDelete={[Function]}
+    onItemsUndoDelete={[Function]}
+    onSelectionReset={[Function]}
+    onTitleSearch={[Function]}
+    searchTitle=""
+    selected={Array []}
+  />
   <div
     style={
       Object {
@@ -24,6 +32,74 @@ exports[`Main Main renders correctly 1`] = `
     <AppTable
       onItemSelect={[Function]}
       selected={Array []}
+      taskList={
+        Array [
+          Object {
+            "id": 1,
+            "repeat": Array [
+              6,
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+            ],
+            "reportTime": "Wed Jul 17 2019 10:00:13 GMT+0300",
+            "timeZone": "Asia/Aqtu UTC+5:00",
+            "title": "Auto Orica USA report setting",
+            "type": "Payload Monitoring Report",
+          },
+          Object {
+            "id": 2,
+            "repeat": Array [
+              0,
+              6,
+            ],
+            "reportTime": "Wed Jul 17 2019 09:00:13 GMT+0300",
+            "timeZone": "Asia/Aqtu UTC+5:00",
+            "title": "Motion Metrics International",
+            "type": "Payload Monitoring Report",
+          },
+          Object {
+            "id": 3,
+            "repeat": Array [
+              1,
+              2,
+              3,
+              4,
+            ],
+            "reportTime": "Wed Jul 17 2019 15:00:13 GMT+0300",
+            "timeZone": "America/Los_Angeles UTC+8:00",
+            "title": "MPM auto weekly report task",
+            "type": "Fragmentation Report",
+          },
+          Object {
+            "id": 4,
+            "repeat": Array [
+              4,
+            ],
+            "reportTime": "Wed Jul 17 2019 09:30:13 GMT+0300",
+            "timeZone": "Africa/Johannesburg UTC+2:00",
+            "title": "Orica USA auto report",
+            "type": "Tooth Detection Report",
+          },
+          Object {
+            "id": 5,
+            "repeat": Array [
+              1,
+              2,
+              4,
+              5,
+              3,
+            ],
+            "reportTime": "Wed Jul 17 2019 09:30:13 GMT+0300",
+            "timeZone": "Africa/Johannesburg UTC+2:00",
+            "title": "Orica USA auto report",
+            "type": "Tooth Detection Report",
+          },
+        ]
+      }
     />
   </div>
 </div>

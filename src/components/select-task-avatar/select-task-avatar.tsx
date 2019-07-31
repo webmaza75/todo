@@ -4,14 +4,14 @@ import DoneIcon from '@material-ui/icons/Done';
 import {cyan} from '@material-ui/core/colors';
 
 const style = {
-    margin: 12,
-    height: 42,
-    width: 42,
-    fontSize: 20,
-    lineHeight: 42,
-    color: cyan[200],
-    backgroundColor: 'white',
-    border: `1px solid ${cyan[100]}`
+  margin: 12,
+  height: 42,
+  width: 42,
+  fontSize: 20,
+  lineHeight: 42,
+  color: cyan[200],
+  backgroundColor: 'white',
+  border: `1px solid ${cyan[100]}`
 };
 
 /**

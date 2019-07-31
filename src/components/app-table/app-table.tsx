@@ -9,16 +9,22 @@ import {getRepeatDays, getReportTime} from '../../utils';
 import {TaskItem} from '../../types';
 
 /**
- * @prop {Function} onItemSelect callback на выбор задачи из списка.
  * @prop {number[]} selected Массив выбранных строк.
+ * @prop {TaskItem[]} taskList Все имеющиеся задачи.
+ * @prop {Function} onItemSelect callback на выбор задачи из списка.
  */
 interface IProps {
-  onItemSelect: (item: TaskItem) => void;
   selected: number[];
+  taskList: TaskItem[];
+  onItemSelect: (item: TaskItem) => void;
 };
 
 const AppTable = (props: IProps) => {
-  const {onItemSelect, selected} = props;
+  const {
+    onItemSelect,
+    selected,
+    taskList
+  } = props;
   const formattedTaskList = taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
     const isSelectedItem = selected.includes(id);
 
