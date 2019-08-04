@@ -41,7 +41,6 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
           >
             <Memo
               className="makeStyles-searchIcon-7"
-              onClick={[MockFunction]}
             />
           </ForwardRef(WithStyles)>
           <ForwardRef(WithStyles)
@@ -68,5 +67,15 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
       </div>
     </div>
   </ForwardRef(WithStyles)>
+  <ConfirmationDeleteDialog
+    onTasksCancelDelete={[MockFunction]}
+    onTasksConfirmDelete={[MockFunction]}
+    open={false}
+  />
+  <SimpleSnackbar
+    isOpenUndoDeleteSnackbar={false}
+    onItemsExactlyDelete={[MockFunction]}
+    onItemsUndoDelete={[MockFunction]}
+  />
 </ForwardRef(WithStyles)>
 `;

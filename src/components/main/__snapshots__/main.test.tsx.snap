@@ -10,11 +10,15 @@ exports[`Main Main renders correctly 1`] = `
 >
   <Navbar />
   <AppPanel
+    isOpenConfirmDeleteDialog={false}
+    isOpenUndoDeleteSnackbar={false}
     onInputChange={[Function]}
     onItemsDelete={[Function]}
+    onItemsExactlyDelete={[Function]}
     onItemsUndoDelete={[Function]}
     onSelectionReset={[Function]}
-    onTitleSearch={[Function]}
+    onTasksCancelDelete={[Function]}
+    onTasksConfirmDelete={[Function]}
     searchTitle=""
     selected={Array []}
   />

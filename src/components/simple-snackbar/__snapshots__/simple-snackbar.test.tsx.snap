@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
+<ForwardRef(WithStyles)
+  ContentProps={
+    Object {
+      "aria-describedby": "message-id",
+    }
+  }
+  action={
+    Array [
+      <ForwardRef(WithStyles)
+        color="secondary"
+        onClick={[MockFunction]}
+        size="small"
+      >
+        UNDO
+      </ForwardRef(WithStyles)>,
+      <ForwardRef(WithStyles)
+        aria-label="close"
+        className="makeStyles-close-1"
+        color="inherit"
+        onClick={[MockFunction]}
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>,
+    ]
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "center",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={6000}
+  message={
+    <span
+      id="message-id"
+    >
+      Task deleted
+    </span>
+  }
+  open={false}
+/>
+`;

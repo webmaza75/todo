@@ -12,10 +12,14 @@ describe(`AppPanel`, () => {
         selected={selected}
         onSelectionReset={jest.fn()}
         onItemsDelete={jest.fn()}
-        onItemsUndoDelete={jest.fn()}
         searchTitle={''}
         onInputChange={jest.fn()}
-        onTitleSearch={jest.fn()}
+        isOpenConfirmDeleteDialog={false}
+        onTasksCancelDelete={jest.fn()}
+        onTasksConfirmDelete={jest.fn()}
+        isOpenUndoDeleteSnackbar={false}
+        onItemsExactlyDelete={jest.fn()}
+        onItemsUndoDelete={jest.fn()}
       />);
     
     expect(result).toMatchSnapshot();

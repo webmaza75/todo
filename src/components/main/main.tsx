@@ -28,12 +28,16 @@ interface IProps {
  * @prop {string} searchTitle Название задачи для поиска.
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
  * @prop {TaskItem[]} leftTaskList Оставшиеся после удаления задачи.
+ * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
+ * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
  */
 interface IState {
   selected: number[];
   searchTitle: string;
   taskList: TaskItem[];
   leftTaskList: TaskItem[];
+  isOpenConfirmDeleteDialog: boolean;
+  isOpenUndoDeleteSnackbar: boolean;
 };
 
 class Main extends React.Component<IProps, IState> {
@@ -41,14 +45,18 @@ class Main extends React.Component<IProps, IState> {
     selected: [],
     taskList,
     leftTaskList: taskList,
-    searchTitle: ''
+    searchTitle: '',
+    isOpenConfirmDeleteDialog: false,
+    isOpenUndoDeleteSnackbar: false
   };
 
   render() {
     const {
       selected,
       leftTaskList,
-      searchTitle
+      searchTitle,
+      isOpenConfirmDeleteDialog,
+      isOpenUndoDeleteSnackbar
     } = this.state;
     return <div style={classes.root}>
       <Navbar />
@@ -56,10 +64,14 @@ class Main extends React.Component<IProps, IState> {
         selected={selected}
         onSelectionReset={this.handleSelectionReset}
         onItemsDelete={this.handleItemsDelete}
-        onItemsUndoDelete={this.handleItemsUndoDelete}
         onInputChange={this.handleInputChange}
         searchTitle={searchTitle}
-        onTitleSearch={this.handleTitleSearch}
+        isOpenConfirmDeleteDialog={isOpenConfirmDeleteDialog}
+        onTasksCancelDelete={this.handleTasksCancelDelete}
+        onTasksConfirmDelete={this.handleTasksConfirmDelete}
+        isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
+        onItemsExactlyDelete={this.handleItemsExactlyDelete}
+        onItemsUndoDelete={this.handleItemsUndoDelete}
       />
       <div style={classes.tableWrapper}>
         <AppTable
@@ -110,21 +122,21 @@ class Main extends React.Component<IProps, IState> {
   }
 
   handleItemsDelete = (): void => {
-    const {
-      selected,
-      taskList
-    } = this.state;
     this.setState({
-      selected: [],
-      leftTaskList: taskList.filter(item => !selected.includes(item.id))
+      isOpenConfirmDeleteDialog: true
     });
   }
 
   handleItemsUndoDelete = (): void => {
-    const {leftTaskList} = this.state;
+    const {searchTitle} = this.state;
+    const res: TaskItem[] = !searchTitle ?
+      taskList :
+      taskList.filter(({title}) => this.filterBySearchTitle(title, searchTitle));
+
     this.setState({
       selected: [],
-      leftTaskList: taskList
+      leftTaskList: taskList,
+      isOpenUndoDeleteSnackbar: false
     });
   }
 
@@ -132,7 +144,8 @@ class Main extends React.Component<IProps, IState> {
     const {leftTaskList} = this.state;
     this.setState({
       selected: [],
-      taskList: leftTaskList
+      taskList: leftTaskList,
+      isOpenUndoDeleteSnackbar: false
     });
   }
 
@@ -140,28 +153,57 @@ class Main extends React.Component<IProps, IState> {
     event.preventDefault();
 
     if (event && event.target) {
-      this.setState({
-        searchTitle: event.target.value
-      });
+      const {value} = event.target;
+
+      this.getSearchList(value);
     }
   }
 
-  handleTitleSearch = (event: React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
-    event.preventDefault();
+  filterBySearchTitle = (title: string, searchTitle: string) => {
+    return title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1
+  }
 
-    const {taskList, searchTitle} = this.state;
+  getSearchList = (value: string): void => {
+    const {taskList} = this.state;
+    let res: TaskItem[];
 
-    if (searchTitle.trim() !== '') {
-      const res = taskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
+    const searchTitle = value.trimLeft().replace(/\s{2,}/, ' ');
 
-      this.setState({
-        leftTaskList: res
-      });
+    if (searchTitle !== '') {
+      res = taskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
     } else {
-      this.setState({
-        leftTaskList: taskList
-      });
+      res = taskList;
     }
+  
+    this.setState({
+      searchTitle: searchTitle,
+      leftTaskList: res
+    });
+  }
+
+  handleTasksCancelDelete = () => {
+    this.setState({
+      isOpenConfirmDeleteDialog: false
+    });
+  }
+  
+  handleTasksConfirmDelete = () => {
+    const {
+      selected,
+      taskList,
+      searchTitle
+    } = this.state;
+
+    const res: TaskItem[] = !searchTitle ?
+      taskList.filter(({id}) => !selected.includes(id)) :
+      taskList.filter(({id, title}) => !selected.includes(id) && this.filterBySearchTitle(title, searchTitle));
+    
+    this.setState({
+      selected: [],
+      leftTaskList: res,
+      isOpenConfirmDeleteDialog: false,
+      isOpenUndoDeleteSnackbar: true
+    });
   }
 }
 

@@ -19,6 +19,9 @@ import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
+import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -120,9 +123,13 @@ const useStyles = makeStyles((theme: Theme) =>
  * @prop {string} searchTitle Название задачи для поиска.
  * @prop {Function} onInputChange callback изменения строки поиска.
  * @prop {Function} onSelectionReset callback на сброс выделения задач из списка.
- * @prop {Function} onItemsDelete callback на удаление задач из списка.
  * @prop {Function} onItemsUndoDelete callback на восстановление удаленных задач из списка.
- * @prop {Function} onTitleSearch callback для инициации поиска строки по заголовку задачи.
+ * @prop {boolean} isOpenConfirmDeleteDialog Флаг открытия окна подтверждения удаления задачи.
+ * @prop {Function} onTasksCancelDelete callback на отмену удаления задачи.
+ * @prop {Function} onTasksConfirmDelete callback на подтверждение удаления задачи.
+ * @prop {boolean} isOpenUndoDeleteSnackbar Флаг открытия snackbar для возможности восстановления ранее удаленных задач.
+ * @prop {Function} onItemsExactlyDelete callback на закрытие snackbar.
+ * @prop {Function} onItemsUndoDelete callback на восстановление удаленых задач.
  */
 interface IProps {
   selected: number[];
@@ -130,8 +137,12 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectionReset: () => void;
   onItemsDelete: () => void;
+  isOpenConfirmDeleteDialog: boolean;
+  onTasksCancelDelete: () => void;
+  onTasksConfirmDelete: () => void;
+  isOpenUndoDeleteSnackbar: boolean;
+  onItemsExactlyDelete: () => void;
   onItemsUndoDelete: () => void;
-  onTitleSearch: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 };
 
 const AppPanel = (props: IProps) => {
@@ -139,15 +150,24 @@ const AppPanel = (props: IProps) => {
     selected,
     onSelectionReset,
     onItemsDelete,
-    // onItemsUndoDelete,
     searchTitle,
     onInputChange,
-    onTitleSearch
+    isOpenConfirmDeleteDialog,
+    onTasksCancelDelete,
+    onTasksConfirmDelete,
+    isOpenUndoDeleteSnackbar,
+    onItemsExactlyDelete,
+    onItemsUndoDelete
   } = props;
   //onClick={onItemsUndoDelete}
   const classes = useStyles();
   const appBarClassName = !selected.length ? classes.appBar : `${classes.appBar} ${classes.appBarWithSelect}`;
   const subTitle: string = !selected.length ? `Automated Tasks` : `${selected.length} Selected`;
+
+  // React.useState(false);
+  // {open,
+  //   onTasksCancelDelete,
+  //   onTasksConfirmDelete
 
   return <AppBar className={appBarClassName}>
     <Toolbar className={classes.toolbar}>
@@ -175,7 +195,6 @@ const AppPanel = (props: IProps) => {
                 <Grid item>
                   <SearchIcon
                     className={classes.searchIcon}
-                    onClick={onTitleSearch}
                   />
                 </Grid>
                 <Grid item>
@@ -200,6 +219,17 @@ const AppPanel = (props: IProps) => {
         }
       </div>
     </Toolbar>
+    <ConfirmationDeleteDialog
+      open={isOpenConfirmDeleteDialog}
+      onTasksCancelDelete={onTasksCancelDelete}
+      onTasksConfirmDelete={onTasksConfirmDelete}
+    />
+    <SimpleSnackbar
+      isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
+      onItemsExactlyDelete={onItemsExactlyDelete}
+      onItemsUndoDelete={onItemsUndoDelete}
+      // onClick={onItemsDelete}
+    />
   </AppBar>;
 };
 

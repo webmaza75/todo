@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmationDeleteDialog ConfirmationDeleteDialog renders correctly 1`] = `
+<ForwardRef(WithStyles)
+  aria-labelledby="alert-dialog-title"
+  open={false}
+>
+  <ForwardRef(WithStyles)
+    id="alert-dialog-title"
+  >
+    Delete selected tasks?
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      Delete
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      autoFocus={true}
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      Cancel
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;
