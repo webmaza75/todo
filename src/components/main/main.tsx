@@ -30,6 +30,7 @@ interface IProps {
  * @prop {TaskItem[]} leftTaskList Оставшиеся после удаления задачи.
  * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
  * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
+ * @prop {number[]} deletedList id всех удаленных элементов.
  */
 interface IState {
   selected: number[];
@@ -38,6 +39,7 @@ interface IState {
   leftTaskList: TaskItem[];
   isOpenConfirmDeleteDialog: boolean;
   isOpenUndoDeleteSnackbar: boolean;
+  deletedList: number[];
 };
 
 class Main extends React.Component<IProps, IState> {
@@ -47,7 +49,8 @@ class Main extends React.Component<IProps, IState> {
     leftTaskList: taskList,
     searchTitle: '',
     isOpenConfirmDeleteDialog: false,
-    isOpenUndoDeleteSnackbar: false
+    isOpenUndoDeleteSnackbar: false,
+    deletedList: []
   };
 
   render() {
@@ -136,7 +139,8 @@ class Main extends React.Component<IProps, IState> {
     this.setState({
       selected: [],
       leftTaskList: taskList,
-      isOpenUndoDeleteSnackbar: false
+      isOpenUndoDeleteSnackbar: false,
+      deletedList: []
     });
   }
 
@@ -145,7 +149,8 @@ class Main extends React.Component<IProps, IState> {
     this.setState({
       selected: [],
       taskList: leftTaskList,
-      isOpenUndoDeleteSnackbar: false
+      isOpenUndoDeleteSnackbar: false,
+      deletedList: []
     });
   }
 
@@ -164,15 +169,18 @@ class Main extends React.Component<IProps, IState> {
   }
 
   getSearchList = (value: string): void => {
-    const {taskList} = this.state;
+    const {
+      taskList,
+      deletedList
+    } = this.state;
     let res: TaskItem[];
 
     const searchTitle = value.trimLeft().replace(/\s{2,}/, ' ');
 
     if (searchTitle !== '') {
-      res = taskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
+      res = taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1 && !deletedList.includes(id));
     } else {
-      res = taskList;
+      res = taskList.filter(({id}) => !deletedList.includes(id));
     }
   
     this.setState({
@@ -190,19 +198,21 @@ class Main extends React.Component<IProps, IState> {
   handleTasksConfirmDelete = () => {
     const {
       selected,
-      taskList,
-      searchTitle
+      leftTaskList,
+      searchTitle,
+      deletedList
     } = this.state;
 
     const res: TaskItem[] = !searchTitle ?
-      taskList.filter(({id}) => !selected.includes(id)) :
-      taskList.filter(({id, title}) => !selected.includes(id) && this.filterBySearchTitle(title, searchTitle));
+      leftTaskList.filter(({id}) => !selected.includes(id)) :
+      leftTaskList.filter(({id, title}) => !selected.includes(id) && this.filterBySearchTitle(title, searchTitle));
     
     this.setState({
       selected: [],
       leftTaskList: res,
       isOpenConfirmDeleteDialog: false,
-      isOpenUndoDeleteSnackbar: true
+      isOpenUndoDeleteSnackbar: true,
+      deletedList: [...deletedList, ...selected]
     });
   }
 }
