@@ -1,10 +1,10 @@
 import * as React from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableBodyRow } from 'material-table';
 import {cyan} from '@material-ui/core/colors';
 
 import TaskAvatar from '../task-avatar/task-avatar';
 import SelectTaskAvatar from '../select-task-avatar/select-task-avatar';
-import taskList from '../../mocks/taskList';
+// import taskList from '../../mocks/taskList';
 import {getRepeatDays, getReportTime} from '../../utils';
 import {TaskItem} from '../../types';
 
@@ -37,7 +37,8 @@ const AppTable = (props: IProps) => {
       timeZone,
       reportTime: getReportTime(reportTime),
       repeat: getRepeatDays(repeat),
-      selected: isSelectedItem
+      selected: isSelectedItem,
+      ['data-test-id']: `row-${id}`
     }
   });
   const cellStyle = {
@@ -47,8 +48,7 @@ const AppTable = (props: IProps) => {
     paddingBottom: 2
   };
 
-  return (
-  <div style={{ maxWidth: "100%"}}>
+  return <div style={{ maxWidth: "100%"}}>
     <MaterialTable
       onRowClick={(_, rowData) => {
         const {id} = rowData;
@@ -107,8 +107,14 @@ const AppTable = (props: IProps) => {
         },
       ]}
       data={formattedTaskList}
+      components={{
+        Row: props => <MTableBodyRow
+          {...props}
+          data-test-id={props.data['data-test-id']}
+        />
+      }}
     />
-  </div>);
+  </div>;
 }
 
 export default AppTable;

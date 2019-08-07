@@ -71,9 +71,15 @@ exports[`AppTable AppTable renders correctly 1`] = `
         },
       ]
     }
+    components={
+      Object {
+        "Row": [Function],
+      }
+    }
     data={
       Array [
         Object {
+          "data-test-id": "row-1",
           "id": 1,
           "repeat": "Everyday",
           "reportTime": "10:00 AM",
@@ -85,6 +91,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           />,
         },
         Object {
+          "data-test-id": "row-2",
           "id": 2,
           "repeat": "Weekend",
           "reportTime": "9:00 AM",
@@ -96,6 +103,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           />,
         },
         Object {
+          "data-test-id": "row-3",
           "id": 3,
           "repeat": "Mon, Tue, Wed, Thur",
           "reportTime": "3:00 PM",
@@ -107,6 +115,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           />,
         },
         Object {
+          "data-test-id": "row-4",
           "id": 4,
           "repeat": "Thur",
           "reportTime": "9:30 AM",
@@ -118,6 +127,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           />,
         },
         Object {
+          "data-test-id": "row-5",
           "id": 5,
           "repeat": "Weekdays",
           "reportTime": "9:30 AM",
