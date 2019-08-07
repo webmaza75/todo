@@ -16,7 +16,7 @@ import {TaskItem} from '../../types';
 interface IProps {
   selected: number[];
   taskList: TaskItem[];
-  onItemSelect: (item: TaskItem) => void;
+  onItemSelect: (id: number) => void;
 };
 
 const AppTable = (props: IProps) => {
@@ -50,9 +50,9 @@ const AppTable = (props: IProps) => {
   return (
   <div style={{ maxWidth: "100%"}}>
     <MaterialTable
-      tableRef={React.createRef()}
-      onRowClick={(evt, rowData) => {
-        onItemSelect(rowData)
+      onRowClick={(_, rowData) => {
+        const {id} = rowData;
+        onItemSelect(id);
       }}
       style={{
         border: 0,

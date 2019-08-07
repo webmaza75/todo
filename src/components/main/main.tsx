@@ -97,11 +97,10 @@ class Main extends React.Component<IProps, IState> {
 
   /**
    * Обработчик выделения строки.
-   * @param {TaskItem} item Выделенная строка.
+   * @param {number} id Выделенная строка.
    */
-  handleItemSelect = (item: TaskItem): void => {
+  handleItemSelect = (id: number): void => {
     const {selected} = this.state;
-    const {id} = item;
     const res = selected.includes(id);
 
     if (res === false) {
@@ -113,7 +112,7 @@ class Main extends React.Component<IProps, IState> {
       });
     } else {
       this.setState({
-        selected: selected.filter((idx) => idx !== item.id)
+        selected: selected.filter((idx) => idx !== id)
       });
     }    
   }
@@ -131,10 +130,7 @@ class Main extends React.Component<IProps, IState> {
   }
 
   handleItemsUndoDelete = (): void => {
-    const {searchTitle} = this.state;
-    const res: TaskItem[] = !searchTitle ?
-      taskList :
-      taskList.filter(({title}) => this.filterBySearchTitle(title, searchTitle));
+    const {taskList} = this.state;
 
     this.setState({
       selected: [],

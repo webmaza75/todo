@@ -150,11 +150,6 @@ exports[`AppTable AppTable renders correctly 1`] = `
         "boxShadow": "none",
       }
     }
-    tableRef={
-      Object {
-        "current": null,
-      }
-    }
   />
 </div>
 `;
