@@ -2,9 +2,7 @@ import * as React from 'react';
 import MaterialTable, { MTableBodyRow } from 'material-table';
 import {cyan} from '@material-ui/core/colors';
 
-import TaskAvatar from '../task-avatar/task-avatar';
-import SelectTaskAvatar from '../select-task-avatar/select-task-avatar';
-// import taskList from '../../mocks/taskList';
+import SelectAvatar from '../select-avatar/select-avatar';
 import {getRepeatDays, getReportTime} from '../../utils';
 import {TaskItem} from '../../types';
 
@@ -30,9 +28,7 @@ const AppTable = (props: IProps) => {
 
     return {
       id,
-      type: !selected.length ?
-        <TaskAvatar type={type} /> :
-        <SelectTaskAvatar isSelectedItem={isSelectedItem} />,
+      type,
       title,
       timeZone,
       reportTime: getReportTime(reportTime),
@@ -68,7 +64,7 @@ const AppTable = (props: IProps) => {
         },
         toolbar: false,
         rowStyle: (rowData) => ({
-          backgroundColor: selected.includes(rowData.id) ? cyan[100]: 'transparent'
+          backgroundColor: rowData.selected ? cyan[100]: 'transparent'
         })
       }}
       columns={[
@@ -80,7 +76,12 @@ const AppTable = (props: IProps) => {
             fontSize: 16,
             borderBottom: 0,
           },
-          cellStyle
+          cellStyle,
+          render: (rowData) => <SelectAvatar
+            isSelectMode={selected.length > 0}
+            type={rowData.type}
+            selected={rowData.selected}
+          />
         },
         {
           title: "Task Title",

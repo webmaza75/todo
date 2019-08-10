@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectAvatar SelectAvatar renders correctly with non-selected item 1`] = `
+<SelectTaskAvatar
+  isSelectedItem={true}
+/>
+`;
+
+exports[`SelectAvatar SelectAvatar renders correctly with not select mode 1`] = `
+<TaskAvatar
+  type="Payload Monitoring Report"
+/>
+`;

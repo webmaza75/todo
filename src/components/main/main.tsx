@@ -169,12 +169,8 @@ class Main extends React.Component<IProps, IState> {
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-
-    if (event && event.target) {
-      const {value} = event.target;
-
-      this.getSearchList(value);
-    }
+    const {value} = event.target;
+    this.getSearchList(value);
   }
 
   filterBySearchTitle = (title: string, searchTitle: string) => {

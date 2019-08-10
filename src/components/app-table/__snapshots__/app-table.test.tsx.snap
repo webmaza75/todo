@@ -23,6 +23,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
             "borderBottom": 0,
             "fontSize": 16,
           },
+          "render": [Function],
           "sorting": false,
           "title": "",
         },
@@ -86,9 +87,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           "selected": false,
           "timeZone": "Asia/Aqtu UTC+5:00",
           "title": "Auto Orica USA report setting",
-          "type": <TaskAvatar
-            type="Payload Monitoring Report"
-          />,
+          "type": "Payload Monitoring Report",
         },
         Object {
           "data-test-id": "row-2",
@@ -98,9 +97,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           "selected": false,
           "timeZone": "Asia/Aqtu UTC+5:00",
           "title": "Motion Metrics International",
-          "type": <TaskAvatar
-            type="Payload Monitoring Report"
-          />,
+          "type": "Payload Monitoring Report",
         },
         Object {
           "data-test-id": "row-3",
@@ -110,9 +107,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           "selected": false,
           "timeZone": "America/Los_Angeles UTC+8:00",
           "title": "MPM auto weekly report task",
-          "type": <TaskAvatar
-            type="Fragmentation Report"
-          />,
+          "type": "Fragmentation Report",
         },
         Object {
           "data-test-id": "row-4",
@@ -122,9 +117,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           "selected": false,
           "timeZone": "Africa/Johannesburg UTC+2:00",
           "title": "Orica USA auto report",
-          "type": <TaskAvatar
-            type="Tooth Detection Report"
-          />,
+          "type": "Tooth Detection Report",
         },
         Object {
           "data-test-id": "row-5",
@@ -134,9 +127,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
           "selected": false,
           "timeZone": "Africa/Johannesburg UTC+2:00",
           "title": "Orica USA auto report",
-          "type": <TaskAvatar
-            type="Tooth Detection Report"
-          />,
+          "type": "Tooth Detection Report",
         },
       ]
     }
