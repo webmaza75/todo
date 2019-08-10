@@ -159,15 +159,10 @@ const AppPanel = (props: IProps) => {
     onItemsExactlyDelete,
     onItemsUndoDelete
   } = props;
-  //onClick={onItemsUndoDelete}
+  
   const classes = useStyles();
   const appBarClassName = !selected.length ? classes.appBar : `${classes.appBar} ${classes.appBarWithSelect}`;
   const subTitle: string = !selected.length ? `Automated Tasks` : `${selected.length} Selected`;
-
-  // React.useState(false);
-  // {open,
-  //   onTasksCancelDelete,
-  //   onTasksConfirmDelete
 
   return <AppBar className={appBarClassName}>
     <Toolbar className={classes.toolbar}>
@@ -180,10 +175,13 @@ const AppPanel = (props: IProps) => {
           </Fab>
       }
       <div className={classes.wrapper}>
-        <Typography variant="h6" className={classes.subTitle}>
+        <Typography data-test-id="panelTitle" variant="h6" className={classes.subTitle}>
           {
             selected.length > 0 &&
-              <ClearIcon onClick={onSelectionReset} />
+              <ClearIcon
+                id="clearIcon"
+                onClick={onSelectionReset}
+              />
 
           }
           {subTitle}
@@ -213,8 +211,11 @@ const AppPanel = (props: IProps) => {
         {
           selected.length > 0 &&
             <div style={{display: `flex`}}>
-              {selected.length === 1 && <EditIcon />}
-              <DeleteIcon onClick={onItemsDelete} />
+              {selected.length === 1 && <EditIcon id="editIcon" />}
+              <DeleteIcon
+                id="deleteIcon"
+                onClick={onItemsDelete}
+              />
             </div>
         }
       </div>
@@ -228,7 +229,6 @@ const AppPanel = (props: IProps) => {
       isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
       onItemsExactlyDelete={onItemsExactlyDelete}
       onItemsUndoDelete={onItemsUndoDelete}
-      // onClick={onItemsDelete}
     />
   </AppBar>;
 };

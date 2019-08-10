@@ -21,7 +21,7 @@ const classes = {
 
 interface IProps {
 
-};
+}
 
 /**
  * @prop {number[]} selected Выбранные задачи в списке.
@@ -40,7 +40,7 @@ interface IState {
   isOpenConfirmDeleteDialog: boolean;
   isOpenUndoDeleteSnackbar: boolean;
   deletedList: number[];
-};
+}
 
 class Main extends React.Component<IProps, IState> {
   state: IState = {
@@ -130,21 +130,38 @@ class Main extends React.Component<IProps, IState> {
   }
 
   handleItemsUndoDelete = (): void => {
-    const {taskList} = this.state;
+    const {
+      taskList,
+      searchTitle
+    } = this.state;
+    const newLeftTaskList: TaskItem[] = !searchTitle ?
+      taskList :
+      taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
 
     this.setState({
       selected: [],
-      leftTaskList: taskList,
+      leftTaskList: newLeftTaskList,
       isOpenUndoDeleteSnackbar: false,
       deletedList: []
     });
   }
 
   handleItemsExactlyDelete = (): void => {
-    const {leftTaskList} = this.state;
+    const {
+      taskList,
+      searchTitle,
+      deletedList
+    } = this.state;
+
+    const newTaskList = taskList.filter(({id}) => !deletedList.includes(id));
+    const newLeftTaskList: TaskItem[] = searchTitle === '' ?
+      newTaskList :
+      newTaskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
+
     this.setState({
       selected: [],
-      taskList: leftTaskList,
+      taskList: newTaskList,
+      leftTaskList: newLeftTaskList,
       isOpenUndoDeleteSnackbar: false,
       deletedList: []
     });

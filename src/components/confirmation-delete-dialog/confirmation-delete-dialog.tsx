@@ -23,10 +23,19 @@ const ConfirmationDeleteDialog = (props: IProps) => {
     >
       <DialogTitle id="alert-dialog-title">{'Delete selected tasks?'}</DialogTitle>
       <DialogActions>
-        <Button onClick={onTasksConfirmDelete} color="primary">
+        <Button
+          onClick={onTasksConfirmDelete}
+          color="primary"
+          id="confirmDelete"
+        >
           Delete
         </Button>
-        <Button onClick={onTasksCancelDelete} color="primary" autoFocus>
+        <Button
+          onClick={onTasksCancelDelete}
+          color="primary"
+          id="cancelDelete"
+          autoFocus
+        >
           Cancel
         </Button>
       </DialogActions>

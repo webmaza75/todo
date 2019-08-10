@@ -13,6 +13,7 @@ exports[`ConfirmationDeleteDialog ConfirmationDeleteDialog renders correctly 1`]
   <ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       color="primary"
+      id="confirmDelete"
       onClick={[MockFunction]}
     >
       Delete
@@ -20,6 +21,7 @@ exports[`ConfirmationDeleteDialog ConfirmationDeleteDialog renders correctly 1`]
     <ForwardRef(WithStyles)
       autoFocus={true}
       color="primary"
+      id="cancelDelete"
       onClick={[MockFunction]}
     >
       Cancel

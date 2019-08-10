@@ -10,7 +10,7 @@
     "start": "webpack-dev-server",
     "test.jest": "jest",
     "test.jest.update": "jest -u",
-    "test-e2e": "testcafe chrome:headless src/**/*.e2e.ts"
+    "test-e2e": "testcafe opera:headless src/testcafe/**/*.e2e.ts"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",

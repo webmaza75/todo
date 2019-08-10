@@ -24,6 +24,7 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
     >
       <ForwardRef(WithStyles)
         className="makeStyles-subTitle-3"
+        data-test-id="panelTitle"
         variant="h6"
       >
         Automated Tasks

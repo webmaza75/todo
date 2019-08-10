@@ -11,6 +11,7 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
     Array [
       <ForwardRef(WithStyles)
         color="secondary"
+        id="undoDelete"
         onClick={[MockFunction]}
         size="small"
       >
@@ -20,6 +21,7 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
         aria-label="close"
         className="makeStyles-close-1"
         color="inherit"
+        id="closeSnackbar"
         onClick={[MockFunction]}
       >
         <Memo />
@@ -33,6 +35,7 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
     }
   }
   autoHideDuration={6000}
+  id="snackBarForUndoDelete"
   message={
     <span
       id="message-id"

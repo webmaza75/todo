@@ -28,6 +28,7 @@ const SimpleSnackbar = (props: IProps) => {
   const classes = useStyles();
 
   return <Snackbar
+    id="snackBarForUndoDelete"
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'center',
@@ -39,10 +40,17 @@ const SimpleSnackbar = (props: IProps) => {
     }}
     message={<span id="message-id">Task deleted</span>}
     action={[
-      <Button key="undo" color="secondary" size="small" onClick={onItemsUndoDelete}>
+      <Button
+        id="undoDelete"
+        key="undo"
+        color="secondary"
+        size="small"
+        onClick={onItemsUndoDelete}
+      >
         UNDO
       </Button>,
       <IconButton
+        id="closeSnackbar"
         key="close"
         aria-label="close"
         color="inherit"
