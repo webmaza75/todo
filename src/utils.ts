@@ -1,7 +1,9 @@
+import {memoize} from 'lodash';
+
 export const getRepeatDays = (arr: number[]): string => {
   const dayNameList = [`Sun`, `Mon`, `Tue`, `Wed`, `Thur`, `Fri`, `Sat`];
   const uniqArr = [...new Set(arr)];
-  const sortedArr: number[] = uniqArr.sort();
+  const sortedArr: number[] = [...uniqArr].sort((a, b) => a - b);
   
   if (sortedArr.length === 2 && sortedArr.toString() === [0, 6].toString()) {
     return `Weekend`;
@@ -22,3 +24,9 @@ export const getReportTime = (date: string): string => {
   let tempStr: string = new Date(date).getMinutes().toString();
   return `${hours}:${tempStr.padStart(2, `0`)} ${extentionTime}`;
 };
+
+export const getLeftTaskList = memoize(({deletedList, taskList, searchTitle}) => {
+  return searchTitle === '' ?
+    taskList.filter(({id}) => !deletedList.includes(id)) :
+    taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1 && !deletedList.includes(id));
+});

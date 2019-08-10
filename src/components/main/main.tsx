@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {memoize} from 'lodash';
 
 import Navbar from '../navbar/navbar';
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
 import {TaskItem} from '../../types';
+import {getLeftTaskList} from '../../utils';
 import taskList from '../../mocks/taskList';
 
 const classes = {
@@ -27,7 +29,6 @@ interface IProps {
  * @prop {number[]} selected Выбранные задачи в списке.
  * @prop {string} searchTitle Название задачи для поиска.
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
- * @prop {TaskItem[]} leftTaskList Оставшиеся после удаления задачи.
  * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
  * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
  * @prop {number[]} deletedList id всех удаленных элементов.
@@ -36,7 +37,6 @@ interface IState {
   selected: number[];
   searchTitle: string;
   taskList: TaskItem[];
-  leftTaskList: TaskItem[];
   isOpenConfirmDeleteDialog: boolean;
   isOpenUndoDeleteSnackbar: boolean;
   deletedList: number[];
@@ -46,7 +46,6 @@ class Main extends React.Component<IProps, IState> {
   state: IState = {
     selected: [],
     taskList,
-    leftTaskList: taskList,
     searchTitle: '',
     isOpenConfirmDeleteDialog: false,
     isOpenUndoDeleteSnackbar: false,
@@ -55,12 +54,16 @@ class Main extends React.Component<IProps, IState> {
 
   render() {
     const {
+      taskList,
       selected,
-      leftTaskList,
       searchTitle,
       isOpenConfirmDeleteDialog,
-      isOpenUndoDeleteSnackbar
+      isOpenUndoDeleteSnackbar,
+      deletedList
     } = this.state;
+
+    const leftTaskList = getLeftTaskList({deletedList, taskList, searchTitle});
+
     return <div style={classes.root}>
       <Navbar />
       <AppPanel
@@ -130,17 +133,8 @@ class Main extends React.Component<IProps, IState> {
   }
 
   handleItemsUndoDelete = (): void => {
-    const {
-      taskList,
-      searchTitle
-    } = this.state;
-    const newLeftTaskList: TaskItem[] = !searchTitle ?
-      taskList :
-      taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
-
     this.setState({
       selected: [],
-      leftTaskList: newLeftTaskList,
       isOpenUndoDeleteSnackbar: false,
       deletedList: []
     });
@@ -149,19 +143,14 @@ class Main extends React.Component<IProps, IState> {
   handleItemsExactlyDelete = (): void => {
     const {
       taskList,
-      searchTitle,
       deletedList
     } = this.state;
 
     const newTaskList = taskList.filter(({id}) => !deletedList.includes(id));
-    const newLeftTaskList: TaskItem[] = searchTitle === '' ?
-      newTaskList :
-      newTaskList.filter(({title}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
 
     this.setState({
       selected: [],
       taskList: newTaskList,
-      leftTaskList: newLeftTaskList,
       isOpenUndoDeleteSnackbar: false,
       deletedList: []
     });
@@ -178,23 +167,8 @@ class Main extends React.Component<IProps, IState> {
   }
 
   getSearchList = (value: string): void => {
-    const {
-      taskList,
-      deletedList
-    } = this.state;
-    let res: TaskItem[];
-
-    const searchTitle = value.trimLeft().replace(/\s{2,}/, ' ');
-
-    if (searchTitle !== '') {
-      res = taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1 && !deletedList.includes(id));
-    } else {
-      res = taskList.filter(({id}) => !deletedList.includes(id));
-    }
-  
     this.setState({
-      searchTitle: searchTitle,
-      leftTaskList: res
+      searchTitle: value.trimLeft().replace(/\s{2,}/, ' ')
     });
   }
 
@@ -207,18 +181,11 @@ class Main extends React.Component<IProps, IState> {
   handleTasksConfirmDelete = () => {
     const {
       selected,
-      leftTaskList,
-      searchTitle,
       deletedList
     } = this.state;
 
-    const res: TaskItem[] = !searchTitle ?
-      leftTaskList.filter(({id}) => !selected.includes(id)) :
-      leftTaskList.filter(({id, title}) => !selected.includes(id) && this.filterBySearchTitle(title, searchTitle));
-    
     this.setState({
       selected: [],
-      leftTaskList: res,
       isOpenConfirmDeleteDialog: false,
       isOpenUndoDeleteSnackbar: true,
       deletedList: [...deletedList, ...selected]

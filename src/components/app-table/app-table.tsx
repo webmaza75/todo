@@ -15,7 +15,7 @@ interface IProps {
   selected: number[];
   taskList: TaskItem[];
   onItemSelect: (id: number) => void;
-};
+}
 
 const AppTable = (props: IProps) => {
   const {
