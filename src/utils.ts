@@ -1,4 +1,6 @@
-import {memoize} from 'lodash';
+import memoizeOne from 'memoize-one';
+
+import {TaskItem} from './types';
 
 export const getRepeatDays = (arr: number[]): string => {
   const dayNameList = [`Sun`, `Mon`, `Tue`, `Wed`, `Thur`, `Fri`, `Sat`];
@@ -25,8 +27,12 @@ export const getReportTime = (date: string): string => {
   return `${hours}:${tempStr.padStart(2, `0`)} ${extentionTime}`;
 };
 
-export const getLeftTaskList = memoize(({deletedList, taskList, searchTitle}) => {
+export const getLeftTaskList = memoizeOne((taskList: TaskItem[], searchTitle: string) => {
   return searchTitle === '' ?
-    taskList.filter(({id}) => !deletedList.includes(id)) :
-    taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1 && !deletedList.includes(id));
+    taskList :
+    taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
 });
+
+export const getSortedByIdTaskList = (taskList: TaskItem[]): TaskItem[] => {
+  return [...taskList].sort((item1, item2) => item1.id - item2.id);
+};

@@ -1,11 +1,13 @@
 import * as React from 'react';
-import {memoize} from 'lodash';
 
 import Navbar from '../navbar/navbar';
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
 import {TaskItem} from '../../types';
-import {getLeftTaskList} from '../../utils';
+import {
+  getLeftTaskList,
+  getSortedByIdTaskList
+} from '../../utils';
 import taskList from '../../mocks/taskList';
 
 const classes = {
@@ -31,7 +33,7 @@ interface IProps {
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
  * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
  * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
- * @prop {number[]} deletedList id всех удаленных элементов.
+ * @prop {TaskItem[]} undoList список удаленных элементов для восстановления.
  */
 interface IState {
   selected: number[];
@@ -39,7 +41,7 @@ interface IState {
   taskList: TaskItem[];
   isOpenConfirmDeleteDialog: boolean;
   isOpenUndoDeleteSnackbar: boolean;
-  deletedList: number[];
+  undoList: TaskItem[];
 }
 
 class Main extends React.Component<IProps, IState> {
@@ -49,7 +51,7 @@ class Main extends React.Component<IProps, IState> {
     searchTitle: '',
     isOpenConfirmDeleteDialog: false,
     isOpenUndoDeleteSnackbar: false,
-    deletedList: []
+    undoList: []
   };
 
   render() {
@@ -59,10 +61,9 @@ class Main extends React.Component<IProps, IState> {
       searchTitle,
       isOpenConfirmDeleteDialog,
       isOpenUndoDeleteSnackbar,
-      deletedList
     } = this.state;
 
-    const leftTaskList = getLeftTaskList({deletedList, taskList, searchTitle});
+    const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
 
     return <div style={classes.root}>
       <Navbar />
@@ -104,6 +105,10 @@ class Main extends React.Component<IProps, IState> {
    */
   handleItemSelect = (id: number): void => {
     const {selected} = this.state;
+    if (!selected.length) {
+      this.handleItemsExactlyDelete();
+    }
+
     const res = selected.includes(id);
 
     if (res === false) {
@@ -133,26 +138,20 @@ class Main extends React.Component<IProps, IState> {
   }
 
   handleItemsUndoDelete = (): void => {
+    const {taskList, undoList} = this.state;
+
     this.setState({
       selected: [],
       isOpenUndoDeleteSnackbar: false,
-      deletedList: []
+      taskList: [...taskList, ...undoList]
     });
   }
 
   handleItemsExactlyDelete = (): void => {
-    const {
-      taskList,
-      deletedList
-    } = this.state;
-
-    const newTaskList = taskList.filter(({id}) => !deletedList.includes(id));
-
     this.setState({
       selected: [],
-      taskList: newTaskList,
       isOpenUndoDeleteSnackbar: false,
-      deletedList: []
+      undoList: []
     });
   }
 
@@ -181,14 +180,18 @@ class Main extends React.Component<IProps, IState> {
   handleTasksConfirmDelete = () => {
     const {
       selected,
-      deletedList
+      taskList
     } = this.state;
+
+    const newTaskList = taskList.filter(({id}) => !selected.includes(id));
+    const undoList = taskList.filter(({id}) => selected.includes(id));
 
     this.setState({
       selected: [],
       isOpenConfirmDeleteDialog: false,
       isOpenUndoDeleteSnackbar: true,
-      deletedList: [...deletedList, ...selected]
+      taskList: newTaskList,
+      undoList 
     });
   }
 }

@@ -34,7 +34,8 @@ const SimpleSnackbar = (props: IProps) => {
       horizontal: 'center',
     }}
     open={isOpenUndoDeleteSnackbar}
-    autoHideDuration={6000}
+    onClose={onItemsExactlyDelete}
+    autoHideDuration={5000}
     ContentProps={{
       'aria-describedby': 'message-id',
     }}
