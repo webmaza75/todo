@@ -1,4 +1,5 @@
-import memoizeOne from 'memoize-one';
+const memoizeOne = require('memoize-one').default;
+// import * as memoizeOne from 'memoize-one';
 
 import {TaskItem} from './types';
 
@@ -27,7 +28,7 @@ export const getReportTime = (date: string): string => {
   return `${hours}:${tempStr.padStart(2, `0`)} ${extentionTime}`;
 };
 
-export const getLeftTaskList = memoizeOne((taskList: TaskItem[], searchTitle: string) => {
+export const getLeftTaskList = memoizeOne((taskList: TaskItem[], searchTitle: string): TaskItem[] => {
   return searchTitle === '' ?
     taskList :
     taskList.filter(({title, id}) => title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);

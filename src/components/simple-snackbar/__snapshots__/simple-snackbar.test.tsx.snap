@@ -34,7 +34,7 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
       "vertical": "bottom",
     }
   }
-  autoHideDuration={6000}
+  autoHideDuration={5000}
   id="snackBarForUndoDelete"
   message={
     <span
@@ -43,6 +43,7 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
       Task deleted
     </span>
   }
+  onClose={[MockFunction]}
   open={false}
 />
 `;

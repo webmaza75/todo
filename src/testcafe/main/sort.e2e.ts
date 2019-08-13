@@ -1,29 +1,27 @@
-import {Selector} from 'testcafe';
+import Table from './page-models/table';
+
+const table = new Table();
 
 fixture(`sort`)
   .page(`http://localhost:3000`);
 
 test('Sort tasks desc', async t => {
-  const searchAscSortedInput = await Selector('.MuiTableSortLabel-iconDirectionAsc');
-  const searchDescSortedInput = await Selector('.MuiTableSortLabel-iconDirectionDesc', {visibilityCheck: true});
   
   await t
-    .expect(Selector(searchAscSortedInput).exists).ok()
-    .click(searchAscSortedInput)
-    .click(searchAscSortedInput)
-    .expect(searchAscSortedInput.exists).notOk()
-    .expect(searchDescSortedInput.exists).ok(); 
+    .expect(table.searchAscSortedInput.exists).ok()
+    .click(table.searchAscSortedInput)
+    .click(table.searchAscSortedInput)
+    .expect(table.searchAscSortedInput.exists).notOk()
+    .expect(table.searchDescSortedInput.exists).ok(); 
 });
 
 test('Sort tascs asc', async t => {
-  const searchAscSortedInput = await Selector('.MuiTableSortLabel-iconDirectionAsc');
-  const searchDescSortedInput = await Selector('.MuiTableSortLabel-iconDirectionDesc', {visibilityCheck: true});
   
   await t
-    .expect(Selector(searchAscSortedInput).exists).ok()
-    .click(searchAscSortedInput)
-    .click(searchAscSortedInput)
-    .click(searchDescSortedInput)
-    .expect(searchDescSortedInput.exists).notOk()
-    .expect(searchAscSortedInput.exists).ok(); 
+    .expect(table.searchAscSortedInput.exists).ok()
+    .click(table.searchAscSortedInput)
+    .click(table.searchAscSortedInput)
+    .click(table.searchDescSortedInput)
+    .expect(table.searchDescSortedInput.exists).notOk()
+    .expect(table.searchAscSortedInput.exists).ok(); 
 });
