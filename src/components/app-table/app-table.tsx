@@ -23,20 +23,7 @@ const AppTable = (props: IProps) => {
     selected,
     taskList
   } = props;
-  const formattedTaskList = taskList.map(({id, type, title, timeZone, reportTime, repeat}) => {
-    const isSelectedItem = selected.includes(id);
 
-    return {
-      id,
-      type,
-      title,
-      timeZone,
-      reportTime: getReportTime(reportTime),
-      repeat: getRepeatDays(repeat),
-      selected: isSelectedItem,
-      ['data-test-id']: `row-${id}`
-    }
-  });
   const cellStyle = {
     fontSize: 16,
     borderBottom: 0,
@@ -64,7 +51,7 @@ const AppTable = (props: IProps) => {
         },
         toolbar: false,
         rowStyle: (rowData) => ({
-          backgroundColor: rowData.selected ? cyan[100]: 'transparent'
+          backgroundColor: selected.includes(rowData.id) ? cyan[100]: 'transparent'
         })
       }}
       columns={[
@@ -80,7 +67,7 @@ const AppTable = (props: IProps) => {
           render: (rowData) => <SelectAvatar
             isSelectMode={selected.length > 0}
             type={rowData.type}
-            selected={rowData.selected}
+            selected={selected.includes(rowData.id)}
           />
         },
         {
@@ -98,20 +85,22 @@ const AppTable = (props: IProps) => {
           title: "Report Time",
           field: "reportTime",
           sorting: false,
-          cellStyle
+          cellStyle,
+          render: (rowData) => getReportTime(rowData.reportTime)
         },
         {
           title: "Repeat",
           field: "repeat",
           sorting: false,
-          cellStyle
+          cellStyle,
+          render: (rowData) => getRepeatDays(rowData.repeat)
         },
       ]}
-      data={formattedTaskList}
+      data={taskList}
       components={{
         Row: props => <MTableBodyRow
           {...props}
-          data-test-id={props.data['data-test-id']}
+          data-test-id={`row-${props.data.id}`}
         />
       }}
     />
