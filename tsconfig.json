@@ -12,10 +12,11 @@
       "scripthost"
     ],
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false,
     "noErrorTruncation": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",

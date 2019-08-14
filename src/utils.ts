@@ -1,5 +1,4 @@
-const memoizeOne = require('memoize-one').default;
-// import * as memoizeOne from 'memoize-one';
+import memoizeOne from 'memoize-one';
 
 import {TaskItem} from './types';
 
