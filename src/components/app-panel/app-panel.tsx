@@ -18,6 +18,7 @@ import {cyan} from '@material-ui/core/colors';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
 import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     subTitle: {
       fontSize: 25,
       maxWidth: 500,
-      marginLeft: `70px`,
+      marginLeft: 70,
       textTransform: 'uppercase'
     },
     appBar: {
@@ -130,6 +131,8 @@ const useStyles = makeStyles((theme: Theme) =>
  * @prop {boolean} isOpenUndoDeleteSnackbar Флаг открытия snackbar для возможности восстановления ранее удаленных задач.
  * @prop {Function} onItemsExactlyDelete callback на закрытие snackbar.
  * @prop {Function} onItemsUndoDelete callback на восстановление удаленых задач.
+ * @prop {Function} onToggleTaskForm callback на открытие формы добавления задачи.
+ * @prop {boolean} isTaskFormOpen Флаг открытия формы добавления задачи.
  */
 interface IProps {
   selected: number[];
@@ -143,7 +146,23 @@ interface IProps {
   isOpenUndoDeleteSnackbar: boolean;
   onItemsExactlyDelete: () => void;
   onItemsUndoDelete: () => void;
+  onToggleTaskForm: () => void;
+  isTaskFormOpen: boolean;
+}
+
+const subTitleList = {
+  list: `Automated Tasks`,
+  select: ` Selected`,
+  add: `Create Automated Task`
 };
+
+function getSubTitle(isTaskFormOpen: boolean, selected: number[]) : string {
+  if (isTaskFormOpen) {
+    return subTitleList.add;
+  }
+  const subTitle: string = !selected.length ? subTitleList.list : `${selected.length} ${subTitleList.select}`;
+  return subTitle;
+}
 
 const AppPanel = (props: IProps) => {
   const {
@@ -157,20 +176,28 @@ const AppPanel = (props: IProps) => {
     onTasksConfirmDelete,
     isOpenUndoDeleteSnackbar,
     onItemsExactlyDelete,
-    onItemsUndoDelete
+    onItemsUndoDelete,
+    onToggleTaskForm,
+    isTaskFormOpen
   } = props;
   
   const classes = useStyles();
   const appBarClassName = !selected.length ? classes.appBar : `${classes.appBar} ${classes.appBarWithSelect}`;
-  const subTitle: string = !selected.length ? `Automated Tasks` : `${selected.length} Selected`;
+  const subTitle: string = getSubTitle(isTaskFormOpen, selected);
+  const wrapperStyle = isTaskFormOpen ? {boxShadow: 'none'} : {};
 
-  return <AppBar className={appBarClassName}>
+  return <AppBar className={appBarClassName} style={wrapperStyle}>
     <Toolbar className={classes.toolbar}>
       <IconButton edge="start" color="inherit" aria-label="Menu">
       </IconButton>
       {
-        selected.length === 0 &&
-          <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+        selected.length === 0 && !isTaskFormOpen &&
+          <Fab color="secondary"
+            aria-label="Add"
+            className={classes.fabButton}
+            id="addIcon"
+            onClick={onToggleTaskForm}
+          >
             <AddIcon />
           </Fab>
       }
@@ -184,10 +211,17 @@ const AppPanel = (props: IProps) => {
               />
 
           }
+          {
+            isTaskFormOpen &&
+              <ArrowBackIcon
+                id="arrowBack"
+                onClick={onToggleTaskForm}
+              />
+          }
           {subTitle}
         </Typography>
         {
-          selected.length === 0 &&
+          selected.length === 0 && !isTaskFormOpen &&
             <div className={classes.search}>
               <Grid container spacing={1} alignItems="flex-end">
                 <Grid item>

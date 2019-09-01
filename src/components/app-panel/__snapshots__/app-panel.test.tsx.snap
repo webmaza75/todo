@@ -3,6 +3,7 @@
 exports[`AppPanel AppPanel renders correctly 1`] = `
 <ForwardRef(WithStyles)
   className="makeStyles-appBar-4"
+  style={Object {}}
 >
   <ForwardRef(WithStyles)
     className="makeStyles-toolbar-2"
@@ -16,6 +17,8 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
       aria-label="Add"
       className="makeStyles-fabButton-8"
       color="secondary"
+      id="addIcon"
+      onClick={[MockFunction]}
     >
       <Memo />
     </ForwardRef(WithStyles)>

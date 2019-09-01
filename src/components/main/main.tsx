@@ -9,6 +9,8 @@ import {
   getSortedByIdTaskList
 } from '../../utils';
 import taskList from '../../mocks/taskList';
+import TaskForm from '../task-form/task-form';
+import FormStepper from '../form-stepper/form-stepper';
 
 const classes = {
   root: {
@@ -20,6 +22,29 @@ const classes = {
     marginBottom: 20,
     marginLeft: 'auto',
     width: '80%'
+  },
+  formWrapper: {
+    width: '100%',
+    maxWidth: '1280',
+    margin: '150px auto 20px',
+    padding: '90px 30px 30px',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+    border: 'solid #C4C4C4 1px',
+    boxShadow: '0 2px 4px rgba(0,0,0,.24)'
+  },
+  formWrapperTop: {
+    backgroundColor: '#223C6E',
+    width: '100%',
+  },
+  formWrapperStepper: {
+    border: '1px solid #c4c4c4',
+    borderBottom: '1px solid #e0e0e0',
+    width: '80%',
+    maxWidth: '1280',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    backgroundColor: '#FFFFFF',
   }
 };
 
@@ -34,6 +59,7 @@ interface IProps {
  * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
  * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
  * @prop {TaskItem[]} undoList список удаленных элементов для восстановления.
+ * @prop {boolean} isTaskFormOpen Открытие формы создания (редактирвания) задачи.
  */
 interface IState {
   selected: number[];
@@ -42,6 +68,7 @@ interface IState {
   isOpenConfirmDeleteDialog: boolean;
   isOpenUndoDeleteSnackbar: boolean;
   undoList: TaskItem[];
+  isTaskFormOpen: boolean;
 }
 
 class Main extends React.Component<IProps, IState> {
@@ -51,7 +78,8 @@ class Main extends React.Component<IProps, IState> {
     searchTitle: '',
     isOpenConfirmDeleteDialog: false,
     isOpenUndoDeleteSnackbar: false,
-    undoList: []
+    undoList: [],
+    isTaskFormOpen: false
   };
 
   render() {
@@ -61,11 +89,13 @@ class Main extends React.Component<IProps, IState> {
       searchTitle,
       isOpenConfirmDeleteDialog,
       isOpenUndoDeleteSnackbar,
+      isTaskFormOpen
     } = this.state;
 
     const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
+    const rootStyle = isTaskFormOpen ? {backgroundColor: '#E3F2FD'} : {};
 
-    return <div style={classes.root}>
+    return <div style={{...classes.root, ...rootStyle}}>
       <Navbar />
       <AppPanel
         selected={selected}
@@ -79,13 +109,25 @@ class Main extends React.Component<IProps, IState> {
         isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
         onItemsExactlyDelete={this.handleItemsExactlyDelete}
         onItemsUndoDelete={this.handleItemsUndoDelete}
+        onToggleTaskForm={this.handleToggleTaskForm}
+        isTaskFormOpen={isTaskFormOpen}
       />
+      {
+          isTaskFormOpen && <div style={{...classes.formWrapperTop, position: 'fixed'}} id="formWrapper">
+            <div style={classes.formWrapperStepper}>
+              <FormStepper />
+            </div>
+          </div>
+        }
       <div style={classes.tableWrapper}>
-        <AppTable
+        {!isTaskFormOpen && <AppTable
           taskList={leftTaskList}
           onItemSelect={this.handleItemSelect}
           selected={selected}
-        />
+        />}
+        {isTaskFormOpen && <div style={classes.formWrapper}>
+          <TaskForm />
+        </div>}
       </div>
     </div>;
   }
@@ -193,6 +235,14 @@ class Main extends React.Component<IProps, IState> {
       taskList: newTaskList,
       undoList 
     });
+  }
+
+  handleToggleTaskForm = () => {
+    this.setState(
+      (prevState) => ({
+        isTaskFormOpen: !prevState.isTaskFormOpen
+      })
+    );
   }
 }
 

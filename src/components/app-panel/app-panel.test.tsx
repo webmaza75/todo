@@ -20,6 +20,8 @@ describe(`AppPanel`, () => {
         isOpenUndoDeleteSnackbar={false}
         onItemsExactlyDelete={jest.fn()}
         onItemsUndoDelete={jest.fn()}
+        onToggleTaskForm={jest.fn()}
+        isTaskFormOpen={false}
       />);
     
     expect(result).toMatchSnapshot();

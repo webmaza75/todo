@@ -12,6 +12,7 @@ exports[`Main Main renders correctly 1`] = `
   <AppPanel
     isOpenConfirmDeleteDialog={false}
     isOpenUndoDeleteSnackbar={false}
+    isTaskFormOpen={false}
     onInputChange={[Function]}
     onItemsDelete={[Function]}
     onItemsExactlyDelete={[Function]}
@@ -19,6 +20,7 @@ exports[`Main Main renders correctly 1`] = `
     onSelectionReset={[Function]}
     onTasksCancelDelete={[Function]}
     onTasksConfirmDelete={[Function]}
+    onToggleTaskForm={[Function]}
     searchTitle=""
     selected={Array []}
   />
