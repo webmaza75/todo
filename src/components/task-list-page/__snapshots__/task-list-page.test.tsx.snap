@@ -1,14 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main Main renders correctly 1`] = `
-<div
-  style={
-    Object {
-      "flexGrow": 1,
-    }
-  }
->
-  <Navbar />
+exports[`TaskListPage TaskListPage renders correctly 1`] = `
+<React.Fragment>
   <AppPanel
     isOpenConfirmDeleteDialog={false}
     isOpenUndoDeleteSnackbar={false}
@@ -108,5 +101,5 @@ exports[`Main Main renders correctly 1`] = `
       }
     />
   </div>
-</div>
+</React.Fragment>
 `;

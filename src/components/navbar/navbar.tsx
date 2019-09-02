@@ -15,10 +15,12 @@ import Logo from '../logo/logo';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
+
   },
   toolbar: {
     paddingLeft: 0,
-    maxHeight: 50
+    maxHeight: 50,
+    minHeight: 50
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -28,10 +30,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
     fontSize: 20,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   navBar: {
-    position: `fixed`,
+    position: `sticky`,
     height: 50,
     width: `100%`,
     backgroundColor: `#192F57`
@@ -45,7 +47,7 @@ const Navbar = () => {
 
   return <AppBar className={classes.navBar}>
     <Toolbar className={classes.toolbar}>
-      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
+      <IconButton edge="start" className={classes.menuButton} color="inherit">
         <Logo />
       </IconButton>
       <Typography variant="h6" className={classes.title}>

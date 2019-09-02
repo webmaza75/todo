@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ShallowRenderer from 'react-test-renderer/shallow';
 
-import Main from './main';
+import TaskListPage from './task-list-page';
 
-describe(`Main`, () => {
-  it(`Main renders correctly`, () => {
+describe(`TaskListPage`, () => {
+  it(`TaskListPage renders correctly`, () => {
     const renderer = ShallowRenderer.createRenderer();
     const result = renderer
-      .render(<Main />);
+      .render(<TaskListPage />);
 
     expect(result).toMatchSnapshot();
   });

@@ -8,7 +8,6 @@ exports[`Navbar Navbar renders correctly 1`] = `
     className="makeStyles-toolbar-2"
   >
     <ForwardRef(WithStyles)
-      aria-label="Menu"
       className="makeStyles-menuButton-3"
       color="inherit"
       edge="start"

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 50,
     backgroundColor: `#000000`,
     fontSize: 12,
-    padding: 0
+    paddingTop: 18
   }
 }));
 

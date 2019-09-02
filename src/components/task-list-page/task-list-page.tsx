@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Navbar from '../navbar/navbar';
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
 import {TaskItem} from '../../types';
@@ -13,9 +12,6 @@ import TaskForm from '../task-form/task-form';
 import FormStepper from '../form-stepper/form-stepper';
 
 const classes = {
-  root: {
-    flexGrow: 1,
-  },
   tableWrapper: {
     marginTop: 150,
     marginRight: 'auto',
@@ -71,7 +67,7 @@ interface IState {
   isTaskFormOpen: boolean;
 }
 
-class Main extends React.Component<IProps, IState> {
+class TaskListPage extends React.Component<IProps, IState> {
   state: IState = {
     selected: [],
     taskList,
@@ -93,10 +89,8 @@ class Main extends React.Component<IProps, IState> {
     } = this.state;
 
     const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
-    const rootStyle = isTaskFormOpen ? {backgroundColor: '#E3F2FD'} : {};
 
-    return <div style={{...classes.root, ...rootStyle}}>
-      <Navbar />
+    return <>
       <AppPanel
         selected={selected}
         onSelectionReset={this.handleSelectionReset}
@@ -113,7 +107,7 @@ class Main extends React.Component<IProps, IState> {
         isTaskFormOpen={isTaskFormOpen}
       />
       {
-          isTaskFormOpen && <div style={{...classes.formWrapperTop, position: 'fixed'}} id="formWrapper">
+          isTaskFormOpen && <div style={{...classes.formWrapperTop, position: 'sticky'}} id="formWrapper">
             <div style={classes.formWrapperStepper}>
               <FormStepper />
             </div>
@@ -129,7 +123,7 @@ class Main extends React.Component<IProps, IState> {
           <TaskForm />
         </div>}
       </div>
-    </div>;
+    </>;
   }
 
   // /**
@@ -246,4 +240,4 @@ class Main extends React.Component<IProps, IState> {
   }
 }
 
-export default Main;
+export default TaskListPage;

@@ -19,6 +19,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from 'react-router-dom';
 
 import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
 import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
@@ -65,11 +66,10 @@ const useStyles = makeStyles((theme: Theme) =>
       color: `#FFFFFF`
     },
     fabButton: {
-      position: 'fixed',
+      position: 'absolute',
       zIndex: 1,
-      top: 120,
-      left: `15%`,
-      right: 0
+      top: 70,
+      left: `15%`
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: `flex`,
       justifyContent: `space-between`,
       alignItems: `center`,
-      paddingLeft: `70px`
+      paddingLeft: 70
     }
   })
 );
@@ -192,14 +192,16 @@ const AppPanel = (props: IProps) => {
       </IconButton>
       {
         selected.length === 0 && !isTaskFormOpen &&
-          <Fab color="secondary"
-            aria-label="Add"
-            className={classes.fabButton}
-            id="addIcon"
-            onClick={onToggleTaskForm}
-          >
-            <AddIcon />
-          </Fab>
+          <Link to="/add/">
+            <Fab color="secondary"
+              aria-label="Add"
+              className={classes.fabButton}
+              id="addIcon"
+              onClick={onToggleTaskForm}
+            >
+              <AddIcon />
+            </Fab>
+          </Link>
       }
       <div className={classes.wrapper}>
         <Typography data-test-id="panelTitle" variant="h6" className={classes.subTitle}>
@@ -213,10 +215,12 @@ const AppPanel = (props: IProps) => {
           }
           {
             isTaskFormOpen &&
-              <ArrowBackIcon
-                id="arrowBack"
-                onClick={onToggleTaskForm}
-              />
+              <Link to="/">
+                <ArrowBackIcon
+                  id="arrowBack"
+                  onClick={onToggleTaskForm}
+                />
+              </Link>
           }
           {subTitle}
         </Typography>

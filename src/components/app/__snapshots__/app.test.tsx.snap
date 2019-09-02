@@ -2,6 +2,25 @@
 
 exports[`App App renders correctly 1`] = `
 <CssBaseline>
-  <Main />
+  <Switch>
+    <div
+      style={
+        Object {
+          "flexGrow": 1,
+        }
+      }
+    >
+      <Navbar />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        path="/add/"
+      />
+    </div>
+  </Switch>
 </CssBaseline>
 `;

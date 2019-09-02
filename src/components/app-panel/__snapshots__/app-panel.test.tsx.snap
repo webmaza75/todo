@@ -13,15 +13,19 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
       color="inherit"
       edge="start"
     />
-    <ForwardRef(WithStyles)
-      aria-label="Add"
-      className="makeStyles-fabButton-8"
-      color="secondary"
-      id="addIcon"
-      onClick={[MockFunction]}
+    <Link
+      to="/add/"
     >
-      <Memo />
-    </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        aria-label="Add"
+        className="makeStyles-fabButton-8"
+        color="secondary"
+        id="addIcon"
+        onClick={[MockFunction]}
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+    </Link>
     <div
       className="makeStyles-wrapper-12"
     >
