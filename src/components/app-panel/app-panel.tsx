@@ -152,7 +152,7 @@ interface IProps {
 
 const subTitleList = {
   list: `Automated Tasks`,
-  select: ` Selected`,
+  select: `Selected`,
   add: `Create Automated Task`
 };
 
