@@ -12,18 +12,26 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: 100,
       marginLeft: 'auto',
       marginRight: 'auto',
+    },
+    panel: {
+      width: '100%',
+      position: 'sticky',
+      height: 64,
+      backgroundColor: `#223C6E`,
+    },
+    wrapper: {
+      width: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      backgroundColor: `white`,
     }
   }),
 );
 
-function getSteps() {
-  return ['General setting', 'Configuration'];
-}
-
 export default function FormStepper() {
   const classes = useStyles();
   const [activeStep/*, setActiveStep*/] = React.useState(0);
-  const steps = getSteps();
+  const steps = ['General setting', 'Configuration'];
 
   // function handleNext() {
   //   setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -38,14 +46,18 @@ export default function FormStepper() {
   // }
 
   return (
-    <div className={classes.root}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map(label => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    <div className={classes.panel}>
+      <div className={classes.wrapper}>
+        <div className={classes.root}>
+          <Stepper nonLinear activeStep={activeStep}>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+      </div>
     </div>
   );
 }

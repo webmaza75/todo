@@ -1,5 +1,4 @@
 import * as React from 'react';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -15,6 +14,7 @@ export default function FormSwitcher() {
   return (
     <FormControlLabel
       label="Task enabled"
+      style={{justifyContent: 'space-between'}}
       labelPlacement="start"
       control={
         <Switch

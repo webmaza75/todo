@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  fade,
   makeStyles,
   createStyles,
   Theme
@@ -26,9 +25,6 @@ import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
     toolbar: {
       paddingLeft: 0,
       maxHeight: 50,

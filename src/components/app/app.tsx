@@ -6,8 +6,6 @@ import TaskListPage from '../task-list-page/task-list-page';
 import TaskForm from '../task-form/task-form';
 import Navbar from '../navbar/navbar';
 
-// const rootStyle = isTaskFormOpen ? {backgroundColor: '#E3F2FD'} : {};
-
 const App = () => {
   return <CssBaseline>
     <Switch>
