@@ -28,22 +28,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function FormStepper() {
+interface IProps {
+  activeStep: number;
+}
+
+export default function FormStepper(props: IProps) {
   const classes = useStyles();
-  const [activeStep/*, setActiveStep*/] = React.useState(0);
+  const {activeStep} = props;
   const steps = ['General setting', 'Configuration'];
-
-  // function handleNext() {
-  //   setActiveStep(prevActiveStep => prevActiveStep + 1);
-  // }
-
-  // function handleBack() {
-  //   setActiveStep(prevActiveStep => prevActiveStep - 1);
-  // }
-
-  // function handleReset() {
-  //   setActiveStep(0);
-  // }
 
   return (
     <div className={classes.panel}>
@@ -52,7 +44,7 @@ export default function FormStepper() {
           <Stepper nonLinear activeStep={activeStep}>
             {steps.map(label => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel completed={activeStep === 1 && label === steps[0]}>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>

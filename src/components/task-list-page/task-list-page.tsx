@@ -9,7 +9,6 @@ import {
 } from '../../utils';
 import taskList from '../../mocks/taskList';
 import TaskForm from '../task-form/task-form';
-import FormStepper from '../form-stepper/form-stepper';
 
 const classes = {
   tableWrapper: {
@@ -106,13 +105,7 @@ class TaskListPage extends React.Component<IProps, IState> {
         onToggleTaskForm={this.handleToggleTaskForm}
         isTaskFormOpen={isTaskFormOpen}
       />
-      {
-          isTaskFormOpen && <div style={{...classes.formWrapperTop, position: 'sticky'}} id="formWrapper">
-            <div style={classes.formWrapperStepper}>
-              <FormStepper />
-            </div>
-          </div>
-        }
+
       <div style={classes.tableWrapper}>
         {!isTaskFormOpen && <AppTable
           taskList={leftTaskList}

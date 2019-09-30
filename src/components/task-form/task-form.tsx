@@ -70,164 +70,236 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
 }
 
+interface State {
+  taskTitle: string;
+  taskType: string;
+  timeZone: string;
+  reportTime: string;
+  from: string;
+  repeat: string;
+  recipient: string;
+  equipment: string;
+}
+
 const TaskForm = (props: IProps) => {
   const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [values, setValues] = React.useState<State>({
+    taskTitle: '',
+    taskType: '',
+    timeZone: '',
+    reportTime: '',
+    from: '',
+    repeat: '',
+    recipient: '',
+    equipment: ''
+  });
+
+  const handleSave = () => {
+    console.log(`values`, values);
+    return values;
+  }
+
+  const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({...values, [name]: event.target.value});
+  };
+
+  const renderFirstStep = () => {
+    return <><FormControl fullWidth>
+    <FormSwitcher />
+  </FormControl>
+  
+  <div className={classes.dense}>
+    <TextField
+      id="taskTitle"
+      label="Task Title"
+      className={classes.textField}
+      margin="normal"
+      fullWidth
+      value={values.taskTitle}
+      onChange={handleChange('taskTitle')}
+    />
+  </div>
+
+  {/* Task Type */}
+  <div className={classes.dense}>
+    <Grid container spacing={1} alignItems="flex-end">
+      <Grid item style={{width: '4%'}}>
+        <TodayIcon />
+      </Grid>
+      <Grid item style={{width: '96%'}}>
+        <TextField
+          id="taskType"
+          select
+          label="Task Type"
+          fullWidth
+          value={values.taskType}
+          onChange={handleChange('taskType')}
+        >
+          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+    </Grid>
+  </div>
+
+  <div className={classes.dense}>
+    <Grid container spacing={1} alignItems="flex-end">
+      {/* Time Zone */}
+      <Grid item style={{width: '4%'}}>
+        <RoomIcon />
+      </Grid>
+      <Grid item style={{width: '43%'}}>
+        <TextField
+          id="timeZone"
+          label="Time Zone"
+          fullWidth
+          value={values.timeZone}
+          onChange={handleChange('timeZone')}
+        />
+      </Grid>
+
+      <Grid item style={{width: '6%'}}> </Grid>
+
+      {/* Report Time */}
+      <Grid item style={{width: '4%'}}>
+        <ScheduleIcon />
+      </Grid>
+      <Grid item style={{width: '43%'}}>
+        <TextField
+          id="reportTime"
+          select
+          label="Report Time"
+          fullWidth
+          value={values.reportTime}
+          onChange={handleChange('reportTime')}
+        >
+          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+    </Grid>
+  </div>
+
+  <div className={classes.dense}>
+    <Grid container spacing={1} alignItems="flex-end">
+      {/* From */}
+      <Grid item style={{width: '4%'}}>
+        <TodayIcon />
+      </Grid>
+      <Grid item style={{width: '43%'}}>
+        <TextField
+          id="from"
+          label="From"
+          fullWidth
+          value={values.from}
+          onChange={handleChange('from')}
+        />
+      </Grid>
+      <Grid item style={{width: '6%'}}> </Grid>
+
+      {/* Repeat */}
+      <Grid item style={{width: '4%'}}>
+        <RepeatIcon />
+      </Grid>
+      <Grid item style={{width: '43%'}}>
+        <TextField
+          id="repeat"
+          select
+          label="Repeat"
+          fullWidth
+          value={values.repeat}
+          onChange={handleChange('repeat')}
+        >
+          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+    </Grid>
+  </div>
+
+  <div className={classes.dense}>
+    <Grid container spacing={1} alignItems="flex-end">
+      {/* Recipient */}
+      <Grid item style={{width: '4%'}}>
+        <PersonIcon />
+      </Grid>
+      <Grid item style={{width: '96%'}}>
+        <TextField
+          id="recipient"
+          label="Recipient"
+          fullWidth
+          value={values.recipient}
+          onChange={handleChange('recipient')}
+        />
+      </Grid>
+    </Grid>
+  </div>
+  
+  <div>
+    <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)}>
+      Cancel
+    </Button>
+    <Button variant="contained" color="primary" className={classes.button} onClick={() => setActiveStep(1)}>
+      Continue
+    </Button>
+  </div></>;
+  }
+
+  const renderSecondStep = () => {
+    return <>
+      <div className={classes.dense}>
+        <Grid container spacing={1} alignItems="flex-end">
+          {/* Equipment */}
+          <Grid item style={{width: '4%'}}>
+            <PersonIcon />
+          </Grid>
+          <Grid item style={{width: '96%'}}>
+            <TextField
+              id="equipment"
+              label="Equipment"
+              fullWidth
+              value={values.equipment}
+              onChange={handleChange('equipment')}
+            />
+          </Grid>
+        </Grid>
+      </div>
+      <div>
+        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleSave}>
+          Create
+        </Button>
+      </div>
+    </>;
+  }
+
+  const renderForm = () => {
+    return activeStep ? renderSecondStep() : renderFirstStep();
+  }
+
+  const title = !activeStep ? 'General Setting' : 'Configuration';
 
   return (
     <>
       <AppPanelForm />
-      <FormStepper />
+      <FormStepper activeStep={activeStep} />
       <div className={classes.formContainer}>
-        <h2>General Setting</h2>
+        <h2>{title}</h2>
         <div className={classes.container}>
             <form noValidate autoComplete="off" className={classes.form}>
-              <FormControl fullWidth>
-                <FormSwitcher />
-              </FormControl>
-              
-              <div className={classes.dense}>
-                <TextField
-                  id="taskTitle"
-                  label="Task Title"
-                  className={classes.textField}
-                  margin="normal"
-                  fullWidth
-                />
-              </div>
-
-              {/* Task Type */}
-              <div className={classes.dense}>
-                <Grid container spacing={1} alignItems="flex-end">
-                  <Grid item style={{width: '4%'}}>
-                    <TodayIcon />
-                  </Grid>
-                  <Grid item style={{width: '96%'}}>
-                    <TextField
-                      select
-                      label="Task Type"
-                      fullWidth
-                      // className={clsx(classes.margin, classes.textField)}
-                      // value={values.weightRange}
-                      // onChange={handleChange('weightRange')}
-                      // InputProps={{
-                      //   startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
-                      // }}
-                    >
-                      {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                </Grid>
-              </div>
-            
-              <div className={classes.dense}>
-                <Grid container spacing={1} alignItems="flex-end">
-                  {/* Time Zone */}
-                  <Grid item style={{width: '4%'}}>
-                    <RoomIcon />
-                  </Grid>
-                  <Grid item style={{width: '43%'}}>
-                    <TextField
-                      label="Time Zone"
-                      fullWidth
-                    />
-                  </Grid>
-
-                  <Grid item style={{width: '6%'}}> </Grid>
-
-                  {/* Report Time */}
-                  <Grid item style={{width: '4%'}}>
-                    <ScheduleIcon />
-                  </Grid>
-                  <Grid item style={{width: '43%'}}>
-                    <TextField
-                      select
-                      label="Report Time"
-                      fullWidth
-                      // className={clsx(classes.margin, classes.textField)}
-                      // value={values.weightRange}
-                      // onChange={handleChange('weightRange')}
-                      // InputProps={{
-                      //   startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
-                      // }}
-                    >
-                      {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                </Grid>
-              </div>
-
-              <div className={classes.dense}>
-                <Grid container spacing={1} alignItems="flex-end">
-                  {/* From */}
-                  <Grid item style={{width: '4%'}}>
-                    <TodayIcon />
-                  </Grid>
-                  <Grid item style={{width: '43%'}}>
-                    <TextField
-                      label="From"
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item style={{width: '6%'}}> </Grid>
-
-                  {/* Repeat */}
-                  <Grid item style={{width: '4%'}}>
-                    <RepeatIcon />
-                  </Grid>
-                  <Grid item style={{width: '43%'}}>
-                    <TextField
-                      select
-                      label="Repeat"
-                      fullWidth
-                      // className={clsx(classes.margin, classes.textField)}
-                      // value={values.weightRange}
-                      // onChange={handleChange('weightRange')}
-                      // InputProps={{
-                      //   startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
-                      // }}
-                    >
-                      {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                </Grid>
-              </div>
-
-              <div className={classes.dense}>
-                <Grid container spacing={1} alignItems="flex-end">
-                  {/* Recipient */}
-                  <Grid item style={{width: '4%'}}>
-                    <PersonIcon />
-                  </Grid>
-                  <Grid item style={{width: '96%'}}>
-                    <TextField
-                      label="Recipient"
-                      fullWidth
-                    />
-                  </Grid>
-                </Grid>
-              </div>
-
-              <div>
-                <Button variant="contained" className={classes.defaultButton}>
-                  Cancel
-                </Button>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  Continue
-                </Button>
-              </div>
-
+              {renderForm()}
             </form>
         </div>
       </div>
