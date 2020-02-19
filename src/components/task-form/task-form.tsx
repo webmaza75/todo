@@ -67,6 +67,27 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+/**
+ * Компонент с полем. 
+ * 
+ * @param props Свойства компонента.
+ */
+const TextFieldComponent = (props) => {
+  const {icon, children, fullWidth = false} = props;
+  const fieldWidth = fullWidth ? '96%' : '43%';
+
+  return (
+    <>
+      <Grid item style={{width: '4%'}}>
+        {icon}
+      </Grid>
+      <Grid item style={{width: fieldWidth}}>
+        {children}
+      </Grid>
+    </>
+  );
+};
+
 interface IProps {
 }
 
@@ -80,6 +101,8 @@ interface State {
   recipient: string;
   equipment: string;
 }
+
+const itemList = [{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}];
 
 const TaskForm = (props: IProps) => {
   const classes = useStyles();
@@ -105,154 +128,138 @@ const TaskForm = (props: IProps) => {
   };
 
   const renderFirstStep = () => {
-    return <><FormControl fullWidth>
-    <FormSwitcher />
-  </FormControl>
+    return <>
+      <FormControl fullWidth>
+        <FormSwitcher />
+      </FormControl>
   
-  <div className={classes.dense}>
-    <TextField
-      id="taskTitle"
-      label="Task Title"
-      className={classes.textField}
-      margin="normal"
-      fullWidth
-      value={values.taskTitle}
-      onChange={handleChange('taskTitle')}
-    />
-  </div>
-
-  {/* Task Type */}
-  <div className={classes.dense}>
-    <Grid container spacing={1} alignItems="flex-end">
-      <Grid item style={{width: '4%'}}>
-        <TodayIcon />
-      </Grid>
-      <Grid item style={{width: '96%'}}>
+      <div className={classes.dense}>
         <TextField
-          id="taskType"
-          select
-          label="Task Type"
+          id="taskTitle"
+          label="Task Title"
+          className={classes.textField}
+          margin="normal"
           fullWidth
-          value={values.taskType}
-          onChange={handleChange('taskType')}
-        >
-          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Grid>
-    </Grid>
-  </div>
+          value={values.taskTitle}
+          onChange={handleChange('taskTitle')}
+        />
+      </div>
 
-  <div className={classes.dense}>
-    <Grid container spacing={1} alignItems="flex-end">
+      {/* Task Type */}
+      <div className={classes.dense}>
+        <Grid container spacing={1} alignItems="flex-end">
+          <TextFieldComponent icon={<TodayIcon />} fullWidth>
+            <TextField
+              id="taskType"
+              select
+              label="Task Type"
+              fullWidth
+              value={values.taskType}
+              onChange={handleChange('taskType')}
+            >
+              {itemList.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </TextFieldComponent>
+        </Grid>
+      </div>
+
       {/* Time Zone */}
-      <Grid item style={{width: '4%'}}>
-        <RoomIcon />
-      </Grid>
-      <Grid item style={{width: '43%'}}>
-        <TextField
-          id="timeZone"
-          label="Time Zone"
-          fullWidth
-          value={values.timeZone}
-          onChange={handleChange('timeZone')}
-        />
-      </Grid>
+      <div className={classes.dense}>
+        <Grid container spacing={1} alignItems="flex-end">
+          <TextFieldComponent icon={<RoomIcon />}>
+            <TextField
+              id="timeZone"
+              label="Time Zone"
+              fullWidth
+              value={values.timeZone}
+              onChange={handleChange('timeZone')}
+            />
+          </TextFieldComponent>
 
-      <Grid item style={{width: '6%'}}> </Grid>
+          <Grid item style={{width: '6%'}}> </Grid>
+        
+          {/* Report Time */}
+          <TextFieldComponent icon={<ScheduleIcon />}>
+            <TextField
+              id="reportTime"
+              select
+              label="Report Time"
+              fullWidth
+              value={values.reportTime}
+              onChange={handleChange('reportTime')}
+            >
+              {itemList.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </TextFieldComponent>
+        </Grid>
+      </div>
 
-      {/* Report Time */}
-      <Grid item style={{width: '4%'}}>
-        <ScheduleIcon />
-      </Grid>
-      <Grid item style={{width: '43%'}}>
-        <TextField
-          id="reportTime"
-          select
-          label="Report Time"
-          fullWidth
-          value={values.reportTime}
-          onChange={handleChange('reportTime')}
-        >
-          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Grid>
-    </Grid>
-  </div>
+      <div className={classes.dense}>
+        <Grid container spacing={1} alignItems="flex-end">
+          {/* From */}
+          <TextFieldComponent icon={<TodayIcon />}>
+            <TextField
+              id="from"
+              label="From"
+              fullWidth
+              value={values.from}
+              onChange={handleChange('from')}
+            />
+          </TextFieldComponent>
+          <Grid item style={{width: '6%'}}> </Grid>
 
-  <div className={classes.dense}>
-    <Grid container spacing={1} alignItems="flex-end">
-      {/* From */}
-      <Grid item style={{width: '4%'}}>
-        <TodayIcon />
-      </Grid>
-      <Grid item style={{width: '43%'}}>
-        <TextField
-          id="from"
-          label="From"
-          fullWidth
-          value={values.from}
-          onChange={handleChange('from')}
-        />
-      </Grid>
-      <Grid item style={{width: '6%'}}> </Grid>
+          {/* Repeat */}
+          <TextFieldComponent icon={<RepeatIcon />}>
+            <TextField
+              id="repeat"
+              select
+              label="Repeat"
+              fullWidth
+              value={values.repeat}
+              onChange={handleChange('repeat')}
+            >
+              {itemList.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </TextFieldComponent>
+        </Grid>
+      </div>
 
-      {/* Repeat */}
-      <Grid item style={{width: '4%'}}>
-        <RepeatIcon />
-      </Grid>
-      <Grid item style={{width: '43%'}}>
-        <TextField
-          id="repeat"
-          select
-          label="Repeat"
-          fullWidth
-          value={values.repeat}
-          onChange={handleChange('repeat')}
-        >
-          {[{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}].map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Grid>
-    </Grid>
-  </div>
-
-  <div className={classes.dense}>
-    <Grid container spacing={1} alignItems="flex-end">
-      {/* Recipient */}
-      <Grid item style={{width: '4%'}}>
-        <PersonIcon />
-      </Grid>
-      <Grid item style={{width: '96%'}}>
-        <TextField
-          id="recipient"
-          label="Recipient"
-          fullWidth
-          value={values.recipient}
-          onChange={handleChange('recipient')}
-        />
-      </Grid>
-    </Grid>
-  </div>
+      <div className={classes.dense}>
+        <Grid container spacing={1} alignItems="flex-end">
+          {/* Recipient */}
+          <TextFieldComponent icon={<PersonIcon />} fullWidth>
+            <TextField
+              id="recipient"
+              label="Recipient"
+              fullWidth
+              value={values.recipient}
+              onChange={handleChange('recipient')}
+            />
+          </TextFieldComponent>
+        </Grid>
+      </div>
   
-  <div>
-    <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)}>
-      Cancel
-    </Button>
-    <Button variant="contained" color="primary" className={classes.button} onClick={() => setActiveStep(1)}>
-      Continue
-    </Button>
-  </div></>;
+      <div>
+        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button} onClick={() => setActiveStep(1)}>
+          Continue
+        </Button>
+      </div>
+    </>;
   }
 
   const renderSecondStep = () => {
