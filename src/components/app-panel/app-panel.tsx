@@ -64,13 +64,12 @@ function getSubTitle(isTaskFormOpen: boolean, selected: number[]): string {
 }
 
 /**
- * Рендерит кнопку Add
+ * Компонент с кнопкой Add
  *
- * @param {IProps} props Свойства компонента AppPanel.
- * @param {any} classes Стили компонента AppPanel.
+ * @param {IProps & any} props Свойства компонента AppPanel и его стили.
  */
-const renderAddButton = (props: IProps, classes: any) => {
-  const {onToggleTaskForm} = props;
+const AddButton = (props: IProps & any) => {
+  const {appPanelProps: {onToggleTaskForm}, classes} = props;
 
   return (
     <Link to="/add/">
@@ -87,20 +86,20 @@ const renderAddButton = (props: IProps, classes: any) => {
 };
 
 /**
- * Рендерит кнопку Clear
+ * Компонент с кнопкой Clear
  *
- * @param {IProps} props Свойства компонента AppPanel.
+ * @param {IProps} appPanelProps Свойства компонента AppPanel.
  */
-const renderClearButton = (props: IProps) => {
+const ClearButton = (props: IProps) => {
   return <ClearIcon id="clearIcon" onClick={props.onSelectionReset} />;
 };
 
 /**
- * Рендерит кнопку (стрелку) Назад в режиме создания/редактирования задачи
+ * Компонент с кнопкой (стрелкой) Назад в режиме создания/редактирования задачи
  *
  * @param {IProps} props Свойства компонента AppPanel.
  */
-const renderBackArrowButton = (props: IProps) => {
+const BackArrowButton = (props: IProps) => {
   const {onToggleTaskForm} = props;
 
   return (
@@ -114,13 +113,12 @@ const renderBackArrowButton = (props: IProps) => {
 };
 
 /**
- * Рендерит строку поиска с иконкой
+ * Компонент со строкой поиска с иконкой
  *
- * @param {IProps} props Свойства компонента AppPanel.
- * @param {any} classes Стили компонента AppPanel.
+ * @param {IProps & any} props Свойства компонента AppPanel и его стили.
  */
-const renderSearchBlock = (props: IProps, classes: any) => {
-  const {searchTitle, onInputChange} = props;
+const SearchBlock = (props: IProps & any) => {
+  const {appPanelProps: {searchTitle, onInputChange}, classes} = props;
 
   return (
     <div className={classes.search}>
@@ -146,11 +144,11 @@ const renderSearchBlock = (props: IProps, classes: any) => {
 };
 
 /**
- * Рендерит кнопку удаления и редактирования (если выбран только 1 элемент)
+ * Компонент с кнопкой удаления и редактирования (если выбран только 1 элемент)
  *
  * @param {IProps} props Свойства компонента AppPanel.
  */
-const renderDeleteOrEditButton = (props: IProps) => {
+const DeleteAndEditButton = (props: IProps) => {
   const {selected, onItemsDelete} = props;
 
   return (
@@ -188,15 +186,15 @@ const AppPanel = (props: IProps) => {
   return <AppBar className={appBarClassName} style={wrapperStyle}>
     <Toolbar className={classes.toolbar}>
       <IconButton edge="start" color="inherit" aria-label="Menu" />
-      {isStandartMode && renderAddButton(props, classes)}
+      {isStandartMode && <AddButton appPanelProps={props} classes={classes} />}
       <div className={classes.wrapper}>
         <Typography data-test-id="panelTitle" variant="h6" className={classes.subTitle}>
-          {isSelectionMode && renderClearButton(props)}
-          {isTaskFormOpen && renderBackArrowButton(props)}
+          {isSelectionMode && <ClearButton {...props} />}
+          {isTaskFormOpen && <BackArrowButton {...props} />}
           {getSubTitle(isTaskFormOpen, selected)}
         </Typography>
-        {isStandartMode && renderSearchBlock(props, classes)}
-        {isSelectionMode && renderDeleteOrEditButton(props)}
+        {isStandartMode && <SearchBlock appPanelProps={props} classes={classes} />}
+        {isSelectionMode && <DeleteAndEditButton {...props} />}
       </div>
     </Toolbar>
     <ConfirmationDeleteDialog
