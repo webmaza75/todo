@@ -113,7 +113,7 @@ class TaskListPage extends React.Component<IProps, IState> {
           selected={selected}
         />}
         {isTaskFormOpen && <div style={classes.formWrapper}>
-          <TaskForm />
+          <TaskForm onToggleTaskForm={this.handleToggleTaskForm} />
         </div>}
       </div>
     </>;

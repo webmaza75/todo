@@ -40,7 +40,7 @@
     "ts-jest": "24.0.2",
     "ts-loader": "6.0.4",
     "tslint": "^5.18.0",
-    "typescript": "3.5.3",
+    "typescript": "3.7.5",
     "utility-types": "3.7.0",
     "webpack": "4.30.0",
     "webpack-cli": "3.3.1",

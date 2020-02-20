@@ -2,11 +2,11 @@
 
 exports[`AppPanel AppPanel renders correctly 1`] = `
 <ForwardRef(WithStyles)
-  className="makeStyles-appBar-4"
+  className="makeStyles-appBar-3"
   style={Object {}}
 >
   <ForwardRef(WithStyles)
-    className="makeStyles-toolbar-2"
+    className="makeStyles-toolbar-1"
   >
     <ForwardRef(WithStyles)
       aria-label="Menu"
@@ -18,7 +18,7 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
     >
       <ForwardRef(WithStyles)
         aria-label="Add"
-        className="makeStyles-fabButton-8"
+        className="makeStyles-fabButton-7"
         color="secondary"
         id="addIcon"
         onClick={[MockFunction]}
@@ -27,17 +27,17 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
       </ForwardRef(WithStyles)>
     </Link>
     <div
-      className="makeStyles-wrapper-12"
+      className="makeStyles-wrapper-11"
     >
       <ForwardRef(WithStyles)
-        className="makeStyles-subTitle-3"
+        className="makeStyles-subTitle-2"
         data-test-id="panelTitle"
         variant="h6"
       >
         Automated Tasks
       </ForwardRef(WithStyles)>
       <div
-        className="makeStyles-search-6"
+        className="makeStyles-search-5"
       >
         <ForwardRef(WithStyles)
           alignItems="flex-end"
@@ -48,7 +48,7 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
             item={true}
           >
             <Memo
-              className="makeStyles-searchIcon-7"
+              className="makeStyles-searchIcon-6"
             />
           </ForwardRef(WithStyles)>
           <ForwardRef(WithStyles)
@@ -58,12 +58,12 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
               InputProps={
                 Object {
                   "classes": Object {
-                    "input": "makeStyles-inputField-10",
-                    "underline": "makeStyles-underline-11",
+                    "input": "makeStyles-inputField-9",
+                    "underline": "makeStyles-underline-10",
                   },
                 }
               }
-              className="makeStyles-textField-9"
+              className="makeStyles-textField-8"
               id="standard-search"
               margin="normal"
               onChange={[MockFunction]}
