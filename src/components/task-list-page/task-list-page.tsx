@@ -8,7 +8,6 @@ import {
   getSortedByIdTaskList
 } from '../../utils';
 import taskList from '../../mocks/taskList';
-import TaskForm from '../task-form/task-form';
 
 const classes = {
   tableWrapper: {
@@ -107,14 +106,11 @@ class TaskListPage extends React.Component<IProps, IState> {
       />
 
       <div style={classes.tableWrapper}>
-        {!isTaskFormOpen && <AppTable
+        <AppTable
           taskList={leftTaskList}
           onItemSelect={this.handleItemSelect}
           selected={selected}
-        />}
-        {isTaskFormOpen && <div style={classes.formWrapper}>
-          <TaskForm onToggleTaskForm={this.handleToggleTaskForm} />
-        </div>}
+        />
       </div>
     </>;
   }
