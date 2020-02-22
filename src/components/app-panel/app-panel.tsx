@@ -66,10 +66,10 @@ function getSubTitle(isTaskFormOpen: boolean, selected: number[]): string {
 /**
  * Компонент с кнопкой Add
  *
- * @param {IProps & any} props Свойства компонента AppPanel и его стили.
+ * @param {any} props Свойства компонента AppPanel и его стили.
  */
-const AddButton = (props: IProps & any) => {
-  const {appPanelProps: {onToggleTaskForm}, classes} = props;
+const AddButton = (props: any) => {
+  const {classes} = props;
 
   return (
     <Link to="/add/">
@@ -77,7 +77,6 @@ const AddButton = (props: IProps & any) => {
         aria-label="Add"
         className={classes.fabButton}
         id="addIcon"
-        onClick={onToggleTaskForm}
       >
         <AddIcon />
       </Fab>
@@ -96,17 +95,12 @@ const ClearButton = (props: IProps) => {
 
 /**
  * Компонент с кнопкой (стрелкой) Назад в режиме создания/редактирования задачи
- *
- * @param {IProps} props Свойства компонента AppPanel.
  */
-const BackArrowButton = (props: IProps) => {
-  const {onToggleTaskForm} = props;
-
+const BackArrowButton = () => {
   return (
     <Link to="/">
       <ArrowBackIcon
         id="arrowBack"
-        onClick={onToggleTaskForm}
       />
     </Link>
   );
@@ -115,18 +109,16 @@ const BackArrowButton = (props: IProps) => {
 /**
  * Компонент со строкой поиска с иконкой
  *
- * @param {IProps & any} props Свойства компонента AppPanel и его стили.
+ * @param {any} props Свойства компонента AppPanel и его стили.
  */
-const SearchBlock = (props: IProps & any) => {
+const SearchBlock = (props: any) => {
   const {appPanelProps: {searchTitle, onInputChange}, classes} = props;
 
   return (
     <div className={classes.search}>
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
-          <SearchIcon
-            className={classes.searchIcon}
-          />
+          <SearchIcon className={classes.searchIcon} />
         </Grid>
         <Grid item>
           <TextField id="standard-search"
@@ -190,7 +182,7 @@ const AppPanel = (props: IProps) => {
       <div className={classes.wrapper}>
         <Typography data-test-id="panelTitle" variant="h6" className={classes.subTitle}>
           {isSelectionMode && <ClearButton {...props} />}
-          {isTaskFormOpen && <BackArrowButton {...props} />}
+          {isTaskFormOpen && <BackArrowButton />}
           {getSubTitle(isTaskFormOpen, selected)}
         </Typography>
         {isStandartMode && <SearchBlock appPanelProps={props} classes={classes} />}
