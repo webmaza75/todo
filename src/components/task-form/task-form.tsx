@@ -179,44 +179,44 @@ const TaskForm = () => {
       </FormControl>
   
       <div className={classes.dense}>
-        <TextFieldComponent fieldName={'taskTitle'} values={values} onChange={handleChange} fullWidth={true} />
+        <TextFieldComponent fieldName='taskTitle' values={values} onChange={handleChange} fullWidth={true} />
       </div>
 
       {/* Task Type */}
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
-          <TextFieldComponent icon={<TodayIcon />} fieldName={'taskType'} values={values} onChange={handleChange} select={true} itemList={itemList} fullWidth={true} />
+          <TextFieldComponent icon={<TodayIcon />} fieldName='taskType' values={values} onChange={handleChange} select={true} itemList={itemList} fullWidth={true} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Time Zone */}
-          <TextFieldComponent icon={<RoomIcon />} fieldName={'timeZone'} values={values} onChange={handleChange} />
+          <TextFieldComponent icon={<RoomIcon />} fieldName='timeZone' values={values} onChange={handleChange} />
 
           <Grid item style={{width: '6%'}}> </Grid>
         
           {/* Report Time */}
-          <TextFieldComponent icon={<ScheduleIcon />} fieldName={'reportTime'} values={values} onChange={handleChange} select={true} itemList={itemList} />
+          <TextFieldComponent icon={<ScheduleIcon />} fieldName='reportTime' values={values} onChange={handleChange} select={true} itemList={itemList} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* From */}
-          <TextFieldComponent icon={<TodayIcon />} fieldName={'from'} values={values} onChange={handleChange} />
+          <TextFieldComponent icon={<TodayIcon />} fieldName='from' values={values} onChange={handleChange} />
 
           <Grid item style={{width: '6%'}}> </Grid>
 
           {/* Repeat */}
-          <TextFieldComponent icon={<RepeatIcon />} fieldName={'repeat'} values={values} onChange={handleChange} select={true} itemList={itemList} />
+          <TextFieldComponent icon={<RepeatIcon />} fieldName='repeat' values={values} onChange={handleChange} select={true} itemList={itemList} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Recipient */}
-          <TextFieldComponent icon={<PersonIcon />} fieldName={'recipient'} values={values} onChange={handleChange} fullWidth={true} />
+          <TextFieldComponent icon={<PersonIcon />} fieldName='recipient' values={values} onChange={handleChange} fullWidth={true} />
         </Grid>
       </div>
   
@@ -238,7 +238,7 @@ const TaskForm = () => {
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Equipment */}
-          <TextFieldComponent icon={<PersonIcon />} fieldName={'equipment'} values={values} onChange={handleChange} fullWidth={true} />
+          <TextFieldComponent icon={<PersonIcon />} fieldName='equipment' values={values} onChange={handleChange} fullWidth={true} />
         </Grid>
       </div>
       <div>
