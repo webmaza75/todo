@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AppPanel AppPanel renders correctly 1`] = `
-<ForwardRef(WithStyles)
+<WithStyles(ForwardRef(AppBar))
   className="makeStyles-appBar-3"
   style={Object {}}
 >
-  <ForwardRef(WithStyles)
+  <WithStyles(ForwardRef(Toolbar))
     className="makeStyles-toolbar-1"
   >
-    <ForwardRef(WithStyles)
+    <WithStyles(ForwardRef(IconButton))
       aria-label="Menu"
       color="inherit"
       edge="start"
@@ -50,13 +50,13 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
     <div
       className="makeStyles-wrapper-11"
     >
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Typography))
         className="makeStyles-subTitle-2"
         data-test-id="panelTitle"
         variant="h6"
       >
         Automated Tasks
-      </ForwardRef(WithStyles)>
+      </WithStyles(ForwardRef(Typography))>
       <SearchBlock
         appPanelProps={
           Object {
@@ -92,7 +92,7 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
         }
       />
     </div>
-  </ForwardRef(WithStyles)>
+  </WithStyles(ForwardRef(Toolbar))>
   <ConfirmationDeleteDialog
     onTasksCancelDelete={[MockFunction]}
     onTasksConfirmDelete={[MockFunction]}
@@ -103,5 +103,5 @@ exports[`AppPanel AppPanel renders correctly 1`] = `
     onItemsExactlyDelete={[MockFunction]}
     onItemsUndoDelete={[MockFunction]}
   />
-</ForwardRef(WithStyles)>
+</WithStyles(ForwardRef(AppBar))>
 `;

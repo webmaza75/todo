@@ -1,36 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Navbar Navbar renders correctly 1`] = `
-<ForwardRef(WithStyles)
+<WithStyles(ForwardRef(AppBar))
   className="makeStyles-navBar-5"
 >
-  <ForwardRef(WithStyles)
+  <WithStyles(ForwardRef(Toolbar))
     className="makeStyles-toolbar-2"
   >
-    <ForwardRef(WithStyles)
+    <WithStyles(ForwardRef(IconButton))
       className="makeStyles-menuButton-3"
       color="inherit"
       edge="start"
     >
       <Logo />
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
+    </WithStyles(ForwardRef(IconButton))>
+    <WithStyles(ForwardRef(Typography))
       className="makeStyles-title-4"
       variant="h6"
     >
       Payload Monitoring
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
+    </WithStyles(ForwardRef(Typography))>
+    <WithStyles(ForwardRef(Button))
       color="inherit"
     >
       Login
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
+    </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(IconButton))
       color="inherit"
       edge="end"
     >
-      <Memo />
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
-</ForwardRef(WithStyles)>
+      <Memo(MoreVertIcon) />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
 `;
