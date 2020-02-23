@@ -2,77 +2,95 @@
 
 exports[`AppPanel AppPanel renders correctly 1`] = `
 <ForwardRef(WithStyles)
-  className="makeStyles-appBar-4"
+  className="makeStyles-appBar-3"
   style={Object {}}
 >
   <ForwardRef(WithStyles)
-    className="makeStyles-toolbar-2"
+    className="makeStyles-toolbar-1"
   >
     <ForwardRef(WithStyles)
       aria-label="Menu"
       color="inherit"
       edge="start"
     />
-    <Link
-      to="/add/"
-    >
-      <ForwardRef(WithStyles)
-        aria-label="Add"
-        className="makeStyles-fabButton-8"
-        color="secondary"
-        id="addIcon"
-        onClick={[MockFunction]}
-      >
-        <Memo />
-      </ForwardRef(WithStyles)>
-    </Link>
+    <AddButton
+      appPanelProps={
+        Object {
+          "isOpenConfirmDeleteDialog": false,
+          "isOpenUndoDeleteSnackbar": false,
+          "isTaskFormOpen": false,
+          "onInputChange": [MockFunction],
+          "onItemsDelete": [MockFunction],
+          "onItemsExactlyDelete": [MockFunction],
+          "onItemsUndoDelete": [MockFunction],
+          "onSelectionReset": [MockFunction],
+          "onTasksCancelDelete": [MockFunction],
+          "onTasksConfirmDelete": [MockFunction],
+          "onToggleTaskForm": [MockFunction],
+          "searchTitle": "",
+          "selected": Array [],
+        }
+      }
+      classes={
+        Object {
+          "appBar": "makeStyles-appBar-3",
+          "appBarWithSelect": "makeStyles-appBarWithSelect-4",
+          "fabButton": "makeStyles-fabButton-7",
+          "inputField": "makeStyles-inputField-9",
+          "search": "makeStyles-search-5",
+          "searchIcon": "makeStyles-searchIcon-6",
+          "subTitle": "makeStyles-subTitle-2",
+          "textField": "makeStyles-textField-8",
+          "toolbar": "makeStyles-toolbar-1",
+          "underline": "makeStyles-underline-10",
+          "wrapper": "makeStyles-wrapper-11",
+        }
+      }
+    />
     <div
-      className="makeStyles-wrapper-12"
+      className="makeStyles-wrapper-11"
     >
       <ForwardRef(WithStyles)
-        className="makeStyles-subTitle-3"
+        className="makeStyles-subTitle-2"
         data-test-id="panelTitle"
         variant="h6"
       >
         Automated Tasks
       </ForwardRef(WithStyles)>
-      <div
-        className="makeStyles-search-6"
-      >
-        <ForwardRef(WithStyles)
-          alignItems="flex-end"
-          container={true}
-          spacing={1}
-        >
-          <ForwardRef(WithStyles)
-            item={true}
-          >
-            <Memo
-              className="makeStyles-searchIcon-7"
-            />
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            item={true}
-          >
-            <ForwardRef(WithStyles)
-              InputProps={
-                Object {
-                  "classes": Object {
-                    "input": "makeStyles-inputField-10",
-                    "underline": "makeStyles-underline-11",
-                  },
-                }
-              }
-              className="makeStyles-textField-9"
-              id="standard-search"
-              margin="normal"
-              onChange={[MockFunction]}
-              type="search"
-              value=""
-            />
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-      </div>
+      <SearchBlock
+        appPanelProps={
+          Object {
+            "isOpenConfirmDeleteDialog": false,
+            "isOpenUndoDeleteSnackbar": false,
+            "isTaskFormOpen": false,
+            "onInputChange": [MockFunction],
+            "onItemsDelete": [MockFunction],
+            "onItemsExactlyDelete": [MockFunction],
+            "onItemsUndoDelete": [MockFunction],
+            "onSelectionReset": [MockFunction],
+            "onTasksCancelDelete": [MockFunction],
+            "onTasksConfirmDelete": [MockFunction],
+            "onToggleTaskForm": [MockFunction],
+            "searchTitle": "",
+            "selected": Array [],
+          }
+        }
+        classes={
+          Object {
+            "appBar": "makeStyles-appBar-3",
+            "appBarWithSelect": "makeStyles-appBarWithSelect-4",
+            "fabButton": "makeStyles-fabButton-7",
+            "inputField": "makeStyles-inputField-9",
+            "search": "makeStyles-search-5",
+            "searchIcon": "makeStyles-searchIcon-6",
+            "subTitle": "makeStyles-subTitle-2",
+            "textField": "makeStyles-textField-8",
+            "toolbar": "makeStyles-toolbar-1",
+            "underline": "makeStyles-underline-10",
+            "wrapper": "makeStyles-wrapper-11",
+          }
+        }
+      />
     </div>
   </ForwardRef(WithStyles)>
   <ConfirmationDeleteDialog
