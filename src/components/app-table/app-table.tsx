@@ -33,7 +33,8 @@ const AppTable = (props: IProps) => {
 
   return <div style={{ maxWidth: "100%"}}>
     <MaterialTable
-      onRowClick={(_, rowData) => {
+      onRowClick={(_, rowData: TaskItem) => {
+        console.log('rowData', rowData);
         const {id} = rowData;
         onItemSelect(id);
       }}
@@ -50,7 +51,7 @@ const AppTable = (props: IProps) => {
           fontSize: 16
         },
         toolbar: false,
-        rowStyle: (rowData) => ({
+        rowStyle: (rowData: TaskItem) => ({
           backgroundColor: selected.includes(rowData.id) ? cyan[100]: 'transparent'
         })
       }}
@@ -64,7 +65,7 @@ const AppTable = (props: IProps) => {
             borderBottom: 0,
           },
           cellStyle,
-          render: (rowData) => <SelectAvatar
+          render: (rowData: TaskItem) => <SelectAvatar
             isSelectMode={selected.length > 0}
             type={rowData.type}
             selected={selected.includes(rowData.id)}
@@ -86,14 +87,14 @@ const AppTable = (props: IProps) => {
           field: "reportTime",
           sorting: false,
           cellStyle,
-          render: (rowData) => getReportTime(rowData.reportTime)
+          render: (rowData: TaskItem) => getReportTime(rowData.reportTime)
         },
         {
           title: "Repeat",
           field: "repeat",
           sorting: false,
           cellStyle,
-          render: (rowData) => getRepeatDays(rowData.repeat)
+          render: (rowData: TaskItem) => getRepeatDays(rowData.repeat)
         },
       ]}
       data={taskList}

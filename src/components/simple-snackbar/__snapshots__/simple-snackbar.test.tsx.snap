@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
-<ForwardRef(WithStyles)
+<WithStyles(ForwardRef(Snackbar))
   ContentProps={
     Object {
       "aria-describedby": "message-id",
@@ -9,23 +9,23 @@ exports[`SimpleSnackbar SimpleSnackbar renders correctly 1`] = `
   }
   action={
     Array [
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Button))
         color="secondary"
         id="undoDelete"
         onClick={[MockFunction]}
         size="small"
       >
         UNDO
-      </ForwardRef(WithStyles)>,
-      <ForwardRef(WithStyles)
+      </WithStyles(ForwardRef(Button))>,
+      <WithStyles(ForwardRef(IconButton))
         aria-label="close"
         className="makeStyles-close-1"
         color="inherit"
         id="closeSnackbar"
         onClick={[MockFunction]}
       >
-        <Memo />
-      </ForwardRef(WithStyles)>,
+        <Memo(CloseIcon) />
+      </WithStyles(ForwardRef(IconButton))>,
     ]
   }
   anchorOrigin={

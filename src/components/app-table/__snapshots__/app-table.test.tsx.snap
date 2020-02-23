@@ -8,7 +8,7 @@ exports[`AppTable AppTable renders correctly 1`] = `
     }
   }
 >
-  <ForwardRef(WithStyles)
+  <WithStyles(Component)
     columns={
       Array [
         Object {
