@@ -1,22 +1,38 @@
 import * as React from 'react';
 import {TaskItem} from './types';
-import taskList from './mocks/taskList';
 import {ActionType} from './components/actions/action-types';
-import {addTask} from './components/actions/actions';
+import {addTask, undoDeleteTasks, deleteTasks} from './components/actions/actions';
+
+/**
+ * @prop {TaskItem[]} taskList Все имеющиеся задачи.
+ */
+interface IState {
+    taskList: TaskItem[];
+}
+
+const initialState = {
+    taskList: [],
+};
 
 export const ContextApp = React.createContext({
-    tasks: taskList,
-    addTask: (task: TaskItem) => {}
-  });
+    ...initialState,
+    addTask: (task: TaskItem) => {},
+    undoDeleteTasks: (tasks: TaskItem[]) => {},
+    deleteTasks: (tasksIds: number[]) => {},
+});
 
-export const reducer = (state, action) => {
-    const {LOAD_LIST, ADD_TASK} = ActionType;
+export const reducer = (state: IState, action) => {
+    const {LOAD_LIST, ADD_TASK, UNDO_DELETE_TASKS, DELETE_TASKS} = ActionType;
 
     switch (action.type) {
         case LOAD_LIST:
-            return state.tasks;
+            return state.taskList;
         case ADD_TASK:
             return addTask(action.payload, state);
+        case UNDO_DELETE_TASKS:
+            return undoDeleteTasks(action.payload, state);
+        case DELETE_TASKS:
+            return deleteTasks(action.payload, state);
         default:
             return state;
     }

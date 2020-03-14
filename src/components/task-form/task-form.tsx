@@ -165,6 +165,9 @@ const TaskForm = () => {
     equipment: ''
   });
 
+  /**
+   * TODO убрать хардкод
+   */
   const handleSave = () => {
     const value = {
       id: 6,

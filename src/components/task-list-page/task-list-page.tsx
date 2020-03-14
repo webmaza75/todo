@@ -7,7 +7,7 @@ import {
   getLeftTaskList,
   getSortedByIdTaskList
 } from '../../utils';
-import taskList from '../../mocks/taskList';
+import {ContextApp} from '../../reducer';
 
 const classes = {
   tableWrapper: {
@@ -46,187 +46,109 @@ interface IProps {
 
 }
 
-/**
- * @prop {number[]} selected Выбранные задачи в списке.
- * @prop {string} searchTitle Название задачи для поиска.
- * @prop {TaskItem[]} taskList Все имеющиеся задачи.
- * @prop {boolean} isOpenConfirmDeleteDialog Открытие диалогового окна подтверждения удаления задач.
- * @prop {boolean} isOpenUndoDeleteSnackbar Открытие snackbar с возможностью восстановления удаленных на предыдущем шаге задач.
- * @prop {TaskItem[]} undoList список удаленных элементов для восстановления.
- * @prop {boolean} isTaskFormOpen Открытие формы создания (редактирвания) задачи.
- */
-interface IState {
-  selected: number[];
-  searchTitle: string;
-  taskList: TaskItem[];
-  isOpenConfirmDeleteDialog: boolean;
-  isOpenUndoDeleteSnackbar: boolean;
-  undoList: TaskItem[];
-  isTaskFormOpen: boolean;
-}
+const TaskListPage = () => {
+  const {taskList, undoDeleteTasks, deleteTasks} = React.useContext(ContextApp);
+  const [selected, setSelected] = React.useState<number[]>([]);
+  const [searchTitle, setSearchTitle] = React.useState('');
+  const [isOpenConfirmDeleteDialog, toggleConfirmDeleteDialog] = React.useState(false);
+  const [isTaskFormOpen, toggleTaskForm] = React.useState(false);
+  const [isOpenUndoDeleteSnackbar, toggleUndoDeleteSnackbar] = React.useState(false);
+  const [undoList, setUndoList] = React.useState([]);
 
-class TaskListPage extends React.Component<IProps, IState> {
-  state: IState = {
-    selected: [],
-    taskList,
-    searchTitle: '',
-    isOpenConfirmDeleteDialog: false,
-    isOpenUndoDeleteSnackbar: false,
-    undoList: [],
-    isTaskFormOpen: false
+  const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
+
+  /**
+   * Обработчик выделения строки.
+   * @param {number} id Выделенная строка.
+   */
+  const handleItemSelect = (id: number): void => {
+    if (!selected.length) {
+      handleItemsExactlyDelete();
+    }
+
+    const res = selected.includes(id);
+
+    if (res === false) {
+      setSelected((prevState) => [...prevState, id]);
+    } else {
+      setSelected((prevState) => prevState.filter((idx) => idx !== id));
+    }
   };
 
-  render() {
-    const {
-      taskList,
-      selected,
-      searchTitle,
-      isOpenConfirmDeleteDialog,
-      isOpenUndoDeleteSnackbar,
-      isTaskFormOpen
-    } = this.state;
+  const handleSelectionReset = (): void => {
+    setSelected([]);
+  }
 
-    const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
+  const handleItemsDelete = (): void => {
+    toggleConfirmDeleteDialog(true);
+  }
 
-    return <>
+  const handleItemsUndoDelete = (): void => {
+    toggleUndoDeleteSnackbar(false);
+    setSelected([]);
+    undoDeleteTasks(undoList);
+  }
+
+  const handleItemsExactlyDelete = (): void => {
+    setUndoList([]);
+    setSelected([]);
+    toggleUndoDeleteSnackbar(false);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    event.preventDefault();
+    handleSearchTitleSet(event.target.value);
+  }
+
+  // const filterBySearchTitle = (title: string, searchTitle: string) => {
+  //   return title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1;
+  // }
+
+  const handleSearchTitleSet = (value: string): void => {
+    setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
+  }
+
+  const handleTasksCancelDelete = () => {
+    toggleConfirmDeleteDialog(false);
+  }
+  
+  const handleTasksConfirmDelete = () => {
+    const undoList = taskList.filter(({id}) => selected.includes(id));
+
+    setSelected([]);
+    setUndoList(undoList);
+    toggleConfirmDeleteDialog(false);
+    toggleUndoDeleteSnackbar(true);
+    deleteTasks(selected);
+  };
+
+  const handleToggleTaskForm = () => toggleTaskForm((prevState) => !prevState);
+
+  return <>
       <AppPanel
         selected={selected}
-        onSelectionReset={this.handleSelectionReset}
-        onItemsDelete={this.handleItemsDelete}
-        onInputChange={this.handleInputChange}
+        onSelectionReset={handleSelectionReset}
+        onItemsDelete={handleItemsDelete}
+        onInputChange={handleInputChange}
         searchTitle={searchTitle}
         isOpenConfirmDeleteDialog={isOpenConfirmDeleteDialog}
-        onTasksCancelDelete={this.handleTasksCancelDelete}
-        onTasksConfirmDelete={this.handleTasksConfirmDelete}
+        onTasksCancelDelete={handleTasksCancelDelete}
+        onTasksConfirmDelete={handleTasksConfirmDelete}
         isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
-        onItemsExactlyDelete={this.handleItemsExactlyDelete}
-        onItemsUndoDelete={this.handleItemsUndoDelete}
-        onToggleTaskForm={this.handleToggleTaskForm}
+        onItemsExactlyDelete={handleItemsExactlyDelete}
+        onItemsUndoDelete={handleItemsUndoDelete}
+        onToggleTaskForm={handleToggleTaskForm}
         isTaskFormOpen={isTaskFormOpen}
       />
 
       <div style={classes.tableWrapper}>
         <AppTable
           taskList={leftTaskList}
-          onItemSelect={this.handleItemSelect}
+          onItemSelect={handleItemSelect}
           selected={selected}
         />
       </div>
     </>;
   }
-
-  // /**
-  //  * Нахождение задачи по id из массива всех имеющихся.
-  //  * @param {number} itemId 
-  //  * @param {TaskItem[]} taskList Массив имеющихся задач.
-  //  */
-  // private findItemById(itemId: number, taskList: TaskItem[]) {
-  //   return taskList.find(({id}) => id === itemId);
-  // }
-
-  /**
-   * Обработчик выделения строки.
-   * @param {number} id Выделенная строка.
-   */
-  handleItemSelect = (id: number): void => {
-    const {selected} = this.state;
-    if (!selected.length) {
-      this.handleItemsExactlyDelete();
-    }
-
-    const res = selected.includes(id);
-
-    if (res === false) {
-      this.setState({
-        selected: [
-          ...selected,
-          id
-        ]
-      });
-    } else {
-      this.setState({
-        selected: selected.filter((idx) => idx !== id)
-      });
-    }    
-  }
-
-  handleSelectionReset = (): void => {
-    this.setState({
-      selected: []
-    });
-  }
-
-  handleItemsDelete = (): void => {
-    this.setState({
-      isOpenConfirmDeleteDialog: true
-    });
-  }
-
-  handleItemsUndoDelete = (): void => {
-    const {taskList, undoList} = this.state;
-
-    this.setState({
-      selected: [],
-      isOpenUndoDeleteSnackbar: false,
-      taskList: [...taskList, ...undoList]
-    });
-  }
-
-  handleItemsExactlyDelete = (): void => {
-    this.setState({
-      selected: [],
-      isOpenUndoDeleteSnackbar: false,
-      undoList: []
-    });
-  }
-
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    const {value} = event.target;
-    this.getSearchList(value);
-  }
-
-  filterBySearchTitle = (title: string, searchTitle: string) => {
-    return title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1
-  }
-
-  getSearchList = (value: string): void => {
-    this.setState({
-      searchTitle: value.trimLeft().replace(/\s{2,}/, ' ')
-    });
-  }
-
-  handleTasksCancelDelete = () => {
-    this.setState({
-      isOpenConfirmDeleteDialog: false
-    });
-  }
-  
-  handleTasksConfirmDelete = () => {
-    const {
-      selected,
-      taskList
-    } = this.state;
-
-    const newTaskList = taskList.filter(({id}) => !selected.includes(id));
-    const undoList = taskList.filter(({id}) => selected.includes(id));
-
-    this.setState({
-      selected: [],
-      isOpenConfirmDeleteDialog: false,
-      isOpenUndoDeleteSnackbar: true,
-      taskList: newTaskList,
-      undoList 
-    });
-  }
-
-  handleToggleTaskForm = () => {
-    this.setState(
-      (prevState) => ({
-        isTaskFormOpen: !prevState.isTaskFormOpen
-      })
-    );
-  }
-}
 
 export default TaskListPage;

@@ -10,10 +10,16 @@ import taskList from '../../mocks/taskList';
 import {TaskItem} from './../../types';
 import {ActionType} from '../actions/action-types';
 
+/**
+ * @prop {TaskItem[]} taskList Все имеющиеся задачи.
+ */
+interface IState {
+  taskList: TaskItem[];
+}
+
 const App = () => {
-  const {ADD_TASK} = ActionType;
-  const initialState = {tasks: taskList};
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const {ADD_TASK, DELETE_TASKS, UNDO_DELETE_TASKS} = ActionType;
+  const [state, dispatch] = React.useReducer(reducer, {taskList});
 
   const addTask = (task: TaskItem) => {
     dispatch({
@@ -22,10 +28,24 @@ const App = () => {
     })
   };
 
+  const undoDeleteTasks = (tasks: TaskItem[]) => {
+    dispatch({
+      type: UNDO_DELETE_TASKS,
+      payload: tasks,
+    })
+  };
+
+  const deleteTasks = (tasksIds: number[]) => {
+    dispatch({
+      type: DELETE_TASKS,
+      payload: tasksIds,
+    })
+  };
+
   return <CssBaseline>
     <Switch>
       <div style={{flexGrow: 1}}>
-        <ContextApp.Provider value={{tasks: state.tasks, addTask}}>
+        <ContextApp.Provider value={{...state, addTask, undoDeleteTasks, deleteTasks}}>
           <Navbar />
           <Route path={`/`} exact component={TaskListPage} />
           <Route path={`/add/`} component={TaskForm} />
