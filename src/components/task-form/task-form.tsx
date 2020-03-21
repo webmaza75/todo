@@ -13,6 +13,7 @@ import {Link} from 'react-router-dom';
 import FormSwitcher from '../form-switcher/form-switcher';
 import FormStepper from '../form-stepper/form-stepper';
 import AppPanelForm from '../app-panel-form/app-panel-form';
+import {ContextApp} from '../../reducer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -150,6 +151,7 @@ interface IState {
 }
 
 const TaskForm = () => {
+  const {actions} = React.useContext(ContextApp);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValues] = React.useState<IState>({
@@ -163,9 +165,19 @@ const TaskForm = () => {
     equipment: ''
   });
 
+  /**
+   * TODO убрать хардкод
+   */
   const handleSave = () => {
-    console.log(`values`, values);
-    return values;
+    const value = {
+      id: 6,
+      type: `MPM auto weekly report task`,
+      title: `Orica USA`,
+      timeZone: `Africa/Johannesburg UTC+2:00`,
+      reportTime: `Wed Jul 17 2019 09:30:13 GMT+0300`,
+      repeat: [1]
+    };
+    actions.addTask(value);
   }
 
   const handleChange = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {

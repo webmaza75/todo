@@ -5,14 +5,50 @@ import {Switch, Route} from 'react-router-dom';
 import TaskListPage from '../task-list-page/task-list-page';
 import TaskForm from '../task-form/task-form';
 import Navbar from '../navbar/navbar';
+import {reducer, ContextApp} from '../../reducer';
+import taskList from '../../mocks/taskList';
+import {TaskItem} from './../../types';
+import {ActionType} from '../actions/action-types';
+
+/**
+ * @prop {TaskItem[]} taskList Все имеющиеся задачи.
+ */
+interface IState {
+  taskList: TaskItem[];
+}
 
 const App = () => {
+  const [state, dispatch] = React.useReducer(reducer, {taskList});
+
+  const addTask = (task: TaskItem) => {
+    dispatch({
+      type: ActionType.ADD_TASK,
+      payload: task,
+    })
+  };
+
+  const undoDeleteTasks = (tasks: TaskItem[]) => {
+    dispatch({
+      type: ActionType.UNDO_DELETE_TASKS,
+      payload: tasks,
+    })
+  };
+
+  const deleteTasks = (tasksIds: number[]) => {
+    dispatch({
+      type: ActionType.DELETE_TASKS,
+      payload: tasksIds,
+    })
+  };
+
   return <CssBaseline>
     <Switch>
       <div style={{flexGrow: 1}}>
-        <Navbar />
-        <Route path={`/`} exact component={TaskListPage} />
-        <Route path={`/add/`} component={TaskForm} />
+        <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks}}}>
+          <Navbar />
+          <Route path={`/`} exact component={TaskListPage} />
+          <Route path={`/add/`} component={TaskForm} />
+        </ContextApp.Provider>  
       </div>
     </Switch>
   </CssBaseline>;
