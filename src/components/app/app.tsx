@@ -18,26 +18,25 @@ interface IState {
 }
 
 const App = () => {
-  const {ADD_TASK, DELETE_TASKS, UNDO_DELETE_TASKS} = ActionType;
   const [state, dispatch] = React.useReducer(reducer, {taskList});
 
   const addTask = (task: TaskItem) => {
     dispatch({
-      type: ADD_TASK,
+      type: ActionType.ADD_TASK,
       payload: task,
     })
   };
 
   const undoDeleteTasks = (tasks: TaskItem[]) => {
     dispatch({
-      type: UNDO_DELETE_TASKS,
+      type: ActionType.UNDO_DELETE_TASKS,
       payload: tasks,
     })
   };
 
   const deleteTasks = (tasksIds: number[]) => {
     dispatch({
-      type: DELETE_TASKS,
+      type: ActionType.DELETE_TASKS,
       payload: tasksIds,
     })
   };
@@ -45,7 +44,7 @@ const App = () => {
   return <CssBaseline>
     <Switch>
       <div style={{flexGrow: 1}}>
-        <ContextApp.Provider value={{...state, addTask, undoDeleteTasks, deleteTasks}}>
+        <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks}}}>
           <Navbar />
           <Route path={`/`} exact component={TaskListPage} />
           <Route path={`/add/`} component={TaskForm} />

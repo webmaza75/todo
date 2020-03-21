@@ -151,7 +151,7 @@ interface IState {
 }
 
 const TaskForm = () => {
-  const {addTask} = React.useContext(ContextApp);
+  const {actions} = React.useContext(ContextApp);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValues] = React.useState<IState>({
@@ -177,7 +177,7 @@ const TaskForm = () => {
       reportTime: `Wed Jul 17 2019 09:30:13 GMT+0300`,
       repeat: [1]
     };
-    addTask(value);
+    actions.addTask(value);
   }
 
   const handleChange = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {

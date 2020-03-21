@@ -16,22 +16,22 @@ const initialState = {
 
 export const ContextApp = React.createContext({
     ...initialState,
-    addTask: (task: TaskItem) => {},
-    undoDeleteTasks: (tasks: TaskItem[]) => {},
-    deleteTasks: (tasksIds: number[]) => {},
+    actions: {
+        addTask: (task: TaskItem) => {},
+        undoDeleteTasks: (tasks: TaskItem[]) => {},
+        deleteTasks: (tasksIds: number[]) => {},
+    }
 });
 
 export const reducer = (state: IState, action) => {
-    const {LOAD_LIST, ADD_TASK, UNDO_DELETE_TASKS, DELETE_TASKS} = ActionType;
-
     switch (action.type) {
-        case LOAD_LIST:
+        case ActionType.LOAD_LIST:
             return state.taskList;
-        case ADD_TASK:
+        case ActionType.ADD_TASK:
             return addTask(action.payload, state);
-        case UNDO_DELETE_TASKS:
+        case ActionType.UNDO_DELETE_TASKS:
             return undoDeleteTasks(action.payload, state);
-        case DELETE_TASKS:
+        case ActionType.DELETE_TASKS:
             return deleteTasks(action.payload, state);
         default:
             return state;

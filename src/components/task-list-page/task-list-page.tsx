@@ -47,7 +47,7 @@ interface IProps {
 }
 
 const TaskListPage = () => {
-  const {taskList, undoDeleteTasks, deleteTasks} = React.useContext(ContextApp);
+  const {taskList, actions} = React.useContext(ContextApp);
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
   const [isOpenConfirmDeleteDialog, toggleConfirmDeleteDialog] = React.useState(false);
@@ -86,7 +86,7 @@ const TaskListPage = () => {
   const handleItemsUndoDelete = (): void => {
     toggleUndoDeleteSnackbar(false);
     setSelected([]);
-    undoDeleteTasks(undoList);
+    actions.undoDeleteTasks(undoList);
   }
 
   const handleItemsExactlyDelete = (): void => {
@@ -119,7 +119,7 @@ const TaskListPage = () => {
     setUndoList(undoList);
     toggleConfirmDeleteDialog(false);
     toggleUndoDeleteSnackbar(true);
-    deleteTasks(selected);
+    actions.deleteTasks(selected);
   };
 
   const handleToggleTaskForm = () => toggleTaskForm((prevState) => !prevState);
