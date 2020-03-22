@@ -34,5 +34,8 @@ export const getLeftTaskList = memoizeOne((taskList: TaskItem[], searchTitle: st
 });
 
 export const getSortedByIdTaskList = (taskList: TaskItem[]): TaskItem[] => {
+  if (!taskList) {
+    return taskList;
+  }
   return [...taskList].sort((item1, item2) => item1.id - item2.id);
 };
