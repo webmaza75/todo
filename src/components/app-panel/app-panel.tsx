@@ -11,11 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 
-import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
-import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
 import {appPanelStyles as useAppPanelStyles} from './app-panel.style';
 
 /**
@@ -23,15 +20,7 @@ import {appPanelStyles as useAppPanelStyles} from './app-panel.style';
  * @prop {string} searchTitle Название задачи для поиска.
  * @prop {Function} onInputChange callback изменения строки поиска.
  * @prop {Function} onSelectionReset callback на сброс выделения задач из списка.
- * @prop {Function} onItemsUndoDelete callback на восстановление удаленных задач из списка.
- * @prop {boolean} isOpenConfirmDeleteDialog Флаг открытия окна подтверждения удаления задачи.
- * @prop {Function} onTasksCancelDelete callback на отмену удаления задачи.
- * @prop {Function} onTasksConfirmDelete callback на подтверждение удаления задачи.
- * @prop {boolean} isOpenUndoDeleteSnackbar Флаг открытия snackbar для возможности восстановления ранее удаленных задач.
- * @prop {Function} onItemsExactlyDelete callback на закрытие snackbar.
- * @prop {Function} onItemsUndoDelete callback на восстановление удаленых задач.
- * @prop {Function} onToggleTaskForm callback на открытие формы добавления задачи.
- * @prop {boolean} isTaskFormOpen Флаг открытия формы добавления задачи.
+ * @prop {Function} onItemsDelete callback на удаление задач.
  */
 interface IProps {
   selected: number[];
@@ -39,27 +28,14 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectionReset: () => void;
   onItemsDelete: () => void;
-  isOpenConfirmDeleteDialog: boolean;
-  onTasksCancelDelete: () => void;
-  onTasksConfirmDelete: () => void;
-  isOpenUndoDeleteSnackbar: boolean;
-  onItemsExactlyDelete: () => void;
-  onItemsUndoDelete: () => void;
-  onToggleTaskForm: () => void;
-  isTaskFormOpen: boolean;
 }
 
 const subTitleList = {
   list: `Automated Tasks`,
   select: `Selected`,
-  add: `Create Automated Task`
 };
 
-function getSubTitle(isTaskFormOpen: boolean, selected: number[]): string {
-  if (isTaskFormOpen) {
-    return subTitleList.add;
-  }
-
+function getSubTitle(selected: number[]): string {
   return !selected.length ? subTitleList.list : `${selected.length} ${subTitleList.select}`;
 }
 
@@ -91,19 +67,6 @@ const AddButton = (props: any) => {
  */
 const ClearButton = (props: IProps) => {
   return <ClearIcon id="clearIcon" onClick={props.onSelectionReset} />;
-};
-
-/**
- * Компонент с кнопкой (стрелкой) Назад в режиме создания/редактирования задачи
- */
-const BackArrowButton = () => {
-  return (
-    <Link to="/">
-      <ArrowBackIcon
-        id="arrowBack"
-      />
-    </Link>
-  );
 };
 
 /**
@@ -160,45 +123,25 @@ const DeleteAndEditButton = (props: IProps) => {
 const AppPanel = (props: IProps) => {
   const {
     selected,
-    isOpenConfirmDeleteDialog,
-    onTasksCancelDelete,
-    onTasksConfirmDelete,
-    isOpenUndoDeleteSnackbar,
-    onItemsExactlyDelete,
-    onItemsUndoDelete,
-    isTaskFormOpen
   } = props;
   
   const classes = useAppPanelStyles();
   const appBarClassName = !selected.length ? classes.appBar : `${classes.appBar} ${classes.appBarWithSelect}`;
-  const wrapperStyle = isTaskFormOpen ? {boxShadow: 'none'} : {};
   const isSelectionMode = selected.length > 0;
-  const isStandartMode = !isSelectionMode && !isTaskFormOpen;
 
-  return <AppBar className={appBarClassName} style={wrapperStyle}>
+  return <AppBar className={appBarClassName} >
     <Toolbar className={classes.toolbar}>
       <IconButton edge="start" color="inherit" aria-label="Menu" />
-      {isStandartMode && <AddButton appPanelProps={props} classes={classes} />}
+      {!isSelectionMode && <AddButton appPanelProps={props} classes={classes} />}
       <div className={classes.wrapper}>
         <Typography data-test-id="panelTitle" variant="h6" className={classes.subTitle}>
           {isSelectionMode && <ClearButton {...props} />}
-          {isTaskFormOpen && <BackArrowButton />}
-          {getSubTitle(isTaskFormOpen, selected)}
+          {getSubTitle(selected)}
         </Typography>
-        {isStandartMode && <SearchBlock appPanelProps={props} classes={classes} />}
+        {!isSelectionMode && <SearchBlock appPanelProps={props} classes={classes} />}
         {isSelectionMode && <DeleteAndEditButton {...props} />}
       </div>
     </Toolbar>
-    <ConfirmationDeleteDialog
-      open={isOpenConfirmDeleteDialog}
-      onTasksCancelDelete={onTasksCancelDelete}
-      onTasksConfirmDelete={onTasksConfirmDelete}
-    />
-    <SimpleSnackbar
-      isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
-      onItemsExactlyDelete={onItemsExactlyDelete}
-      onItemsUndoDelete={onItemsUndoDelete}
-    />
   </AppBar>;
 };
 

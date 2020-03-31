@@ -2,12 +2,13 @@ import * as React from 'react';
 
 import AppPanel from '../app-panel/app-panel';
 import AppTable from '../app-table/app-table';
-import {TaskItem} from '../../types';
 import {
   getLeftTaskList,
   getSortedByIdTaskList
 } from '../../utils';
 import {ContextApp} from '../../reducer';
+import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
+import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
 
 const classes = {
   tableWrapper: {
@@ -51,7 +52,6 @@ const TaskListPage = () => {
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
   const [isOpenConfirmDeleteDialog, toggleConfirmDeleteDialog] = React.useState(false);
-  const [isTaskFormOpen, toggleTaskForm] = React.useState(false);
   const [isOpenUndoDeleteSnackbar, toggleUndoDeleteSnackbar] = React.useState(false);
   const [undoList, setUndoList] = React.useState([]);
 
@@ -118,8 +118,6 @@ const TaskListPage = () => {
     actions.deleteTasks(selected);
   };
 
-  const handleToggleTaskForm = () => toggleTaskForm((prevState) => !prevState);
-
   return <>
       <AppPanel
         selected={selected}
@@ -127,14 +125,6 @@ const TaskListPage = () => {
         onItemsDelete={handleItemsDelete}
         onInputChange={handleInputChange}
         searchTitle={searchTitle}
-        isOpenConfirmDeleteDialog={isOpenConfirmDeleteDialog}
-        onTasksCancelDelete={handleTasksCancelDelete}
-        onTasksConfirmDelete={handleTasksConfirmDelete}
-        isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
-        onItemsExactlyDelete={handleItemsExactlyDelete}
-        onItemsUndoDelete={handleItemsUndoDelete}
-        onToggleTaskForm={handleToggleTaskForm}
-        isTaskFormOpen={isTaskFormOpen}
       />
 
       <div style={classes.tableWrapper}>
@@ -144,6 +134,20 @@ const TaskListPage = () => {
           selected={selected}
         />
       </div>
+      {isOpenConfirmDeleteDialog && (
+        <ConfirmationDeleteDialog
+          open={isOpenConfirmDeleteDialog}
+          onTasksCancelDelete={handleTasksCancelDelete}
+          onTasksConfirmDelete={handleTasksConfirmDelete}
+        />
+      )}
+      {isOpenUndoDeleteSnackbar && (
+        <SimpleSnackbar
+          isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
+          onItemsExactlyDelete={handleItemsExactlyDelete}
+          onItemsUndoDelete={handleItemsUndoDelete}
+        />
+      )}
     </>;
   }
 
