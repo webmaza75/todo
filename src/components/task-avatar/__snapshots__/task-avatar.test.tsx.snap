@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`TaskAvatar TaskAvatar renders correctly 1`] = `
-<WithStyles(ForwardRef(Avatar))
-  className="makeStyles-avatar-1 makeStyles-avatarNA-5"
->
-  NA
-</WithStyles(ForwardRef(Avatar))>
-`;
