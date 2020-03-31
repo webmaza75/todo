@@ -6,9 +6,10 @@ import TaskListPage from '../task-list-page/task-list-page';
 import TaskForm from '../task-form/task-form';
 import Navbar from '../navbar/navbar';
 import {reducer, ContextApp} from '../../reducer';
-import taskList from '../../mocks/taskList';
 import {TaskItem} from './../../types';
 import {ActionType} from '../actions/action-types';
+
+const defaulList = require('../../mocks/taskList').default;
 
 /**
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
@@ -18,12 +19,33 @@ interface IState {
 }
 
 const App = () => {
-  const [state, dispatch] = React.useReducer(reducer, {taskList});
+  const [state, dispatch] = React.useReducer(reducer, {});
+  React.useEffect(() => {
+    // const myInit = {
+    //   method: 'GET',
+    //   headers: {'Content-type': 'application/json'},
+    // };
+    // let myRequest = new Request('./taskList', myInit);
+    
+    // fetch('http://localhost:3000/src/mocks/taskList.json')
+    // fetch(myRequest)
+    //.then(res => res.json())
+    new Promise(resolve => {
+      resolve(loadTasks(defaulList));
+    })
+  }, []);
 
   const addTask = (task: TaskItem) => {
     dispatch({
       type: ActionType.ADD_TASK,
       payload: task,
+    })
+  };
+
+  const loadTasks = (tasks: TaskItem[]) => {
+    dispatch({
+      type: ActionType.LOAD_LIST,
+      payload: tasks,
     })
   };
 

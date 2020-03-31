@@ -100,10 +100,6 @@ const TaskListPage = () => {
     handleSearchTitleSet(event.target.value);
   }
 
-  // const filterBySearchTitle = (title: string, searchTitle: string) => {
-  //   return title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1;
-  // }
-
   const handleSearchTitleSet = (value: string): void => {
     setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
   }

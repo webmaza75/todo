@@ -1,0 +1,8 @@
+{
+    "screenshots": {
+        "takeOnFails": true,
+        "pathPattern": "${DATE}_${TIME}/test-${TEST_INDEX}/${FILE_INDEX}.png",
+        "fullPage": true,
+        "path": "./screenshots/"
+    }
+}

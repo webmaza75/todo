@@ -6,6 +6,7 @@ export default class Panel {
   editIcon: any;
   panelTitle: any;
   clearIcon: any;
+  addIcon: any;
 
   constructor () {
     this.searchInput = Selector('#standard-search', {visibilityCheck: true});
@@ -13,6 +14,7 @@ export default class Panel {
     this.editIcon = Selector('#editIcon', {visibilityCheck: true});
     this.panelTitle = Selector('[data-test-id="panelTitle"]', {visibilityCheck: true});
     this.clearIcon = Selector('#clearIcon', {visibilityCheck: true});
+    this.addIcon = Selector('#addIcon', {visibilityCheck: true});
   }
 
   async typeSearchText(text: string) {

@@ -10,6 +10,13 @@ export const addTask = (task: TaskItem, state) => {
     };
 };
 
+export const loadTasks = (tasks: TaskItem[], state) => {
+    return {
+        ...state,
+        taskList: tasks
+    };
+};
+
 export const undoDeleteTasks = (deletedTasks: TaskItem[], state) => {
     return {
         ...state,
