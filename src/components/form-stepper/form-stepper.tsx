@@ -41,10 +41,10 @@ export default function FormStepper(props: IProps) {
     <div className={classes.panel}>
       <div className={classes.wrapper}>
         <div className={classes.root}>
-          <Stepper nonLinear activeStep={activeStep}>
+          <Stepper nonLinear activeStep={activeStep} id="stepper">
             {steps.map(label => (
               <Step key={label}>
-                <StepLabel completed={activeStep === 1 && label === steps[0]}>{label}</StepLabel>
+                <StepLabel id={label === steps[0] ? 'step-1' : 'step-2'} completed={activeStep === 1 && label === steps[0]}>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>

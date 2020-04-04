@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {FormControl, Grid, MenuItem} from '@material-ui/core';
+import {FormControl, Grid, MenuItem, FormControlLabel, Switch} from '@material-ui/core';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import RoomIcon from '@material-ui/icons/Room';
 import PersonIcon from '@material-ui/icons/Person';
@@ -10,10 +10,12 @@ import TodayIcon from '@material-ui/icons/Today';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 
-import FormSwitcher from '../form-switcher/form-switcher';
 import FormStepper from '../form-stepper/form-stepper';
 import AppPanelForm from '../app-panel-form/app-panel-form';
 import {ContextApp} from '../../reducer';
+import {taskTypeList} from '../../mocks/taskTypeList';
+import {repeatDays} from '../../mocks/repeatDays';
+import {reportTimeList} from '../../mocks/reportTimeList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#fff',
       color: '#223C6E'
     },
+    innerLink: {
+      textDecoration: 'none',
+    },
     wrapper: {
       width: `80%`,
       margin: `auto`,
@@ -64,8 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }),
 );
-
-const itemList = [{label: 1, value: 1}, {label: 2, value: 2}, {label: 3, value: 3}];
 
 // Наименования полей и подписи к ним
 enum Labels {
@@ -139,28 +142,51 @@ const TextFieldComponent = (props: ITextFieldProps) => {
   );
 };
 
+const FormSwitcher = (props) => {
+  const {switcher, onChange} = props;
+
+  return (
+    <FormControlLabel
+      label="Task enabled"
+      style={{justifyContent: 'space-between'}}
+      labelPlacement="start"
+      control={
+        <Switch
+          id="switcher"
+          checked={switcher}
+          onChange={onChange}
+          value={switcher}
+          color="primary"
+        />
+      }
+    />
+  );
+}
+
 interface IState {
   taskTitle: string;
   taskType: string;
   timeZone: string;
   reportTime: string;
   from: string;
-  repeat: string;
+  repeat: number[];
   recipient: string;
   equipment: string;
 }
 
-const TaskForm = () => {
-  const {actions} = React.useContext(ContextApp);
+const TaskForm = (props) => {
+  const {history} = props;
+  const {actions, taskList} = React.useContext(ContextApp);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [switcher, setSwitcher] = React.useState(true);
   const [values, setValues] = React.useState<IState>({
     taskTitle: '',
     taskType: '',
     timeZone: '',
     reportTime: '',
     from: '',
-    repeat: '',
+    repeat: [],
     recipient: '',
     equipment: ''
   });
@@ -169,25 +195,35 @@ const TaskForm = () => {
    * TODO убрать хардкод
    */
   const handleSave = () => {
-    const value = {
-      id: 6,
-      type: `MPM auto weekly report task`,
-      title: `Orica USA`,
-      timeZone: `Africa/Johannesburg UTC+2:00`,
-      reportTime: `Wed Jul 17 2019 09:30:13 GMT+0300`,
-      repeat: [1]
+    const newTask = {
+      id: taskList.length + 1,
+      title: values.taskTitle,
+      enabled: switcher,
+      type: values.taskType,
+      timeZone: values.timeZone,
+      reportTime: values.reportTime,
+      from: values.from,
+      repeat: values.repeat,
+      recipient: values.recipient,
+      equipment: values.equipment,
     };
-    actions.addTask(value);
+
+    actions.addTask(newTask);
+    history.push("/");
   }
 
   const handleChange = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({...values, [name]: event.target.value});
   };
 
+  const handleChangeSwitcher = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSwitcher(event.target.checked);
+  };
+
   const renderFirstStep = () => {
     return <>
       <FormControl fullWidth>
-        <FormSwitcher />
+        <FormSwitcher switcher={switcher} onChange={handleChangeSwitcher} />
       </FormControl>
   
       <div className={classes.dense}>
@@ -197,7 +233,7 @@ const TaskForm = () => {
       {/* Task Type */}
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
-          <TextFieldComponent icon={<TodayIcon />} fieldName='taskType' values={values} onChange={handleChange} select={true} itemList={itemList} fullWidth={true} />
+          <TextFieldComponent icon={<TodayIcon />} fieldName='taskType' values={values} onChange={handleChange} select={true} itemList={taskTypeList} fullWidth={true} />
         </Grid>
       </div>
 
@@ -209,7 +245,7 @@ const TaskForm = () => {
           <Grid item style={{width: '6%'}}> </Grid>
         
           {/* Report Time */}
-          <TextFieldComponent icon={<ScheduleIcon />} fieldName='reportTime' values={values} onChange={handleChange} select={true} itemList={itemList} />
+          <TextFieldComponent icon={<ScheduleIcon />} fieldName='reportTime' values={values} onChange={handleChange} select={true} itemList={reportTimeList} />
         </Grid>
       </div>
 
@@ -221,7 +257,7 @@ const TaskForm = () => {
           <Grid item style={{width: '6%'}}> </Grid>
 
           {/* Repeat */}
-          <TextFieldComponent icon={<RepeatIcon />} fieldName='repeat' values={values} onChange={handleChange} select={true} itemList={itemList} />
+          <TextFieldComponent icon={<RepeatIcon />} fieldName='repeat' values={values} onChange={handleChange} select={true} itemList={repeatDays} />
         </Grid>
       </div>
 
@@ -233,12 +269,12 @@ const TaskForm = () => {
       </div>
   
       <div>
-        <Link to='/' >
-          <Button variant="contained" className={classes.defaultButton}>
+        <Link to='/' className={classes.innerLink}>
+          <Button variant="contained" className={classes.defaultButton} id="cancel-1">
             Cancel
           </Button>
         </Link>
-        <Button variant="contained" color="primary" className={classes.button} onClick={() => setActiveStep(1)}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={() => setActiveStep(1)} id="continue">
           Continue
         </Button>
       </div>
@@ -254,10 +290,10 @@ const TaskForm = () => {
         </Grid>
       </div>
       <div>
-        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)}>
+        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)} id="cancel-2">
           Cancel
         </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleSave}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleSave} id="save">
           Create
         </Button>
       </div>
