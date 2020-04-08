@@ -270,7 +270,7 @@ const TaskForm = (props) => {
   
       <div>
         <Link to='/' className={classes.innerLink}>
-          <Button variant="contained" className={classes.defaultButton} id="cancel-1">
+          <Button variant="contained" className={classes.defaultButton} id="firstStepBtnCancel">
             Cancel
           </Button>
         </Link>
@@ -290,7 +290,7 @@ const TaskForm = (props) => {
         </Grid>
       </div>
       <div>
-        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)} id="cancel-2">
+        <Button variant="contained" className={classes.defaultButton} onClick={() => setActiveStep(0)} id="secondStepBtnCancel">
           Cancel
         </Button>
         <Button variant="contained" color="primary" className={classes.button} onClick={handleSave} id="save">
