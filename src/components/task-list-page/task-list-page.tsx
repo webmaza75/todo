@@ -9,6 +9,7 @@ import {
 import {ContextApp} from '../../reducer';
 import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
 import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
+import {openModal} from '../modal-container/modal-container';
 
 const classes = {
   tableWrapper: {
@@ -51,8 +52,6 @@ const TaskListPage = () => {
   const {taskList, actions} = React.useContext(ContextApp);
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
-  const [isOpenConfirmDeleteDialog, toggleConfirmDeleteDialog] = React.useState(false);
-  const [isOpenUndoDeleteSnackbar, toggleUndoDeleteSnackbar] = React.useState(false);
   const [undoList, setUndoList] = React.useState([]);
 
   const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
@@ -79,12 +78,22 @@ const TaskListPage = () => {
     setSelected([]);
   }
 
-  const handleItemsDelete = (): void => {
-    toggleConfirmDeleteDialog(true);
+  const handleItemsDelete = async () => {
+      const needShowSnackBar = await openModal(ConfirmationDeleteDialog);
+      
+      if (needShowSnackBar) {
+        handleTasksConfirmDelete();
+        const result = await openModal(SimpleSnackbar);
+
+        if (result) {
+          handleItemsExactlyDelete();
+        } else {
+          handleItemsUndoDelete();
+        }
+      }
   }
 
   const handleItemsUndoDelete = (): void => {
-    toggleUndoDeleteSnackbar(false);
     setSelected([]);
     actions.undoDeleteTasks(undoList);
   }
@@ -92,7 +101,6 @@ const TaskListPage = () => {
   const handleItemsExactlyDelete = (): void => {
     setUndoList([]);
     setSelected([]);
-    toggleUndoDeleteSnackbar(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -104,17 +112,11 @@ const TaskListPage = () => {
     setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
   }
 
-  const handleTasksCancelDelete = () => {
-    toggleConfirmDeleteDialog(false);
-  }
-  
   const handleTasksConfirmDelete = () => {
     const undoList = taskList.filter(({id}) => selected.includes(id));
 
     setSelected([]);
     setUndoList(undoList);
-    toggleConfirmDeleteDialog(false);
-    toggleUndoDeleteSnackbar(true);
     actions.deleteTasks(selected);
   };
 
@@ -134,20 +136,6 @@ const TaskListPage = () => {
           selected={selected}
         />
       </div>
-      {isOpenConfirmDeleteDialog && (
-        <ConfirmationDeleteDialog
-          open={isOpenConfirmDeleteDialog}
-          onTasksCancelDelete={handleTasksCancelDelete}
-          onTasksConfirmDelete={handleTasksConfirmDelete}
-        />
-      )}
-      {isOpenUndoDeleteSnackbar && (
-        <SimpleSnackbar
-          isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
-          onItemsExactlyDelete={handleItemsExactlyDelete}
-          onItemsUndoDelete={handleItemsUndoDelete}
-        />
-      )}
     </>;
   }
 

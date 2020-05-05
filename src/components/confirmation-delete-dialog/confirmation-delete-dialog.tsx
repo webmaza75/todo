@@ -5,33 +5,31 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface IProps {
-  open: boolean;
-  onTasksCancelDelete: () => void;
-  onTasksConfirmDelete: () => void;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 const ConfirmationDeleteDialog = (props: IProps) => {
   const {
-    open,
-    onTasksCancelDelete,
-    onTasksConfirmDelete
+    onConfirm,
+    onCancel
   } = props;
 
   return <Dialog
-      open={open}
+      open={true}
       aria-labelledby="alert-dialog-title"
     >
       <DialogTitle id="alert-dialog-title">{'Delete selected tasks?'}</DialogTitle>
       <DialogActions>
         <Button
-          onClick={onTasksConfirmDelete}
+          onClick={onConfirm}
           color="primary"
           id="confirmDelete"
         >
           Delete
         </Button>
         <Button
-          onClick={onTasksCancelDelete}
+          onClick={onCancel}
           color="primary"
           id="cancelDelete"
           autoFocus

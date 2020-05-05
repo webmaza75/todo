@@ -8,8 +8,9 @@ import Navbar from '../navbar/navbar';
 import {reducer, ContextApp} from '../../reducer';
 import {TaskItem} from './../../types';
 import {ActionType} from '../actions/action-types';
+import {ModalContainer} from '../modal-container/modal-container';
 
-const defaulList = require('../../mocks/taskList').default;
+const defaultList = require('../../mocks/taskList').default;
 
 /**
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
@@ -21,17 +22,8 @@ interface IState {
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, {});
   React.useEffect(() => {
-    // const myInit = {
-    //   method: 'GET',
-    //   headers: {'Content-type': 'application/json'},
-    // };
-    // let myRequest = new Request('./taskList', myInit);
-    
-    // fetch('http://localhost:3000/src/mocks/taskList.json')
-    // fetch(myRequest)
-    //.then(res => res.json())
     new Promise(resolve => {
-      resolve(loadTasks(defaulList));
+      resolve(loadTasks(defaultList));
     })
   }, []);
 
@@ -67,6 +59,7 @@ const App = () => {
     <Switch>
       <div style={{flexGrow: 1}}>
         <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks}}}>
+          <ModalContainer />
           <Navbar />
           <Route path={`/`} exact component={TaskListPage} />
           <Route path={`/add/`} component={TaskForm} />
