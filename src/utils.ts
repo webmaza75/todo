@@ -39,32 +39,3 @@ export const getSortedByIdTaskList = (taskList: TaskItem[]): TaskItem[] => {
   }
   return [...taskList].sort((item1, item2) => item1.id - item2.id);
 };
-
-/**
- * Подписчик/Издатель
- */
-export function createPubSub() {
-  let subscribers = {};
-
-  const subscribe = (event: string, callback: Function) => {
-    if (!subscribers[event]) {
-      subscribers[event] = [];
-    }
-    subscribers[event].push(callback);
-  };
-  const unsubscribe = (event: string) => {
-    delete subscribers[event];
-  };
-  const publish = (event: string, param: any) => {
-    if (!subscribers[event]) {
-      return;
-    }
-    subscribers[event].forEach((subscriberCallback: Function) => subscriberCallback(param));
-  };
-
-  return {
-    subscribe,
-    unsubscribe,
-    publish
-  };
-}

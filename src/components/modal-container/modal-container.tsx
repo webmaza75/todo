@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {createPubSub} from '../../utils';
+import {createPubSub} from '../../lib/createPubSub';
 
 const pubsub = createPubSub();
 

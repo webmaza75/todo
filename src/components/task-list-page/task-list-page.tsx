@@ -52,8 +52,6 @@ const TaskListPage = () => {
   const {taskList, actions} = React.useContext(ContextApp);
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
-  const [undoList, setUndoList] = React.useState([]);
-
   const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
 
   /**
@@ -61,10 +59,6 @@ const TaskListPage = () => {
    * @param {number} id Выделенная строка.
    */
   const handleItemSelect = (id: number): void => {
-    if (!selected.length) {
-      handleItemsExactlyDelete();
-    }
-
     const res = selected.includes(id);
 
     if (res === false) {
@@ -79,29 +73,24 @@ const TaskListPage = () => {
   }
 
   const handleItemsDelete = async () => {
-      const needShowSnackBar = await openModal(ConfirmationDeleteDialog);
-      
-      if (needShowSnackBar) {
-        handleTasksConfirmDelete();
-        const result = await openModal(SimpleSnackbar);
+    const needShowSnackBar = await openModal(ConfirmationDeleteDialog);
 
-        if (result) {
-          handleItemsExactlyDelete();
-        } else {
-          handleItemsUndoDelete();
-        }
+    if (needShowSnackBar) {
+      const undoList = taskList.filter(({id}) => selected.includes(id));
+
+      setSelected([]);
+      actions.deleteTasks(selected);
+
+      const result = await openModal(SimpleSnackbar);
+
+      if (!result) {
+        actions.undoDeleteTasks(undoList);
       }
-  }
 
-  const handleItemsUndoDelete = (): void => {
-    setSelected([]);
-    actions.undoDeleteTasks(undoList);
+    } else {
+      setSelected([]);
+    }
   }
-
-  const handleItemsExactlyDelete = (): void => {
-    setUndoList([]);
-    setSelected([]);
-  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -111,14 +100,6 @@ const TaskListPage = () => {
   const handleSearchTitleSet = (value: string): void => {
     setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
   }
-
-  const handleTasksConfirmDelete = () => {
-    const undoList = taskList.filter(({id}) => selected.includes(id));
-
-    setSelected([]);
-    setUndoList(undoList);
-    actions.deleteTasks(selected);
-  };
 
   return <>
       <AppPanel
