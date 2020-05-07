@@ -14,16 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  isOpenUndoDeleteSnackbar: boolean;
-  onItemsExactlyDelete: () => void;
-  onItemsUndoDelete: () => void;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 const SimpleSnackbar = (props: IProps) => {
   const {
-    isOpenUndoDeleteSnackbar,
-    onItemsExactlyDelete,
-    onItemsUndoDelete
+    onConfirm,
+    onCancel
   } = props;
   const classes = useStyles();
 
@@ -33,8 +31,8 @@ const SimpleSnackbar = (props: IProps) => {
       vertical: 'bottom',
       horizontal: 'center',
     }}
-    open={isOpenUndoDeleteSnackbar}
-    onClose={onItemsExactlyDelete}
+    open={true}
+    onClose={onConfirm}
     autoHideDuration={5000}
     ContentProps={{
       'aria-describedby': 'message-id',
@@ -46,7 +44,7 @@ const SimpleSnackbar = (props: IProps) => {
         key="undo"
         color="secondary"
         size="small"
-        onClick={onItemsUndoDelete}
+        onClick={onCancel}
       >
         UNDO
       </Button>,
@@ -56,7 +54,7 @@ const SimpleSnackbar = (props: IProps) => {
         aria-label="close"
         color="inherit"
         className={classes.close}
-        onClick={onItemsExactlyDelete}
+        onClick={onConfirm}
       >
         <CloseIcon />
       </IconButton>,

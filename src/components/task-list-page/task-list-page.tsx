@@ -9,6 +9,7 @@ import {
 import {ContextApp} from '../../reducer';
 import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
 import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
+import {openModal} from '../modal-container/modal-container';
 
 const classes = {
   tableWrapper: {
@@ -51,10 +52,6 @@ const TaskListPage = () => {
   const {taskList, actions} = React.useContext(ContextApp);
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
-  const [isOpenConfirmDeleteDialog, toggleConfirmDeleteDialog] = React.useState(false);
-  const [isOpenUndoDeleteSnackbar, toggleUndoDeleteSnackbar] = React.useState(false);
-  const [undoList, setUndoList] = React.useState([]);
-
   const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
 
   /**
@@ -62,10 +59,6 @@ const TaskListPage = () => {
    * @param {number} id Выделенная строка.
    */
   const handleItemSelect = (id: number): void => {
-    if (!selected.length) {
-      handleItemsExactlyDelete();
-    }
-
     const res = selected.includes(id);
 
     if (res === false) {
@@ -79,21 +72,25 @@ const TaskListPage = () => {
     setSelected([]);
   }
 
-  const handleItemsDelete = (): void => {
-    toggleConfirmDeleteDialog(true);
-  }
+  const handleItemsDelete = async () => {
+    const needShowSnackBar = await openModal(ConfirmationDeleteDialog);
 
-  const handleItemsUndoDelete = (): void => {
-    toggleUndoDeleteSnackbar(false);
-    setSelected([]);
-    actions.undoDeleteTasks(undoList);
-  }
+    if (needShowSnackBar) {
+      const undoList = taskList.filter(({id}) => selected.includes(id));
 
-  const handleItemsExactlyDelete = (): void => {
-    setUndoList([]);
-    setSelected([]);
-    toggleUndoDeleteSnackbar(false);
-  };
+      setSelected([]);
+      actions.deleteTasks(selected);
+
+      const result = await openModal(SimpleSnackbar);
+
+      if (!result) {
+        actions.undoDeleteTasks(undoList);
+      }
+
+    } else {
+      setSelected([]);
+    }
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -103,20 +100,6 @@ const TaskListPage = () => {
   const handleSearchTitleSet = (value: string): void => {
     setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
   }
-
-  const handleTasksCancelDelete = () => {
-    toggleConfirmDeleteDialog(false);
-  }
-  
-  const handleTasksConfirmDelete = () => {
-    const undoList = taskList.filter(({id}) => selected.includes(id));
-
-    setSelected([]);
-    setUndoList(undoList);
-    toggleConfirmDeleteDialog(false);
-    toggleUndoDeleteSnackbar(true);
-    actions.deleteTasks(selected);
-  };
 
   return <>
       <AppPanel
@@ -134,20 +117,6 @@ const TaskListPage = () => {
           selected={selected}
         />
       </div>
-      {isOpenConfirmDeleteDialog && (
-        <ConfirmationDeleteDialog
-          open={isOpenConfirmDeleteDialog}
-          onTasksCancelDelete={handleTasksCancelDelete}
-          onTasksConfirmDelete={handleTasksConfirmDelete}
-        />
-      )}
-      {isOpenUndoDeleteSnackbar && (
-        <SimpleSnackbar
-          isOpenUndoDeleteSnackbar={isOpenUndoDeleteSnackbar}
-          onItemsExactlyDelete={handleItemsExactlyDelete}
-          onItemsUndoDelete={handleItemsUndoDelete}
-        />
-      )}
     </>;
   }
 
