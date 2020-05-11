@@ -9,40 +9,8 @@ import {
 import {ContextApp} from '../../reducer';
 import ConfirmationDeleteDialog from '../confirmation-delete-dialog/confirmation-delete-dialog';
 import SimpleSnackbar from '../simple-snackbar/simple-snackbar';
-import {openModal} from '../modal-container/modal-container';
-
-const classes = {
-  tableWrapper: {
-    marginTop: 150,
-    marginRight: 'auto',
-    marginBottom: 20,
-    marginLeft: 'auto',
-    width: '80%'
-  },
-  formWrapper: {
-    width: '100%',
-    maxWidth: '1280',
-    margin: '150px auto 20px',
-    padding: '90px 30px 30px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 2,
-    border: 'solid #C4C4C4 1px',
-    boxShadow: '0 2px 4px rgba(0,0,0,.24)'
-  },
-  formWrapperTop: {
-    backgroundColor: '#223C6E',
-    width: '100%',
-  },
-  formWrapperStepper: {
-    border: '1px solid #c4c4c4',
-    borderBottom: '1px solid #e0e0e0',
-    width: '80%',
-    maxWidth: '1280',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    backgroundColor: '#FFFFFF',
-  }
-};
+import {useConfirm} from '../../hooks/use-confirm';
+import {classes} from './task-list-style';
 
 interface IProps {
 
@@ -52,6 +20,9 @@ const TaskListPage = () => {
   const {taskList, actions} = React.useContext(ContextApp);
   const [selected, setSelected] = React.useState<number[]>([]);
   const [searchTitle, setSearchTitle] = React.useState('');
+  const [ConfirmDialog, showConfirmDialog] = useConfirm(ConfirmationDeleteDialog);
+  const [ConfirmSnackbar, showConfirmSnackbar] = useConfirm(SimpleSnackbar);
+
   const leftTaskList = getSortedByIdTaskList(getLeftTaskList(taskList, searchTitle));
 
   /**
@@ -73,7 +44,7 @@ const TaskListPage = () => {
   }
 
   const handleItemsDelete = async () => {
-    const needShowSnackBar = await openModal(ConfirmationDeleteDialog);
+    const needShowSnackBar = await showConfirmDialog();
 
     if (needShowSnackBar) {
       const undoList = taskList.filter(({id}) => selected.includes(id));
@@ -81,7 +52,7 @@ const TaskListPage = () => {
       setSelected([]);
       actions.deleteTasks(selected);
 
-      const result = await openModal(SimpleSnackbar);
+      const result = await showConfirmSnackbar();
 
       if (!result) {
         actions.undoDeleteTasks(undoList);
@@ -117,6 +88,8 @@ const TaskListPage = () => {
           selected={selected}
         />
       </div>
+      <ConfirmDialog />
+      <ConfirmSnackbar />
     </>;
   }
 

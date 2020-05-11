@@ -8,7 +8,6 @@ import Navbar from '../navbar/navbar';
 import {reducer, ContextApp} from '../../reducer';
 import {TaskItem} from './../../types';
 import {ActionType} from '../actions/action-types';
-import {ModalContainer} from '../modal-container/modal-container';
 
 const defaultList = require('../../mocks/taskList').default;
 
@@ -59,7 +58,6 @@ const App = () => {
     <Switch>
       <div style={{flexGrow: 1}}>
         <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks}}}>
-          <ModalContainer />
           <Navbar />
           <Route path={`/`} exact component={TaskListPage} />
           <Route path={`/add/`} component={TaskForm} />
