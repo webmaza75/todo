@@ -33,6 +33,13 @@ const App = () => {
     })
   };
 
+  const editTask = (task: TaskItem) => {
+    dispatch({
+      type: ActionType.EDIT_TASK,
+      payload: task,
+    })
+  };
+
   const loadTasks = (tasks: TaskItem[]) => {
     dispatch({
       type: ActionType.LOAD_LIST,
@@ -57,10 +64,11 @@ const App = () => {
   return <CssBaseline>
     <Switch>
       <div style={{flexGrow: 1}}>
-        <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks}}}>
+        <ContextApp.Provider value={{...state, actions: {addTask, undoDeleteTasks, deleteTasks, editTask}}}>
           <Navbar />
           <Route path={`/`} exact component={TaskListPage} />
           <Route path={`/add/`} component={TaskForm} />
+          <Route path={`/edit/:id`} component={TaskForm} />
         </ContextApp.Provider>  
       </div>
     </Switch>

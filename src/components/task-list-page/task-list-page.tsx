@@ -41,7 +41,7 @@ const TaskListPage = () => {
 
   const handleSelectionReset = (): void => {
     setSelected([]);
-  }
+  };
 
   const handleItemsDelete = async () => {
     const needShowSnackBar = await showConfirmDialog();
@@ -61,16 +61,16 @@ const TaskListPage = () => {
     } else {
       setSelected([]);
     }
-  }
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     handleSearchTitleSet(event.target.value);
-  }
+  };
 
   const handleSearchTitleSet = (value: string): void => {
     setSearchTitle(value.trimLeft().replace(/\s{2,}/, ' '));
-  }
+  };
 
   return <>
       <AppPanel

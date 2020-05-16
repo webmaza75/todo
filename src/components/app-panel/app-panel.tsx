@@ -108,7 +108,11 @@ const DeleteAndEditButton = (props: IProps) => {
 
   return (
     <div style={{display: `flex`}}>
-      {selected.length === 1 && <EditIcon id="editIcon" />}
+      {selected.length === 1 &&
+        <Link to={`/edit/${selected[0]}`}>
+          <EditIcon id="editIcon" />
+        </Link>
+      }
       <DeleteIcon
         id="deleteIcon"
         onClick={onItemsDelete}
