@@ -31,7 +31,7 @@ test('Add task', async t => {
         .expect(table.getColumn(5, 1).innerText).eql('Title 1')
         .expect(table.getColumn(5, 2).innerText).eql('America/Argentina/Ushuaia UTC-3:00')
         .expect(table.getColumn(5, 3).innerText).eql('11:15 AM')
-        .expect(table.getColumn(5, 4).innerText).eql('Weekend');
+        .expect(table.getColumn(5, 4).innerText).eql('Tue');
 });
 
 test('Check stepper and subtitle', async t => {

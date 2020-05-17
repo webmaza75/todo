@@ -37,7 +37,7 @@ const getInitialFormValues = (idTask, taskList) => {
   };
 
   if (idTask >= 0) {
-    const searchedTask = taskList.find(({id}) => id === idTask);
+    const searchedTask = taskList.taskList.find(({id}) => id === idTask);
 
     return searchedTask ?
       {
@@ -63,7 +63,7 @@ const getInitialFormValues = (idTask, taskList) => {
  * @param taskList 
  */
 const getInitialStateSwitcher = (idTask, taskList) => {
-  const searchedTask = taskList.find(({id}) => id === idTask);
+  const searchedTask = idTask >= 0 && taskList.find(({id}) => id === idTask);
 
   if (searchedTask) {
     return searchedTask.enabled;
@@ -85,7 +85,7 @@ const TaskForm = (props) => {
   const {history} = props;
   const {actions, taskList} = React.useContext(ContextApp);
   const id = parseInt(props.match.params.id, 10);
-
+  console.log('taskList', taskList);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [switcher, setSwitcher] = React.useState(getInitialStateSwitcher(id, taskList));
