@@ -7,7 +7,7 @@ const taskList: TaskItem[] = [
     title: `Auto Orica USA report setting`,
     timeZone: `Asia/Aqtu UTC+5:00`,
     reportTime: `Wed Jul 17 2019 10:00:13 GMT+0300`,
-    repeat: [6, 0, 1, 2, 3, 4, 5]
+    repeat: [6, 0, 1, 2, 3, 4, 5] 
   },
   {
     id: 2,

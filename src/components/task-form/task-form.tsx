@@ -1,7 +1,5 @@
 import * as React from 'react';
-import TextField from '@material-ui/core/TextField';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {FormControl, Grid, MenuItem, FormControlLabel, Switch} from '@material-ui/core';
+import {FormControl, Grid} from '@material-ui/core';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import RoomIcon from '@material-ui/icons/Room';
 import PersonIcon from '@material-ui/icons/Person';
@@ -16,171 +14,17 @@ import {ContextApp} from '../../reducer';
 import {taskTypeList} from '../../mocks/taskTypeList';
 import {repeatDays} from '../../mocks/repeatDays';
 import {reportTimeList} from '../../mocks/reportTimeList';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap'
-    },
-    dense: {
-      marginBottom: 20,
-    },
-    menu: {
-      width: 200,
-    },
-    form: {
-      width: '100%',
-      marginTop: 20,
-      padding: 10
-    },
-    switcher: {
-      width: '100%'
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-    defaultButton: {
-      margin: theme.spacing(1),
-      backgroundColor: '#fff',
-      color: '#223C6E'
-    },
-    innerLink: {
-      textDecoration: 'none',
-    },
-    wrapper: {
-      width: `80%`,
-      margin: `auto`,
-      height: 100,
-      display: `flex`,
-      justifyContent: `space-between`,
-      alignItems: `center`,
-      paddingLeft: 70
-    },
-    formContainer: {
-      width: `80%`,
-      margin: `auto`,
-      marginBottom: 20,
-      padding: 20,
-      boxShadow: `0px 4px 4px rgba(0, 0, 0, 0.32)`
-    }
-  }),
-);
-
-// Наименования полей и подписи к ним
-enum Labels {
-  taskTitle = 'Task Title',
-  taskType = 'Task Type',
-  timeZone = 'Time Zone',
-  reportTime = 'Report Time',
-  from = 'From',
-  repeat = 'Repeat',
-  recipient = 'Recipient',
-  equipment = 'Equipment',
-};
+import {IState, useStyles, FieldComponent, FormSwitcher} from '../field-components/field-components';
+import {TaskItem} from '../../types';
 
 /**
- * Свойства текстового поля
- * 
- * @prop {JSX.Element} [icon] Иконка.
- * @prop {IState} values Состояние компонента TaskForm.
- * @prop {keyof IState} fieldName Имя поля.
- * @prop {Function} onChange Обработчик изменения значения в поле.
- * @prop {boolean} [fullWidth] Флаг, задать ли компоненту максимальную ширину.
- * @prop {boolean} [select] Флаг, используется ли компонент для выбора значений из выпадающего списка.
- * @prop {any[]} [itemList] Массив значений для выпадающего списка.
- */
-interface ITextFieldProps {
-  icon?: JSX.Element;
-  values: IState;
-  fieldName: keyof IState;
-  onChange: Function;
-  fullWidth?: boolean;
-  select?: boolean;
-  itemList?: any[];
-}
-
-/** 
- * Компонент Текстовое поле
+ * Получение начального состояния формы.
  *
- * Может занимать всю ширину формы, отображаться с иконкой, быть выпадающим списком.
+ * @param idTask id редактируемой задачи.
+ * @param taskList Список задач.
  */
-const TextFieldComponent = (props: ITextFieldProps) => {
-  const {icon, values, fieldName, onChange, fullWidth = false, select = false, itemList} = props;
-  const fieldWidth = !icon ? '100%' : fullWidth ? '96%' : '43%';
-  const items = itemList && itemList.length ? itemList : null;
-
-  return (
-    <>
-      {!!icon && (
-        <Grid item style={{width: '4%'}}>
-          {icon}
-        </Grid>
-      )}
-      <Grid item style={{width: fieldWidth}}>
-        <TextField
-          id={fieldName}
-          label={Labels[fieldName]}
-          select={select}
-          fullWidth={true}
-          value={values[fieldName]}
-          onChange={onChange(fieldName)}
-        >
-          {!!items && (
-            items.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))
-          )}
-        </TextField> 
-      </Grid>
-    </>
-  );
-};
-
-const FormSwitcher = (props) => {
-  const {switcher, onChange} = props;
-
-  return (
-    <FormControlLabel
-      label="Task enabled"
-      style={{justifyContent: 'space-between'}}
-      labelPlacement="start"
-      control={
-        <Switch
-          id="switcher"
-          checked={switcher}
-          onChange={onChange}
-          value={switcher}
-          color="primary"
-        />
-      }
-    />
-  );
-}
-
-interface IState {
-  taskTitle: string;
-  taskType: string;
-  timeZone: string;
-  reportTime: string;
-  from: string;
-  repeat: number[];
-  recipient: string;
-  equipment: string;
-}
-
-const TaskForm = (props) => {
-  const {history} = props;
-  const {actions, taskList} = React.useContext(ContextApp);
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [switcher, setSwitcher] = React.useState(true);
-  const [values, setValues] = React.useState<IState>({
+const getInitialFormValues = (idTask, taskList) => {
+  const emptyTask: IState = {
     taskTitle: '',
     taskType: '',
     timeZone: '',
@@ -188,15 +32,72 @@ const TaskForm = (props) => {
     from: '',
     repeat: [],
     recipient: '',
-    equipment: ''
-  });
+    equipment: '',
+    enabled: true,
+  };
+
+  if (idTask >= 0) {
+    const searchedTask = taskList.taskList.find(({id}) => id === idTask);
+
+    return searchedTask ?
+      {
+        id: searchedTask.id,
+        taskTitle: searchedTask.title,
+        enabled: searchedTask.enabled,
+        taskType: searchedTask.type,
+        timeZone: searchedTask.timeZone,
+        reportTime: searchedTask.reportTime,
+        from: searchedTask.from,
+        repeat: searchedTask.repeat,
+        recipient: searchedTask.recipient,
+        equipment: searchedTask.equipment,
+      } : emptyTask;
+  }
+
+  return emptyTask;
+};
+
+/**
+ * 
+ * @param idTask 
+ * @param taskList 
+ */
+const getInitialStateSwitcher = (idTask, taskList) => {
+  const searchedTask = idTask >= 0 && taskList.find(({id}) => id === idTask);
+
+  if (searchedTask) {
+    return searchedTask.enabled;
+  }
+
+  return true;
+};
+
+/**
+ * Свойства компонента, передаваемые через Route.
+ *
+ * @prop {any} match TODO Указать правильный тип.
+ */
+interface IProps {
+  match: any;
+}
+
+const TaskForm = (props) => {
+  const {history} = props;
+  const {actions, taskList} = React.useContext(ContextApp);
+  const id = parseInt(props.match.params.id, 10);
+  console.log('taskList', taskList);
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [switcher, setSwitcher] = React.useState(getInitialStateSwitcher(id, taskList));
+  const [values, setValues] = React.useState<IState>(getInitialFormValues(id, taskList));
 
   /**
    * TODO убрать хардкод
    */
   const handleSave = () => {
-    const newTask = {
-      id: taskList.length + 1,
+    const editMode: boolean = !!values.id && values.id >= 0;
+    const newTask: TaskItem = {
+      id: !!values.id && values.id >= 0 ? values.id : taskList.length + 1,
       title: values.taskTitle,
       enabled: switcher,
       type: values.taskType,
@@ -208,7 +109,12 @@ const TaskForm = (props) => {
       equipment: values.equipment,
     };
 
-    actions.addTask(newTask);
+    if (editMode) {
+      actions.editTask(newTask);
+    } else {
+      actions.addTask(newTask);
+    }
+
     history.push("/");
   }
 
@@ -220,51 +126,51 @@ const TaskForm = (props) => {
     setSwitcher(event.target.checked);
   };
 
-  const renderFirstStep = () => {
+  const FirstStep = () => {
     return <>
       <FormControl fullWidth>
         <FormSwitcher switcher={switcher} onChange={handleChangeSwitcher} />
       </FormControl>
   
       <div className={classes.dense}>
-        <TextFieldComponent fieldName='taskTitle' values={values} onChange={handleChange} fullWidth={true} />
+        <FieldComponent fieldName='taskTitle' values={values} onChange={handleChange} fullWidth={true} />
       </div>
 
       {/* Task Type */}
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
-          <TextFieldComponent icon={<TodayIcon />} fieldName='taskType' values={values} onChange={handleChange} select={true} itemList={taskTypeList} fullWidth={true} />
+          <FieldComponent icon={<TodayIcon />} fieldName='taskType' values={values} onChange={handleChange} select={true} itemList={taskTypeList} fullWidth={true} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Time Zone */}
-          <TextFieldComponent icon={<RoomIcon />} fieldName='timeZone' values={values} onChange={handleChange} />
+          <FieldComponent icon={<RoomIcon />} fieldName='timeZone' values={values} onChange={handleChange} />
 
           <Grid item style={{width: '6%'}}> </Grid>
         
           {/* Report Time */}
-          <TextFieldComponent icon={<ScheduleIcon />} fieldName='reportTime' values={values} onChange={handleChange} select={true} itemList={reportTimeList} />
+          <FieldComponent icon={<ScheduleIcon />} fieldName='reportTime' values={values} onChange={handleChange} select={true} itemList={reportTimeList} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* From */}
-          <TextFieldComponent icon={<TodayIcon />} fieldName='from' values={values} onChange={handleChange} />
+          <FieldComponent icon={<TodayIcon />} fieldName='from' values={values} onChange={handleChange} />
 
           <Grid item style={{width: '6%'}}> </Grid>
 
           {/* Repeat */}
-          <TextFieldComponent icon={<RepeatIcon />} fieldName='repeat' values={values} onChange={handleChange} select={true} itemList={repeatDays} />
+          <FieldComponent icon={<RepeatIcon />} fieldName='repeat' values={values} onChange={handleChange} select={true} multiple={true} itemList={repeatDays} />
         </Grid>
       </div>
 
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Recipient */}
-          <TextFieldComponent icon={<PersonIcon />} fieldName='recipient' values={values} onChange={handleChange} fullWidth={true} />
+          <FieldComponent icon={<PersonIcon />} fieldName='recipient' values={values} onChange={handleChange} fullWidth={true} />
         </Grid>
       </div>
   
@@ -281,12 +187,12 @@ const TaskForm = (props) => {
     </>;
   }
 
-  const renderSecondStep = () => {
+  const SecondStep = () => {
     return <>
       <div className={classes.dense}>
         <Grid container spacing={1} alignItems="flex-end">
           {/* Equipment */}
-          <TextFieldComponent icon={<PersonIcon />} fieldName='equipment' values={values} onChange={handleChange} fullWidth={true} />
+          <FieldComponent icon={<PersonIcon />} fieldName='equipment' values={values} onChange={handleChange} fullWidth={true} />
         </Grid>
       </div>
       <div>
@@ -301,7 +207,7 @@ const TaskForm = (props) => {
   }
 
   const renderForm = () => {
-    return activeStep ? renderSecondStep() : renderFirstStep();
+    return activeStep ? <SecondStep /> : <FirstStep />;
   }
 
   const title = !activeStep ? 'General Setting' : 'Configuration';

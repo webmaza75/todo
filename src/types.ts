@@ -1,10 +1,14 @@
 export interface TaskItem {
   id: number,
+  enabled?: boolean,
   type: string,
   title: string,
   timeZone: string,
   reportTime: string,
   repeat: number[],
+  from?: string,
+  recipient?: string,
+  equipment?: string,
 }
 
 export enum AvatarType {

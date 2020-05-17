@@ -1,14 +1,30 @@
 export const repeatDays = [
     {
+        label: 'Sunday',
+        value: 0,
+    },
+    {
         label: 'Monday',
-        value: [1],
+        value: 1,
     },
     {
-        label: 'All days',
-        value: [0, 1, 2, 3, 4, 5, 6]
+        label: 'Tuesday',
+        value: 2,
     },
     {
-        label: 'Weekend',
-        value: [0, 6]
-    }
+        label: 'Wednesday',
+        value: 3,
+    },
+    {
+        label: 'Thursday',
+        value: 4,
+    },
+    {
+        label: 'Friday',
+        value: 5,
+    },
+    {
+        label: 'Saturday',
+        value: 6,
+    },
 ];

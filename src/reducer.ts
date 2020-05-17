@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {TaskItem} from './types';
 import {ActionType} from './components/actions/action-types';
-import {addTask, undoDeleteTasks, deleteTasks, loadTasks} from './components/actions/actions';
+import {addTask, undoDeleteTasks, deleteTasks, loadTasks, editTask} from './components/actions/actions';
 
 /**
  * @prop {TaskItem[]} taskList Все имеющиеся задачи.
@@ -21,6 +21,7 @@ export const ContextApp = React.createContext({
         addTask: (task: TaskItem) => {},
         undoDeleteTasks: (tasks: TaskItem[]) => {},
         deleteTasks: (tasksIds: number[]) => {},
+        editTask: (task: TaskItem) => {},
     }
 });
 
@@ -34,6 +35,8 @@ export const reducer = (state: IState, action) => {
             return undoDeleteTasks(action.payload, state);
         case ActionType.DELETE_TASKS:
             return deleteTasks(action.payload, state);
+        case ActionType.EDIT_TASK:
+            return editTask(action.payload, state);
         default:
             return state;
     }
